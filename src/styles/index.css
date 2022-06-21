@@ -1,0 +1,8 @@
+#footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    margin-left: 10px;
+    margin-bottom: 5px;
+    color: rgb(88, 88, 88);
+}

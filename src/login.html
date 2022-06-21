@@ -3,6 +3,37 @@
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css" integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
     </head>
     <body>
-        
+        <!-- accessibility bar -->
+        <div id="accessibility-bar"></div>
+
+        <nav class="navbar navbar-light bg-light">
+            <a class="navbar-brand" href="#">Login</a>
+        </nav>          
+
+        <!-- main content -->
+        <div id="login-content" class="container">
+            <div class="row">
+                <div class="card col-md-6 offset-md-3">
+                    <img src="assets/krabpog.jpg" id="logo" class="card-img-top" />
+                    <div class="card-body">
+                        <form>
+                            <div class="form-group">
+                                <label for="username">Username</label>
+                                <input type="text" class="form-control" id="username" aria-describedby="emailHelp">
+                            </div>
+                            <div class="form-group">
+                                <label for="password">Password</label>
+                                <input type="password" class="form-control" id="password">
+                            </div>
+                            <button class="btn btn-success">Register</button>
+                            <button type="submit" class="btn btn-primary">Login</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- footer -->
+        <div id="footer">Powered by Paella</div>
     </body>
-<html>
+</html>

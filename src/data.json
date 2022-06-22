@@ -1,0 +1,29 @@
+{
+    "items": [
+        {
+            "id": 0,
+            "name": "Candied Papaya",
+            "unit_price": 10,
+            "by_weight": true
+        },
+        {
+            "id": 1,
+            "name": "Candied Mango",
+            "unit_price": 10,
+            "by_weight": true
+        },
+        {
+            "id": 2,
+            "name": "Assorted Dry Fruits",
+            "unit_price": 11,
+            "by_weight": true
+        },
+        {
+            "id": 3,
+            "name": "Bag of Cashews",
+            "unit_price": 7.5,
+            "by_weight": false
+        }
+    ]
+}
+

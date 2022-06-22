@@ -50,7 +50,7 @@
                     <div class="input-group-prepend">
                         <span class="input-group-text">SKU</span>
                     </div>
-                    <input type="text" placeholder="Enter Product ID #" class="form-control" />
+                    <input id="product-sku" type="text" placeholder="Enter Product ID #" class="form-control" />
                 </div>
             </div>
             <div class="col-md-4">
@@ -74,8 +74,8 @@
             </div>
             <div class="col-md-4">
                 <div class="btn-group" id="cash-card-group" style="width:100%">
-                    <button id="cash-button" class="btn btn-primary">Cash</button>
-                    <button id="card-button" class="btn">Card</button>
+                    <button id="cash-button" onclick="onCash()" class="btn btn-primary">Cash</button>
+                    <button id="card-button" onclick="onCard()" class="btn">Card</button>
                 </div>
             </div>
             <div class="col-md-4">

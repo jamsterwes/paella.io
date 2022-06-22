@@ -20,7 +20,7 @@ app.get('/api/items/:itemId', function(req, res) {
     if (itemId >= data.items.length || itemId < 0) {
         res.status(404).json({
             "error": "Item not found!"
-        });
+        })
     }
     res.send(data.items[req.params.itemId])
 })

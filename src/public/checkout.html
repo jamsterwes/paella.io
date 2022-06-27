@@ -4,7 +4,7 @@
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css" integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous" />
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Staatliches&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;600&family=Staatliches&display=swap" rel="stylesheet">
         <link rel="stylesheet" href="styles/index.css" />
         <link rel="stylesheet" href="styles/checkout.css" />
     </head>
@@ -47,24 +47,15 @@
                     </div>
                 </div>
                 <div class="col-md-6">
-                    <div class="row mb-3" id="item-btns" style="padding-top: 10px; padding-bottom: 10px; max-height: 40vh; overflow-y: scroll; border-radius: 2px; border: 1px solid #ddd">
-                        
-                    </div>
-                    <div class="row mb-2">
+                    <div class="row mb-4" id="item-btns" style="padding-top: 10px; padding-bottom: 10px; max-height: 40vh; overflow-y: scroll; border-radius: 2px; border: 1px solid #ddd"></div>
+                    <div class="row mb-4">
                         <div class="col-md-8">
-                            <div class="input-group input-group-lg">
+                            <div class="input-group input-group-lg mb-2">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text">SKU</span>
                                 </div>
                                 <input id="product-sku" type="text" placeholder="Enter Product ID #" class="form-control" />
                             </div>
-                        </div>
-                        <div class="col-md-4 bm-col item-marquee item-marquee-title">
-                            Selected Item:
-                        </div>
-                    </div>
-                    <div class="row mb-4">
-                        <div class="col-md-8">
                             <div class="input-group input-group-lg">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text">Quantity</span>
@@ -75,8 +66,9 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-4 tm-col item-marquee">
-                            Hot Pockets II
+                        <div class="col-md-4 item-marquee center-col">
+                            <div class="item-marquee-title">Selected Item:</div>
+                            <div id="selected-item-name">Hot Pockets III</div>
                         </div>
                     </div>
                     <div class="row mb-4">
@@ -89,7 +81,7 @@
                                 <button id="card-button" onclick="onCard()" class="btn btn-lg"><i class="fa-solid fa-credit-card"></i> Card</button>
                             </div>
                         </div>
-                        <div class="col-md-4 center-col">
+                        <div class="col-md-4 total-marquee center-col">
                             <h2 id="checkout-total">Total: &euro;0,00</h2>
                         </div>
                     </div>

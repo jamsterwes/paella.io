@@ -1,7 +1,9 @@
 body {
     --red: #db0030;
     --blue: #004d98;
+    --green: #009808;
     --yellow: #edbb00;
+    --dark: #181818;
 }
 
 #cash-card-group {
@@ -62,8 +64,14 @@ tr, td {
     border: none;   
 }
 
+#cash-card-group .btn {
+    color: var(--dark);
+    border: none;
+}
+
 #cash-card-group .btn-primary {
     background-color: var(--yellow);
+    color: white; 
     border: none;
 }
 
@@ -85,23 +93,36 @@ tr, td {
     align-items: center;
 }
 
-.bm-col {
-    display: flex;
-    justify-content: center;
-    align-items: flex-end;
-}
-
-.tm-col {
-    display: flex;
-    justify-content: center;
-    align-items: flex-start;
-}
-
-.item-marquee {
+.item-marquee, .total-marquee {
     font-size: 18pt;
-    font-family: "Georgia";
+    font-family: "Rubik";
+    font-weight: 400;
+    flex-direction: column;
+    /* background-color: rgb(255, 255, 131); */
+    border-radius: 4.8px;
+    border: 1px solid rgb(206, 212, 218);
 }
 
 .item-marquee-title {
-    font-weight: bold;
+    font-weight: 600;
+}
+
+.item-marquee {
+    border-color: var(--dark);
+    border-width: 1px;
+    color: var(--dark);
+}
+
+.total-marquee {
+    border-color: var(--blue);
+    border-width: 1px;
+    color: var(--blue);
+}
+
+#checkout-body tr:nth-child(2n) {
+    background-color: #f4f4f4;
+}
+
+#checkout-total {
+    margin-bottom: 0;
 }

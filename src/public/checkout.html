@@ -1,110 +1,122 @@
 <html>
 
-<head>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css"
-        integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous" />
-    <link rel="stylesheet" href="styles/index.css" />
-    <link rel="stylesheet" href="styles/checkout.css" />
-</head>
+    <head>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css" integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous" />
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Staatliches&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="styles/index.css" />
+        <link rel="stylesheet" href="styles/checkout.css" />
+    </head>
 
-<body>
-    <!-- accessibility bar -->
-    <div id="accessibility-bar"></div>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-info">
-        <a class="navbar-brand" href="#">PaellaPOS</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
-            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    <body>
+        <!-- accessibility bar -->
+        <div id="accessibility-bar"></div>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-info">
+            <a class="navbar-brand" href="#">Ramon Vila</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav">
-            </ul>
-        </div>
-    </nav>
+              <ul class="navbar-nav">
+                <li class="nav-item active">
+                  <a class="nav-link" href="/login.html">Logout</a>
+                </li>
+              </ul>
+        </nav>
 
-    <!-- main content -->
-    <div id="checkout-content" class="container">
-        <div class="row mb-3 mt-3">
-            <table class="table table-bordered">
-                <thead class="thead-light">
-                  <tr>
-                    <th scope="col">Item Name</th>
-                    <th scope="col">Unit Price</th>
-                    <th scope="col">Quantity</th>
-                    <th scope="col">Subtotal</th>
-                  </tr>
-                </thead>
-                <tbody id="checkout-body">
-                  <tr>
-                    <th scope="row">Chickpeas</th>
-                    <td>2.58</td>
-                    <td>1.25 kg</td>
-                    <td>&euro;3,23</td>
-                  </tr>
-                </tbody>
-              </table>
-        </div>
-        <div class="row mb-3">
-            <div class="col-md-4">
-                <div class="input-group">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text">SKU</span>
+        <!-- main content -->
+        <div id="checkout-content" class="ml-5 mr-5">
+            <div class="row mb-3 mt-3">
+                <div class="col-md-6">
+                    <div class="row mb-3">
+                        <h1 class="col-md-12 text-center">Checkout</h1>
                     </div>
-                    <input id="product-sku" type="text" placeholder="Enter Product ID #" class="form-control" />
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="input-group">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text">Quantity</span>
-                    </div>
-                    <input type="text" placeholder="Enter Quantity" class="form-control" id="item-quantity" />
-                    <div class="input-group-append">
-                        <span class="input-group-text">kg</span>
+                    <div style="border: 1px solid #ddd; height: 75vh; max-height: 75vh; overflow-y: scroll">
+                        <table class="table table-hover table-bordered">
+                            <thead class="thead-light">
+                                <tr>
+                                    <th scope="col">Item Name</th>
+                                    <th scope="col">Unit Price</th>
+                                    <th scope="col">Quantity</th>
+                                    <th scope="col">Subtotal</th>
+                                </tr>
+                            </thead>
+                            <tbody id="checkout-body">
+                            </tbody>
+                        </table>
                     </div>
                 </div>
-            </div>
-            <div class="col-md-4">
-                <button style="width:100%" id="enter-button" class="btn btn-success" onclick="enterButton()">Enter</button>
-            </div>
-        </div>
-        <div class="row mb-3">
-            <div class="col-md-4">
-                <a style="width:100%" href="manager.html" class="btn btn-secondary">Back</a>
-            </div>
-            <div class="col-md-4">
-                <div class="btn-group" id="cash-card-group" style="width:100%">
-                    <button id="cash-button" onclick="onCash()" class="btn btn-primary">Cash</button>
-                    <button id="card-button" onclick="onCard()" class="btn">Card</button>
+                <div class="col-md-6">
+                    <div class="row mb-3" id="item-btns" style="padding-top: 10px; padding-bottom: 10px; max-height: 40vh; overflow-y: scroll; border-radius: 2px; border: 1px solid #ddd">
+                        
+                    </div>
+                    <div class="row mb-2">
+                        <div class="col-md-8">
+                            <div class="input-group input-group-lg">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">SKU</span>
+                                </div>
+                                <input id="product-sku" type="text" placeholder="Enter Product ID #" class="form-control" />
+                            </div>
+                        </div>
+                        <div class="col-md-4 bm-col item-marquee item-marquee-title">
+                            Selected Item:
+                        </div>
+                    </div>
+                    <div class="row mb-4">
+                        <div class="col-md-8">
+                            <div class="input-group input-group-lg">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">Quantity</span>
+                                </div>
+                                <input type="text" placeholder="Enter Quantity" class="form-control" id="item-quantity" />
+                                <div class="input-group-append">
+                                    <span class="input-group-text">kg</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 tm-col item-marquee">
+                            Hot Pockets II
+                        </div>
+                    </div>
+                    <div class="row mb-4">
+                        <div class="col-md-4">
+                            <button style="width:100%" id="enter-button" class="btn btn-lg btn-success" onclick="enterButton()"><i class="fa-solid fa-cart-plus"></i> Add to Cart</button>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="btn-group" id="cash-card-group" style="width:100%">
+                                <button id="cash-button" onclick="onCash()" class="btn btn-lg btn-primary"><i class="fa-solid fa-money-bill-wave"></i> Cash</button>
+                                <button id="card-button" onclick="onCard()" class="btn btn-lg"><i class="fa-solid fa-credit-card"></i> Card</button>
+                            </div>
+                        </div>
+                        <div class="col-md-4 center-col">
+                            <h2 id="checkout-total">Total: &euro;0,00</h2>
+                        </div>
+                    </div>
+                    <div class="row mb-4">
+                        <div class="col-md-4">
+                            <a style="width:100%" href="manager.html" class="btn btn-lg btn-secondary"><i class="fa-solid fa-arrow-left"></i> Back</a>
+                        </div>
+                        <div class="col-md-4">
+                            <button style="width:100%" id="checkout-button" class="btn btn-lg btn-success"><i class="fa-solid fa-cart-shopping"></i> Checkout</button>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div class="col-md-4">
-                <div id="checkout-total">Total: &euro;0,00</div>
-            </div>
         </div>
-        <div class="row mb-3">
-            <div class="col-md-4">
-                <a style="width:100%" href="login.html" class="btn btn-warning">Logout</a>
-            </div>
-            <div class="col-md-4">
-                <button style="width:100%" id="checkout-button" class="btn btn-success">Checkout</button>
-            </div>
-        </div>
-    </div>
 
-    <!-- footer -->
-    <footer id="footer">Powered by Paella</footer>
+        <!-- footer -->
+        <footer id="footer">Powered by Paella</footer>
 
-    <!-- Bootstrap scripts -->
-    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
-        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
-        crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF"
-        crossorigin="anonymous"></script>
+        <!-- Include icons -->
+        <script src="https://kit.fontawesome.com/b56b5f29b3.js" crossorigin="anonymous"></script>
 
-    <!-- Checkout script -->
-    <script src="scripts/checkout.js"></script>
-</body>
+        <!-- Bootstrap scripts -->
+        <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF" crossorigin="anonymous"></script>
+
+        <!-- Checkout script -->
+        <script src="scripts/checkout.js"></script>
+    </body>
 
 </html>

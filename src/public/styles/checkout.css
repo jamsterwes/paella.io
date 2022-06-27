@@ -1,4 +1,107 @@
+body {
+    --red: #db0030;
+    --blue: #004d98;
+    --yellow: #edbb00;
+}
+
 #cash-card-group {
     border: 1px solid #dfdfdf;
     border-radius: 6px;
+}
+
+tr, td {
+    max-height: 10px;
+    height: 10px;
+}
+
+.btn-lg {
+    font-size: 24pt;
+}
+
+.input-group-lg > * {
+    font-size: 24pt;
+}
+
+.btn-success {
+    background-color: var(--red);
+    outline: none;
+    border: none;    
+}
+
+#item-btns .btn {
+    font-family: "Staatliches";
+    font-size: 24pt;
+    height: 100%;
+}
+
+#item-btns .col-md-4 {
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+.btn-success:hover {
+    background-color: #a50044;
+    outline: none;
+    border: none;   
+}
+
+.btn-success:active {
+    background-color: #a50044;
+    outline: none;
+    border: none;
+}
+
+.btn-success:focus, .btn:focus {
+    background-color: #a50044;
+  box-shadow: none;
+}
+
+#item-btns .btn-info {
+    background-color: #babeba;
+    outline: none;
+    border: none;   
+}
+
+#cash-card-group .btn-primary {
+    background-color: var(--yellow);
+    border: none;
+}
+
+.navbar.bg-info {
+    background-color: var(--blue) !important;
+}
+
+.navbar-brand, h1, h2, .btn {
+    font-family: "Staatliches";
+}
+
+.navbar-brand {
+    font-size: 22pt;
+}
+
+.center-col {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.bm-col {
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+}
+
+.tm-col {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+.item-marquee {
+    font-size: 18pt;
+    font-family: "Georgia";
+}
+
+.item-marquee-title {
+    font-weight: bold;
 }

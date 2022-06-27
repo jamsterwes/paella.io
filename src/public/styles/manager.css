@@ -10,7 +10,7 @@
     display: grid;
     grid-template-columns: 30% 30% 30%;
     justify-content: center;
-    column-gap: 20px;
+    margin-top: 60px;
     margin-bottom: 20px;
 }
 
@@ -18,11 +18,20 @@
     display: grid;
     grid-template-columns: 30% 30%;
     justify-content: center;
-    column-gap: 20px;
+    margin-top: 40px;
     margin-bottom: 20px;
 }
 
-.buttons {
-
+.button {
+    position: relative;
+    width: 80%;
+    height: 0;
+    padding-top: 35%;
+    padding-bottom: 45%;
 }
 
+#inventoryBtn {
+    padding-top: 30%;
+    padding-bottom: 50%;
+
+}

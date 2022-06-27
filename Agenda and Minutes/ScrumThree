@@ -10,11 +10,13 @@ Inventory Page
 Backend
 
 End of the Day Agenda: 
-Finish checkout HTML Skeleton
-Create the html "server" 
-Finish shared CSS styling
-Start the implementations for all buttons created yesterday (being the checkout buttons)
-Create items endpoint
+Inventory Skeleton
+Implement Checkout Redesign
+Complete Layouts for Orders Page
+Complete Layout for Receipts Page
+Complete Layout for Inventory Page
+Redesign Manager Menu
+Implements a stronger Backend
 
 Backlog: 
 - Create HTML skeleton for Inventory Page (10 min)

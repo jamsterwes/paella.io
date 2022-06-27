@@ -54,7 +54,7 @@
                                 <div class="input-group-prepend">
                                     <span class="input-group-text">SKU</span>
                                 </div>
-                                <input id="product-sku" type="text" placeholder="Enter Product ID #" class="form-control" />
+                                <input id="product-sku" type="text" placeholder="Enter Product ID #" class="form-control" oninput="skuUpdated()" />
                             </div>
                             <div class="input-group input-group-lg">
                                 <div class="input-group-prepend">
@@ -62,13 +62,13 @@
                                 </div>
                                 <input type="text" placeholder="Enter Quantity" class="form-control" id="item-quantity" />
                                 <div class="input-group-append">
-                                    <span class="input-group-text">kg</span>
+                                    <span class="input-group-text" id="product-unit">unit</span>
                                 </div>
                             </div>
                         </div>
                         <div class="col-md-4 item-marquee center-col">
                             <div class="item-marquee-title">Selected Item:</div>
-                            <div id="selected-item-name">Hot Pockets III</div>
+                            <div id="selected-item-name"></div>
                         </div>
                     </div>
                     <div class="row mb-4">
@@ -82,7 +82,7 @@
                             </div>
                         </div>
                         <div class="col-md-4 total-marquee center-col">
-                            <h2 id="checkout-total">Total: &euro;0,00</h2>
+                            <h2 id="checkout-total">Total: &euro;<span id="checkout-amt"></span></h2>
                         </div>
                     </div>
                     <div class="row mb-4">

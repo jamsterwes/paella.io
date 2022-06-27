@@ -126,3 +126,11 @@ tr, td {
 #checkout-total {
     margin-bottom: 0;
 }
+
+.btn i {
+    font-size: 18pt;
+}
+
+.item-marquee-err {
+    color: var(--red);
+}

@@ -23,10 +23,10 @@ app.get('/api/items', function(req, res) {
         res.json(items)
     })
 })
-
 app.get('/api/items/:itemId', function(req, res) {
     db.getQueryPrepared("SELECT * FROM items WHERE id = $1", parseInt(req.params.itemId)).then(rows => {
-        res.json(rows[0])
+        if (rows.length == 0) res.status(404).json({error: "Item not found!"});
+        else res.json(rows[0])
     })
 })
 

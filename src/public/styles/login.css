@@ -1,5 +1,9 @@
 #login-card {
     margin-top: 15px;
+    color: black;
+    background-color: white;
+    font-family: "Staatliches";
+    font-size: 20pt;
 }
 
 #logo {

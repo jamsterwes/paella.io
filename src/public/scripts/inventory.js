@@ -2,8 +2,8 @@ function renderRow(item) {
     var unit = item.by_weight ? "kg" : "unit"
     var template = `<tr>
         <th scope="row">${item.display_name}</th>
-        <td>${item.unit_price.toFixed(2).replace(".", ",")}</td>
-        <td>${item.remaining_stock.toFixed(3).replace(".", ",")} ${unit}</td>
+        <td>${item.unit_price.toLocaleString('es-ES', {minimumFractionDigits: 2})}</td>
+        <td>${item.remaining_stock.toLocaleString('es-ES', {minimumFractionDigits: 3})} ${unit}</td>
         <td style="text-align: center">
             <!-- <a href="" class="btn btn-primary border border-dark "
                 id="category-btn">Category</a> -->
@@ -19,7 +19,7 @@ function renderRow(item) {
                 </div>
             </div>
         </td>
-        <td style="text-align: center"><a href="" class="btn btn-light border border-dark "
+        <td style="text-align: center"><a href="" class="btn btn-delete border border-dark "
                 id="delete-btn"><i class="fa-solid fa-trash"></i></a></td>
     </tr>`
 

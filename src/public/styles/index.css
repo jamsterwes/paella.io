@@ -8,6 +8,12 @@ body {
     --yellow: #FED614;
     --gold: #D6A908;
     --dark: #181818;
+    --bkg: #0e1318;
+}
+
+body {
+    background-color: var(--bkg);
+    color: white;
 }
 
 #order-nav{
@@ -82,4 +88,12 @@ body {
     color: white;
     outline: none;
     border: none;
+}
+
+thead.thead-darker {
+    background-color: #212529;
+}
+
+thead.thead-darker td { 
+    border-color: #2b3035 !important;
 }

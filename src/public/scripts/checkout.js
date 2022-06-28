@@ -10,12 +10,16 @@ function onCash() {
     cash = true
     cashButton.classList.add("btn-primary")
     cardButton.classList.remove("btn-primary")
+    cashButton.classList.remove("btn-light")
+    cardButton.classList.add("btn-light")
 }
 
 function onCard() {
     cash = false
     cashButton.classList.remove("btn-primary")
     cardButton.classList.add("btn-primary")
+    cashButton.classList.add("btn-light")
+    cardButton.classList.remove("btn-light")
 }
 
 function enterButton() {
@@ -42,7 +46,7 @@ function enterButton() {
         Object.values(order).forEach(line => {
             total += line.subtotal
         })
-        document.getElementById("checkout-amt").innerText = total.toFixed(2).replace(".", ",")
+        document.getElementById("checkout-amt").innerText = total.toLocaleString("es-ES", {minimumFractionDigits: 2})
         checkoutBody.innerHTML = ""
         Object.values(order).forEach(addReceiptLine)
     })
@@ -72,13 +76,13 @@ function addReceiptLine(line) {
     checkoutBody.innerHTML += "<tr> <th scope=\"row\">"
                             + line.name
                             + "</th> <td>"
-                            + line.unit_price.toFixed(2).replace(".", ",")
+                            + line.unit_price.toLocaleString("es-ES", {minimumFractionDigits: 2})
                             + "</td> <td>"
-                            + line.quantity.toFixed(2).replace(".", ",")
+                            + line.quantity.toLocaleString("es-ES", {minimumFractionDigits: 3})
                             + " "
                             + (line.by_weight ? "kg" : "unit")
-                            + "</td> <td>&euro"
-                            + line.subtotal.toFixed(2).replace(".", ",")
+                            + "</td> <td>&euro;"
+                            + line.subtotal.toLocaleString("es-ES", {minimumFractionDigits: 2})
                             + "</td> </tr>"
 }
 
@@ -94,7 +98,7 @@ getItems(items => {
     var i = 0
     Object.keys(items).forEach(item => {
         itemBtns.innerHTML += "<div class=\"col-md-4 mb-2\"><button class=\"btn btn-" 
-                            + ((Math.floor(i/3) % 2) == 0 ? "success" : "info")
+                            + ((Math.floor(i/3) % 2) == 0 ? "delete" : "info")
                             + "\" onclick=\"addItem("
                             + items[item].id
                             + ")\" style=\"width: 100%; text-align: center\">"

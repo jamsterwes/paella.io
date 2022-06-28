@@ -72,7 +72,7 @@ tr, td {
 }
 
 #cash-card-group .btn-primary {
-    background-color: var(--bc-yellow);
+    background-color: var(--yellow);
     color: white; 
     border: none;
 }

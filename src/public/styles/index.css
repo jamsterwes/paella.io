@@ -36,3 +36,10 @@ body {
 .navbar {
     margin-bottom: 30px;
 }
+
+.btn-success {
+    background-color: var(--red);
+    outline: none;
+    border: none;    
+}
+

@@ -16,3 +16,15 @@ body {
     margin-bottom: 5px;
     color: rgb(88, 88, 88);
 }
+
+.navbar.bg-info {
+    background-color: var(--blue) !important;
+}
+
+.navbar-brand, h1, h2, .btn {
+    font-family: "Staatliches";
+}
+
+.navbar-brand {
+    font-size: 22pt;
+}

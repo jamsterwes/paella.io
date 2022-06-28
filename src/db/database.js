@@ -1,7 +1,7 @@
 const fs = require('fs')
 const { Client } = require('pg')
 
-var client = null;
+var client = null
 
 function getSettings(path, cb) {
     fs.readFile("credentials.json", function(err, text) {
@@ -18,18 +18,14 @@ function makeConnection(settings, cb, err) {
         database: settings.database
     })
 
-    client.connect().catch(err).then(cb);
+    client.connect().catch(err).then(cb)
 }
 
-function getQuery(query) {
-    return client.query(query).then(res => res.rows);
-}
-
-function getQueryPrepared(query, ...values) {
+function query(query, ...values) {
     return client.query({
         text: query,
         values: values
-    }).then(res => res.rows);
+    }).then(res => res.rows)
 }
 
-module.exports = { getSettings, makeConnection, getQuery, getQueryPrepared };
+module.exports = { getSettings, makeConnection, query }

@@ -16,6 +16,10 @@ app.use("/api/items", items(db))
 const receipts = require('./db/receipts')
 app.use("/api/receipts", receipts(db))
 
+// Orders API
+const orders = require('./db/orders')
+app.use("/api/orders", orders(db))
+
 // Run application
 app.use(express.static('public'))
 

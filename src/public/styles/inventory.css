@@ -1,0 +1,16 @@
+.btn-success:hover {
+    background-color: #a50044;
+    outline: none;
+    border: none;   
+}
+
+.btn-success:active {
+    background-color: #a50044;
+    outline: none;
+    border: none;
+}
+
+.btn-success:focus, .btn:focus {
+    background-color: #a50044;
+  box-shadow: none;
+}

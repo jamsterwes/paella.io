@@ -47,11 +47,12 @@ function items(db) {
                         display_name,
                         unit_price, 
                         by_weight
-            ).then(() => res.status(200).json({id}))
+            ).then(() => res.json({id}))
         })
 
     // GET /<id> get item
     // POST /<id> update item
+    // DELETE /<id> delete item
     router.route("/:itemId")
         .get((req, res, next) => {
             var intID = parseInt(req.params.itemId)
@@ -62,8 +63,29 @@ function items(db) {
                     else res.json(hydrate(item))
                 })
         })
-        .post((req, res, next) => {
-            // TODO: do this
+        .post(async (req, res, next) => {
+            var intID = parseInt(req.params.itemId)
+
+            // Update each key individually
+            if ("display_name" in req.body) {
+                await db.query("UPDATE items SET display_name = $2 WHERE id = $1", intID, req.body.display_name)
+            }
+            if ("unit_price" in req.body) {
+                await db.query("UPDATE items SET unit_price = $2 WHERE id = $1", intID, req.body.unit_price)
+            }
+            if ("by_weight" in req.body) {
+                await db.query("UPDATE items SET by_weight = $2 WHERE id = $1", intID, req.body.by_weight)
+            }
+            if ("remaining_stock" in req.body) {
+                await db.query("UPDATE items SET remaining_stock = $2 WHERE id = $1", intID, req.body.remaining_stock)
+            }
+
+            var item = await db.query("SELECT * FROM items WHERE id = $1", intID)
+            res.json(hydrate(item[0]))
+        })
+        .delete((req, res, next) => {
+            var intID = parseInt(req.params.itemId)
+            db.query("DELETE FROM items WHERE id = $1", intID).then(() => res.json({success: true}))
         })
     
     // Return finished router

@@ -1,3 +1,11 @@
+body {
+    --bc-yellow: #FED614;
+    --bc-blue: #114488;
+    --bc-red: #D53A36;
+    --bc-gold: #D6A908;
+    --bc-maroon: #AB2F2B;
+}
+
 #title-row {
     margin-top: 20px;
 }
@@ -26,12 +34,18 @@
     position: relative;
     width: 80%;
     height: 0;
-    padding-top: 35%;
-    padding-bottom: 45%;
+    padding-top: 27.5%;
+    padding-bottom: 52.5%;
+    background-color: var(--bc-yellow);
+    border-color: var(--bc-red) !important;
+    color: var(--bc-red);
 }
 
-#inventoryBtn {
-    padding-top: 30%;
-    padding-bottom: 50%;
+.button:hover {
+    background-color: var(--bc-gold);
+    color: var(--bc-maroon)
+}
 
+.manager-font {
+    font-size: 60px;
 }

@@ -1,4 +1,136 @@
+body {
+    --red: #db0030;
+    --blue: #004d98;
+    --green: #009808;
+    --yellow: #edbb00;
+    --dark: #181818;
+}
+
 #cash-card-group {
     border: 1px solid #dfdfdf;
     border-radius: 6px;
+}
+
+tr, td {
+    max-height: 10px;
+    height: 10px;
+}
+
+.btn-lg {
+    font-size: 24pt;
+}
+
+.input-group-lg > * {
+    font-size: 24pt;
+}
+
+.btn-success {
+    background-color: var(--red);
+    outline: none;
+    border: none;    
+}
+
+#item-btns .btn {
+    font-family: "Staatliches";
+    font-size: 24pt;
+    height: 100%;
+}
+
+#item-btns .col-md-4 {
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+.btn-success:hover {
+    background-color: #a50044;
+    outline: none;
+    border: none;   
+}
+
+.btn-success:active {
+    background-color: #a50044;
+    outline: none;
+    border: none;
+}
+
+.btn-success:focus, .btn:focus {
+    background-color: #a50044;
+  box-shadow: none;
+}
+
+#item-btns .btn-info {
+    background-color: #babeba;
+    outline: none;
+    border: none;   
+}
+
+#cash-card-group .btn {
+    color: var(--dark);
+    border: none;
+}
+
+#cash-card-group .btn-primary {
+    background-color: var(--yellow);
+    color: white; 
+    border: none;
+}
+
+.navbar.bg-info {
+    background-color: var(--blue) !important;
+}
+
+.navbar-brand, h1, h2, .btn {
+    font-family: "Staatliches";
+}
+
+.navbar-brand {
+    font-size: 22pt;
+}
+
+.center-col {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.item-marquee, .total-marquee {
+    font-size: 18pt;
+    font-family: "Rubik";
+    font-weight: 400;
+    flex-direction: column;
+    /* background-color: rgb(255, 255, 131); */
+    border-radius: 4.8px;
+    border: 1px solid rgb(206, 212, 218);
+}
+
+.item-marquee-title {
+    font-weight: 600;
+}
+
+.item-marquee {
+    border-color: var(--dark);
+    border-width: 1px;
+    color: var(--dark);
+}
+
+.total-marquee {
+    border-color: var(--blue);
+    border-width: 1px;
+    color: var(--blue);
+}
+
+#checkout-body tr:nth-child(2n) {
+    background-color: #f4f4f4;
+}
+
+#checkout-total {
+    margin-bottom: 0;
+}
+
+.btn i {
+    font-size: 18pt;
+}
+
+.item-marquee-err {
+    color: var(--red);
 }

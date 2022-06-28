@@ -3,30 +3,29 @@ const express = require('express')
 const app = express()
 const port = 3000
 
-// Load data
-const fs = require('fs')
-var data = {}
-fs.readFile('data.json', 'utf8', function(err, text) {
-    data = JSON.parse(text)
-})
+app.use(express.json())
 
-// Items endpoint
-app.get('/api/items', function(req, res) {
-    res.json(data.items)
-})
+// Import local database lib
+const db = require('./db/database')
 
-app.get('/api/items/:itemId', function(req, res) {
-    var itemId = parseInt(req.params.itemId);
-    if (itemId >= data.items.length || itemId < 0) {
-        res.status(404).json({
-            "error": "Item not found!"
-        })
-    }
-    res.send(data.items[req.params.itemId])
-})
+// Items API
+const items = require('./db/items')
+app.use("/api/items", items(db))
+
+// Receipts API
+const receipts = require('./db/receipts')
+app.use("/api/receipts", receipts(db))
 
 // Run application
 app.use(express.static('public'))
-app.listen(port, () => {
-    console.log(`Example app listening on port ${port}`)
+
+db.getSettings("credentials.json", settings => {
+    db.makeConnection(settings, () => {   
+        app.listen(port, () => {
+            console.log(`paella.io server running on localhost:${port}`)
+        })
+    }, err => {
+        console.log(err)
+        console.log("Failed to connect to DB!")
+    })
 })

@@ -13,32 +13,36 @@ function receipts(db) {
     var router = express.Router()
 
     // Get next id
-    function nextID() {
-        return db.query("SELECT id FROM receipts ORDER BY id DESC LIMIT 1")
-            .then(rows => rows[0])
-            .then(row => {
-                if (row === undefined) return 1
-                else return row.id + 1
-            })
+    async function nextID() {
+        var rows = await db.query("SELECT id FROM receipts ORDER BY id DESC LIMIT 1")
+        if (rows.length == 0) {
+            return 1
+        } else {
+            return rows[0].id + 1
+        }
     }
 
     // GET / get all receipts
     // POST / add new receipt
     router.route("/")
-        .get((req, res, next) => {
-            // TODO: offset/limit
-            db.query("SELECT * FROM receipts ORDER BY id DESC").then(receiptRows => {
-                db.query("SELECT * FROM receipt_lines").then(lineRows => {
-                    var obj = {}
-                    receiptRows.forEach(receipt => {
-                        obj[receipt.id] = hydrate(receipt)
-                    })
-                    lineRows.forEach(line => {
-                        obj[line.receipt_id].lines.push(hydrateLine(line))
-                    })
-                    res.json(obj)
-                })
+        .get(async (req, res, next) => {
+            // Create id->item dict
+            var obj = {}
+
+            // Get receipts & rows
+            var receiptRows = await db.query("SELECT * FROM receipts ORDER BY id DESC");
+            var lineRows = await db.query("SELECT * FROM receipt_lines");
+
+            // Interlace receipts with respective rows
+            receiptRows.forEach(receipt => {
+                obj[receipt.id] = hydrate(receipt)
             })
+            lineRows.forEach(line => {
+                obj[line.receipt_id].lines.push(hydrateLine(line))
+            })
+            
+            // Respond to client
+            res.json(obj)
         })
         .post(async (req, res, next) => {
             // If missing keys, fail
@@ -65,14 +69,12 @@ function receipts(db) {
                 is_cash,
                 employee_id)
 
-            // NOTE: this line doesn't wait on all queries
-            // TODO: fix =>> replace with real for loop
-            lines.forEach(async line => {
+            for (var line of lines) {
                 await db.query("INSERT INTO receipt_lines (receipt_id, item_id, quantity) VALUES ($1, $2, $3)",
                     id,
                     line.item_id,
                     line.quantity)
-            })
+            }
 
             res.json({ id })
         })
@@ -81,23 +83,22 @@ function receipts(db) {
     // POST /<id> update receipt
     // DELETE /<id> delete receipt
     router.route("/:receiptId")
-        .get((req, res, next) => {
+        .get(async (req, res, next) => {
             var intID = parseInt(req.params.receiptId)
-            db.query("SELECT * FROM receipts WHERE id = $1", intID)
-                .then(rows => rows[0])
-                .then(receipt => {
-                    if (receipt === undefined) {
-                        res.status(404).json({ error: "Receipt not found!" })
-                    } else {
-                        receipt = hydrate(receipt)
+            var rows = await db.query("SELECT * FROM receipts WHERE id = $1", intID)
+            var receipt = rows[0];
 
-                        // Get receipt lines
-                        db.query("SELECT * FROM receipt_lines WHERE receipt_id = $1", intID).then(lines => {
-                            lines.forEach(line => receipt.lines.push(hydrateLine(line)))
-                            res.json(receipt)
-                        })
-                    }
-                })
+            if (receipt === undefined) {
+                res.status(404).json({ error: "Receipt not found!" })
+                return
+            }
+
+            receipt = hydrate(receipt)
+
+            // Get receipt lines
+            var lines = await db.query("SELECT * FROM receipt_lines WHERE receipt_id = $1", intID)
+            lines.forEach(line => receipt.lines.push(hydrateLine(line)))
+            res.json(receipt)
         })
         .post(async (req, res, next) => {
             var intID = parseInt(req.params.receiptId)
@@ -122,21 +123,21 @@ function receipts(db) {
                 }
             }
 
-            db.query("SELECT * FROM receipts WHERE id = $1", intID)
-                .then(rows => rows[0])
-                .then(receipt => {
-                    if (receipt === undefined) {
-                        res.status(404).json({ error: "Receipt not found!" })
-                    } else {
-                        receipt = hydrate(receipt)
+            var intID = parseInt(req.params.receiptId)
+            var rows = await db.query("SELECT * FROM receipts WHERE id = $1", intID)
+            var receipt = rows[0];
 
-                        // Get receipt lines
-                        db.query("SELECT * FROM receipt_lines WHERE receipt_id = $1", intID).then(lines => {
-                            lines.forEach(line => receipt.lines.push(hydrateLine(line)))
-                            res.json(receipt)
-                        })
-                    }
-                })
+            if (receipt === undefined) {
+                res.status(404).json({ error: "Receipt not found!" })
+                return
+            }
+
+            receipt = hydrate(receipt)
+
+            // Get receipt lines
+            var lines = await db.query("SELECT * FROM receipt_lines WHERE receipt_id = $1", intID)
+            lines.forEach(line => receipt.lines.push(hydrateLine(line)))
+            res.json(receipt)
         })
         .delete(async (req, res, next) => {
             var intID = parseInt(req.params.receiptId)

@@ -97,7 +97,7 @@ getItems(items => {
                             + ((Math.floor(i/3) % 2) == 0 ? "success" : "info")
                             + "\" onclick=\"addItem("
                             + items[item].id
-                            + ")\" style=\"width: 100% text-align: center\">"
+                            + ")\" style=\"width: 100%; text-align: center\">"
                             + items[item].display_name
                             + "</button></div>"
         i += 1

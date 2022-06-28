@@ -1,10 +1,12 @@
 body {
     --red: #db0030;
-    --bc-maroon: #AB2F2B;
+    --maroon: #AB2F2B;
     --blue: #004d98;
+    --navy: #0C3161;
     --green: #009808;
+    --dark-green: #006e05;
     --yellow: #FED614;
-    --bc-gold: #D6A908;
+    --gold: #D6A908;
     --dark: #181818;
 }
 
@@ -38,7 +40,8 @@ body {
 }
 
 .btn-delete {
-    background-color: var(--blue) !important;
+    background-color: var(--red);
+    color: white;
     outline: none;
     border: none;
     box-shadow: none;  
@@ -46,6 +49,37 @@ body {
 
 .btn-delete:hover {
     background-color: #a50044;
+    color: white;
+    outline: none;
+    border: none;
+}
+
+.btn-update {
+    background-color: var(--blue);
+    color: white;
+    outline: none;
+    border: none;
+    box-shadow: none;  
+}
+
+.btn-update:hover {
+    background-color: var(--navy);
+    color: white;
+    outline: none;
+    border: none;
+}
+
+.btn-submit {
+    background-color: var(--green);
+    color: white;
+    outline: none;
+    border: none;
+    box-shadow: none;  
+}
+
+.btn-submit:hover {
+    background-color: var(--dark-green);
+    color: white;
     outline: none;
     border: none;
 }

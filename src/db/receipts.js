@@ -26,7 +26,7 @@ function receipts(db) {
     // POST / add new receipt
     router.route("/")
         .get(async (req, res, next) => {
-            // Create id->item dict
+            // Create id->receipt dict
             var obj = {}
 
             // Get receipts & rows
@@ -40,7 +40,7 @@ function receipts(db) {
             lineRows.forEach(line => {
                 obj[line.receipt_id].lines.push(hydrateLine(line))
             })
-            
+
             // Respond to client
             res.json(obj)
         })
@@ -69,6 +69,7 @@ function receipts(db) {
                 is_cash,
                 employee_id)
 
+            // Add receipt lines
             for (var line of lines) {
                 await db.query("INSERT INTO receipt_lines (receipt_id, item_id, quantity) VALUES ($1, $2, $3)",
                     id,
@@ -76,6 +77,7 @@ function receipts(db) {
                     line.quantity)
             }
 
+            // Reply with new ID
             res.json({ id })
         })
 
@@ -84,7 +86,10 @@ function receipts(db) {
     // DELETE /<id> delete receipt
     router.route("/:receiptId")
         .get(async (req, res, next) => {
+            // Parse URL param
             var intID = parseInt(req.params.receiptId)
+
+            // Get receipt with ID
             var rows = await db.query("SELECT * FROM receipts WHERE id = $1", intID)
             var receipt = rows[0];
 
@@ -98,9 +103,11 @@ function receipts(db) {
             // Get receipt lines
             var lines = await db.query("SELECT * FROM receipt_lines WHERE receipt_id = $1", intID)
             lines.forEach(line => receipt.lines.push(hydrateLine(line)))
+
             res.json(receipt)
         })
         .post(async (req, res, next) => {
+            // Parse URL param
             var intID = parseInt(req.params.receiptId)
 
             // Update each key individually
@@ -123,7 +130,8 @@ function receipts(db) {
                 }
             }
 
-            var intID = parseInt(req.params.receiptId)
+            // NOTE: this could be calculated locally, or kept as a sanity check
+            // Get updated receipt data
             var rows = await db.query("SELECT * FROM receipts WHERE id = $1", intID)
             var receipt = rows[0];
 
@@ -134,15 +142,22 @@ function receipts(db) {
 
             receipt = hydrate(receipt)
 
-            // Get receipt lines
+            // NOTE: this could be calculated locally, or kept as a sanity check
+            // Get updated receipt lines
             var lines = await db.query("SELECT * FROM receipt_lines WHERE receipt_id = $1", intID)
             lines.forEach(line => receipt.lines.push(hydrateLine(line)))
+
+            // Finally send updated receipt data to user
             res.json(receipt)
         })
         .delete(async (req, res, next) => {
+            // Parse URL param
             var intID = parseInt(req.params.receiptId)
+
+            // Delete receipt and associated lines
             await db.query("DELETE FROM receipt_lines WHERE receipt_id = $1", intID)
             await db.query("DELETE FROM receipts WHERE id = $1", intID)
+
             res.json({ success: true })
         })
 

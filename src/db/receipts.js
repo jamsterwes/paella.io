@@ -59,27 +59,27 @@ function receipts(db) {
             // Add receipt header
             var {lines, total, is_cash, employee_id} = req.body
 
-            // Create SQL promise chain
-            var promise = db.query("INSERT INTO receipts (id, total, is_cash, employee_id) VALUES ($1, $2, $3, $4)",
-                     id,
-                     total,
-                     is_cash,
-                     employee_id)
+            await db.query("INSERT INTO receipts (id, total, is_cash, employee_id) VALUES ($1, $2, $3, $4)",
+                           id,
+                           total,
+                           is_cash,
+                           employee_id)
 
-            // Add each line SQL to the promise chain
-            lines.forEach(line => {
-                promise = promise.then(() => db.query("INSERT INTO receipt_lines (receipt_id, item_id, quantity) VALUES ($1, $2, $3)", 
-                                                      id,
-                                                      line.item_id,
-                                                      line.quantity))
+            // NOTE: this line doesn't wait on all queries
+            // TODO: fix =>> replace with real for loop
+            lines.forEach(async line => {
+                await db.query("INSERT INTO receipt_lines (receipt_id, item_id, quantity) VALUES ($1, $2, $3)", 
+                               id,
+                               line.item_id,
+                               line.quantity)
             })
 
-            // After promise chain is over, reply with success
-            promise.then(() => res.status(200).json({id}))
+            res.json({id})
         })
 
     // GET /<id> get receipt
     // POST /<id> update receipt
+    // DELETE /<id> delete receipt
     router.route("/:receiptId")
         .get((req, res, next) => {
             var intID = parseInt(req.params.receiptId)
@@ -99,8 +99,50 @@ function receipts(db) {
                     }
                 })
         })
-        .post((req, res, next) => {
+        .post(async (req, res, next) => {
+            var intID = parseInt(req.params.receiptId)
 
+            // Update each key individually
+            if ("total" in req.body) {
+                await db.query("UPDATE receipts SET total = $2 WHERE id = $1", intID, req.body.total)
+            }
+            if ("is_cash" in req.body) {
+                await db.query("UPDATE receipts SET is_cash = $2 WHERE id = $1", intID, req.body.is_cash)
+            }
+            if ("employee_id" in req.body) {
+                await db.query("UPDATE receipts SET employee_id = $2 WHERE id = $1", intID, req.body.employee_id)
+            }
+            if ("lines" in req.body) {
+                await db.query("DELETE FROM receipt_lines WHERE receipt_id = $1", intID)
+                for (var line of req.body.lines) {
+                    await db.query("INSERT INTO receipt_lines (receipt_id, item_id, quantity) VALUES ($1, $2, $3)", 
+                                   intID,
+                                   line.item_id,
+                                   line.quantity)
+                }
+            }
+
+            db.query("SELECT * FROM receipts WHERE id = $1", intID)
+                .then(rows => rows[0])
+                .then(receipt => {
+                    if (receipt === undefined) {
+                        res.status(404).json({error: "Receipt not found!"})
+                    } else {
+                        receipt = hydrate(receipt)
+
+                        // Get receipt lines
+                        db.query("SELECT * FROM receipt_lines WHERE receipt_id = $1", intID).then(lines => {
+                            lines.forEach(line => receipt.lines.push(hydrateLine(line)))
+                            res.json(receipt)
+                        })
+                    }
+                })
+        })
+        .delete(async (req, res, next) => {
+            var intID = parseInt(req.params.receiptId)
+            await db.query("DELETE FROM receipt_lines WHERE receipt_id = $1", intID)
+            await db.query("DELETE FROM receipts WHERE id = $1", intID)
+            res.json({success: true})
         })
     
     // Return finished router

@@ -4,7 +4,7 @@ const { Client } = require('pg')
 var client = null
 
 function getSettings(path, cb) {
-    fs.readFile("credentials.json", function(err, text) {
+    fs.readFile("credentials.json", function (err, text) {
         cb(JSON.parse(text))
     })
 }

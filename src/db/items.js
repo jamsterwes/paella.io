@@ -36,18 +36,18 @@ function items(db) {
         .post(async (req, res, next) => {
             // Check for all required keys
             if (!("display_name" in req.body) || !("unit_price" in req.body) || !("by_weight" in req.body)) {
-                res.status(400).json({error: "Missing required field(s)!"})
+                res.status(400).json({ error: "Missing required field(s)!" })
                 return
             }
 
-            var {display_name, unit_price, by_weight} = req.body
+            var { display_name, unit_price, by_weight } = req.body
             var id = await nextID()
             db.query("INSERT INTO items (id, display_name, unit_price, by_weight) VALUES ($1, $2, $3, $4)",
-                        id,
-                        display_name,
-                        unit_price, 
-                        by_weight
-            ).then(() => res.json({id}))
+                id,
+                display_name,
+                unit_price,
+                by_weight
+            ).then(() => res.json({ id }))
         })
 
     // GET /<id> get item
@@ -59,7 +59,7 @@ function items(db) {
             db.query("SELECT * FROM items WHERE id = $1", intID)
                 .then(rows => rows[0])
                 .then(item => {
-                    if (item === undefined) res.status(404).json({error: "Item not found!"})
+                    if (item === undefined) res.status(404).json({ error: "Item not found!" })
                     else res.json(hydrate(item))
                 })
         })
@@ -85,9 +85,9 @@ function items(db) {
         })
         .delete((req, res, next) => {
             var intID = parseInt(req.params.itemId)
-            db.query("DELETE FROM items WHERE id = $1", intID).then(() => res.json({success: true}))
+            db.query("DELETE FROM items WHERE id = $1", intID).then(() => res.json({ success: true }))
         })
-    
+
     // Return finished router
     return router
 }

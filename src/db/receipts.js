@@ -1,12 +1,12 @@
 const express = require('express')
 
 function hydrate(receipt) {
-    return {lines: [], ...receipt, total: parseFloat(receipt.total)}
+    return { lines: [], ...receipt, total: parseFloat(receipt.total) }
 }
 
 function hydrateLine(line) {
     delete line["receipt_id"]
-    return {...line, quantity: parseFloat(line.quantity)}
+    return { ...line, quantity: parseFloat(line.quantity) }
 }
 
 function receipts(db) {
@@ -43,38 +43,38 @@ function receipts(db) {
         .post(async (req, res, next) => {
             // If missing keys, fail
             if (!("lines" in req.body) || !("total" in req.body) || !("is_cash" in req.body) || !("employee_id" in req.body)) {
-                res.status(400).json({error: "Missing required field(s)!"})
+                res.status(400).json({ error: "Missing required field(s)!" })
                 return
             }
 
             // If no lines, fail
             if (req.body.lines.length == 0) {
-                res.status(400).json({error: "Cannot add receipt with 0 lines!"})
+                res.status(400).json({ error: "Cannot add receipt with 0 lines!" })
                 return
             }
 
             // Get next receipt id
             var id = await nextID()
-            
+
             // Add receipt header
-            var {lines, total, is_cash, employee_id} = req.body
+            var { lines, total, is_cash, employee_id } = req.body
 
             await db.query("INSERT INTO receipts (id, total, is_cash, employee_id) VALUES ($1, $2, $3, $4)",
-                           id,
-                           total,
-                           is_cash,
-                           employee_id)
+                id,
+                total,
+                is_cash,
+                employee_id)
 
             // NOTE: this line doesn't wait on all queries
             // TODO: fix =>> replace with real for loop
             lines.forEach(async line => {
-                await db.query("INSERT INTO receipt_lines (receipt_id, item_id, quantity) VALUES ($1, $2, $3)", 
-                               id,
-                               line.item_id,
-                               line.quantity)
+                await db.query("INSERT INTO receipt_lines (receipt_id, item_id, quantity) VALUES ($1, $2, $3)",
+                    id,
+                    line.item_id,
+                    line.quantity)
             })
 
-            res.json({id})
+            res.json({ id })
         })
 
     // GET /<id> get receipt
@@ -87,7 +87,7 @@ function receipts(db) {
                 .then(rows => rows[0])
                 .then(receipt => {
                     if (receipt === undefined) {
-                        res.status(404).json({error: "Receipt not found!"})
+                        res.status(404).json({ error: "Receipt not found!" })
                     } else {
                         receipt = hydrate(receipt)
 
@@ -115,10 +115,10 @@ function receipts(db) {
             if ("lines" in req.body) {
                 await db.query("DELETE FROM receipt_lines WHERE receipt_id = $1", intID)
                 for (var line of req.body.lines) {
-                    await db.query("INSERT INTO receipt_lines (receipt_id, item_id, quantity) VALUES ($1, $2, $3)", 
-                                   intID,
-                                   line.item_id,
-                                   line.quantity)
+                    await db.query("INSERT INTO receipt_lines (receipt_id, item_id, quantity) VALUES ($1, $2, $3)",
+                        intID,
+                        line.item_id,
+                        line.quantity)
                 }
             }
 
@@ -126,7 +126,7 @@ function receipts(db) {
                 .then(rows => rows[0])
                 .then(receipt => {
                     if (receipt === undefined) {
-                        res.status(404).json({error: "Receipt not found!"})
+                        res.status(404).json({ error: "Receipt not found!" })
                     } else {
                         receipt = hydrate(receipt)
 
@@ -142,9 +142,9 @@ function receipts(db) {
             var intID = parseInt(req.params.receiptId)
             await db.query("DELETE FROM receipt_lines WHERE receipt_id = $1", intID)
             await db.query("DELETE FROM receipts WHERE id = $1", intID)
-            res.json({success: true})
+            res.json({ success: true })
         })
-    
+
     // Return finished router
     return router
 }

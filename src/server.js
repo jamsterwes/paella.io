@@ -20,7 +20,7 @@ app.use("/api/receipts", receipts(db))
 app.use(express.static('public'))
 
 db.getSettings("credentials.json", settings => {
-    db.makeConnection(settings, () => {   
+    db.makeConnection(settings, () => {
         app.listen(port, () => {
             console.log(`paella.io server running on localhost:${port}`)
         })

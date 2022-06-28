@@ -1,3 +1,11 @@
+body {
+    --red: #db0030;
+    --blue: #004d98;
+    --green: #009808;
+    --yellow: #edbb00;
+    --dark: #181818;
+}
+
 #footer {
     position: fixed;
     bottom: 0;
@@ -5,4 +13,16 @@
     margin-left: 10px;
     margin-bottom: 5px;
     color: rgb(88, 88, 88);
+}
+
+.navbar.bg-info {
+    background-color: var(--blue) !important;
+}
+
+.navbar-brand, h1, h2, .btn {
+    font-family: "Staatliches";
+}
+
+.navbar-brand {
+    font-size: 22pt;
 }

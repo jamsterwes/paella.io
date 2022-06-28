@@ -51,42 +51,21 @@
                 <h1>Inventory Management</h1>
             </div>
         </div>
-        <div class="row mb-3 mt-3">
-            <table class="table table-bordered">
-                <thead class="thead-light">
-                    <tr>
-                        <th scope="col">Item Name</th>
-                        <th scope="col">Unit Price</th>
-                        <th scope="col">Quantity</th>
-                        <th scope="col">Category</th>
-                        <th></th>
-                    </tr>
-                </thead>
-                <tbody id="checkout-body">
-                    <tr>
-                        <th scope="row">Chickpeas</th>
-                        <td>2.58</td>
-                        <td>1.25 kg</td>
-                        <td style="text-align: center">
-                            <!-- <a href="" class="btn btn-primary border border-dark "
-                                id="category-btn">Category</a> -->
-                            <div class="dropdown">
-                                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu2"
-                                    data-toggle="dropdown" aria-expanded="false">
-                                    UNCATEGORIZED
-                                </button>
-                                <div class="dropdown-menu category-menu" aria-labelledby="dropdownMenu2">
-                                    <button class="dropdown-item" type="button"><span class="badge badge-secondary">Uncategorized</span></button>
-                                    <button class="dropdown-item" type="button"><span class="badge badge-primary">Beans</span></button>
-                                    <button class="dropdown-item" type="button"><span class="badge badge-success">Legumes</span></button>
-                                </div>
-                            </div>
-                        </td>
-                        <td style="text-align: center"><a href="" class="btn btn-light border border-dark "
-                                id="delete-btn"><i class="fa-solid fa-trash"></i></a></td>
-                    </tr>
-                </tbody>
-            </table>
+        <div class="row mb-3 mt-3">       
+            <div style="border: 1px solid #ddd; height: 67vh; max-height: 67vh; overflow-y: scroll; width: 100%">
+                <table class="table table-bordered">
+                    <thead class="thead-light">
+                        <tr>
+                            <th scope="col">Item Name</th>
+                            <th scope="col">Unit Price</th>
+                            <th scope="col">Quantity</th>
+                            <th scope="col">Category</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody id="inventory-body"></tbody>
+                </table>
+            </div>
         </div>
         <div class="row mb-3">
             <div class="col-md-4">
@@ -146,8 +125,8 @@
         integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF"
         crossorigin="anonymous"></script>
 
-    <!-- Checkout script -->
-    <script src="scripts/checkout.js"></script>
+    <!-- Inventory script -->
+    <script src="scripts/inventory.js"></script>
 </body>
 
 </html>

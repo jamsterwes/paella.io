@@ -58,7 +58,7 @@
                 <button style="width:100%" id="update-button" class="btn btn-success">Update</button>
             </div>
             <div class="col-md-4">
-                <button style="width:100%" id="new-item-button" class="btn btn-submit">New Item</button>
+                <button style="width:100%" id="new-item-button" class="btn btn-submit">New Order</button>
             </div>
         </div>
         <div class="row mb-3">
@@ -68,21 +68,14 @@
             <table class="table table-dark table-striped table-bordered">
                 <thead class="thead-darker">
                     <tr>
-                        <th scope="col">Item Name</th>
-                        <th scope="col">Unit Price</th>
-                        <th scope="col">Quantity</th>
+                        <th scope="col">Delivery Date</th>
+                        <th scope="col">Order ID</th>
+                        <th scope="col">Cost</th>
+                        <th scope="col">Received?</th>
                         <th></th>
                     </tr>
                 </thead>
-                <tbody id="checkout-body">
-                    <tr>
-                        <th scope="row">Chickpeas</th>
-                        <td>2.58</td>
-                        <td>1.25 kg</td>
-                        <td style="text-align: center"><a href="" class="btn btn-light border border-dark "
-                                id="delete-btn"><i class="fa-solid fa-trash"></i></a></td>
-                    </tr>
-                </tbody>
+                <tbody id="order-body"></tbody>
             </table>
         </div>
     </div>
@@ -101,8 +94,8 @@
         integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF"
         crossorigin="anonymous"></script>
 
-    <!-- Checkout script -->
-    <script src="scripts/checkout.js"></script>
+    <!-- Orders script -->
+    <script src="scripts/orders.js"></script>
 </body>
 
 </html>

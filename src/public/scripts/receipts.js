@@ -1,10 +1,10 @@
 function renderRow(receipt) {
     var template = `<tr>
-    <td scope="row">06/28/22</td>
-    <th scope="row">Josh</th>
+    <td scope="row">${receipt.transaction_date}</td>
+    <th scope="row">${receipt.employee_id}</th>
     <td scope="row">${receipt.id}</td>
-    <td scope="row">Yes</td>
-    <td scope="row">${receipt.total.toLocaleString('es-ES', {minimumFractionDigits: 2})}</td>
+    <td scope="row">${receipt.is_cash ? "Yes" : "No"}</td>
+    <td scope="row">&euro;${receipt.total.toLocaleString('es-ES', {minimumFractionDigits: 2})}</td>
     <td style="text-align: center"><a href="" class="btn btn-delete border border-dark "
             id="delete-btn"><i class="fa-solid fa-trash"></i></i></a></td>
 </tr>`

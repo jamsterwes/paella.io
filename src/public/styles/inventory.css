@@ -1,16 +1,26 @@
-.btn-success:hover {
+.btn-danger {
+    background-color: var(--red);
+    outline: none;
+    border: none;    
+}
+
+.btn-danger:hover {
     background-color: #a50044;
     outline: none;
     border: none;   
 }
 
-.btn-success:active {
+.btn-danger:active {
     background-color: #a50044;
     outline: none;
     border: none;
 }
 
-.btn-success:focus, .btn:focus {
+.btn-danger:focus, .btn:focus {
     background-color: #a50044;
   box-shadow: none;
+}
+
+.category-menu {
+    font-size: 20pt;
 }

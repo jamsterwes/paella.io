@@ -37,9 +37,15 @@ body {
     margin-bottom: 30px;
 }
 
-.btn-success {
-    background-color: var(--red);
+.btn-delete {
+    background-color: var(--blue) !important;
     outline: none;
-    border: none;    
+    border: none;
+    box-shadow: none;  
 }
 
+.btn-delete:hover {
+    background-color: #a50044;
+    outline: none;
+    border: none;
+}

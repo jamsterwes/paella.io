@@ -67,8 +67,21 @@
                         <th scope="row">Chickpeas</th>
                         <td>2.58</td>
                         <td>1.25 kg</td>
-                        <td style="text-align: center"><a href="" class="btn btn-primary border border-dark "
-                                id="category-btn">Category</a></td>
+                        <td style="text-align: center">
+                            <!-- <a href="" class="btn btn-primary border border-dark "
+                                id="category-btn">Category</a> -->
+                            <div class="dropdown">
+                                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu2"
+                                    data-toggle="dropdown" aria-expanded="false">
+                                    UNCATEGORIZED
+                                </button>
+                                <div class="dropdown-menu category-menu" aria-labelledby="dropdownMenu2">
+                                    <button class="dropdown-item" type="button"><span class="badge badge-secondary">Uncategorized</span></button>
+                                    <button class="dropdown-item" type="button"><span class="badge badge-primary">Beans</span></button>
+                                    <button class="dropdown-item" type="button"><span class="badge badge-success">Legumes</span></button>
+                                </div>
+                            </div>
+                        </td>
                         <td style="text-align: center"><a href="" class="btn btn-light border border-dark "
                                 id="delete-btn"><i class="fa-solid fa-trash"></i></a></td>
                     </tr>
@@ -106,7 +119,7 @@
         </div>
         <div class="row mb-3">
             <div class="col-md-4">
-                <a style="width:100%" href="" id="delete-button" class="btn btn-secondary">Delete</a>
+                <a style="width:100%" href="" id="delete-button" class="btn btn-delete">Delete</a>
             </div>
             <div class="col-md-4">
                 <button style="width:100%" id="update-button" class="btn btn-success">Update</button>

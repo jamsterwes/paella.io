@@ -12,6 +12,11 @@ function renderRow(receipt) {
     return template
 }
 
+function deleteReceipt(){
+    delete-btn.click == true;
+     
+}
+
 function getReceipts(start, callback, err) {
     var xhr = new XMLHttpRequest()
     xhr.onload = function () {

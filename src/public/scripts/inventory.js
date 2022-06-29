@@ -250,6 +250,7 @@ function addCategory() {
     var color = addCategoryColorPicker.getColor().toHEXA().toString()
     sendCategory({ category_name: name, category_color: color }, () => {
         renderCategories()
+        renderItems()
     })
 }
 

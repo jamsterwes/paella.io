@@ -83,13 +83,14 @@
     </div>
 
     <!-- footer -->
-    <footer id="footer">Powered by Paella<div id="google_translate_element">
-        <div class="col-sm-6">
+    <footer id="footer">
+        <div>Powered by Paella</div>
+        <div class="col-sm-2">
             <div class="input-group mb-3">
                 <div class="input-group-prepend">
-                    <span class="input-group-text">To Currency</span>
+                    <span class="input-group-text in" style="background-color: var(--gold); color: white; font-family: Rubik; font-weight: 600;">To Currency</span>
                 </div>
-                <select class="form-control to" id="sel2">
+                <select class="form-control to" id="sel2" style="color: var(--gold); background-color: white; font-family: Rubik; font-weight: 600;">
                     <option value="">Select One …</option>
                     <option value="USD">USD</option>
                     <option value="AED">AED</option>
@@ -146,6 +147,7 @@
                 </select>
             </div>
         </div>
+        <div class="col-sm-6" id="google_translate_element"></div>
     </div>
     </footer>
 
@@ -170,7 +172,7 @@
     <script type="text/javascript"> 
         function googleTranslateElementInit() { 
             new google.translate.TranslateElement(
-                {pageLanguage: 'en'}, 
+                {pageLanguage: 'en', layout:google.translate.TranslateElement.InlineLayout.SIMPLE}, 
                 'google_translate_element'
             ); 
         } 

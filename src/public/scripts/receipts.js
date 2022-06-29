@@ -1,25 +1,20 @@
 function renderRow(receipt) {
-    var template = `<tr>
-    <td scope="row">${receipt.transaction_date}</td>
+    var template = `<tr id="receipt-${receipt.id}">
+    <td >${receipt.transaction_date}</td>
     <th scope="row">${receipt.employee_id}</th>
-    <td scope="row">${receipt.id}</td>
-    <td scope="row">${receipt.is_cash ? "Yes" : "No"}</td>
-    <td scope="row">&euro;${receipt.total.toLocaleString('es-ES', { minimumFractionDigits: 2 })}</td>
-    <td style="text-align: center"><a href="" class="btn btn-delete border border-dark "
-            id="delete-btn"><i class="fa-solid fa-file-circle-xmark"></i></i></a></td>
+    <td >${receipt.id}</td>
+    <td >${receipt.is_cash ? "Yes" : "No"}</td>
+    <td >&euro;${receipt.total.toLocaleString('es-ES', { minimumFractionDigits: 2 })}</td>
+    <td style="text-align: center"><a class="btn btn-delete border border-dark "
+            id="delete-btn" onclick="voidReceipt(${receipt.id})"><i class="fa-solid fa-file-circle-xmark"></i></i></a></td>
 </tr>`
 
     return template
 }
 
-function deleteReceipt(btn, receipt){
-    if(btn.click == true){
-        receipt.transation_date.JSONsetProperty("text-decoration", "line-through"); 
-        receipt.employee_id.JSONsetProperty("text-decoration", "line-through"); 
-        receipt.id.JSONsetProperty("text-decoration", "line-through"); 
-        receipt.is_cash.JSONsetProperty("text-decoration", "line-through");  
-        receipt.total.JSONsetProperty("text-decoration", "line-through");    
-    }
+function voidReceipt(id){
+    // DB stuff
+    document.getElementById("receipt-" + id).classList.add("cross-text")
 }
 
 function getReceipts(start, callback, err) {

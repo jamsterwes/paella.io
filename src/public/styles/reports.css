@@ -1,0 +1,10 @@
+/* #myTab li a {
+    border-color: blue;
+    background-color: var(--navy);
+    color: white;
+} */
+
+.nav-link active {
+    border-bottom-color: transparent;
+    background-color:Yellow;
+}

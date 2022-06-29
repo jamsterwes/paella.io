@@ -89,8 +89,6 @@ function renderItems() {
             Object.values(items).forEach(item => {
                 // Add editable name
                 makeEditableField("item-name-" + item.id, value => {
-                    // Check for invalid
-                    if (isNaN(value)) return false;
                     // Send update to DB
                     updateItem(item.id, { display_name: value })
                     // Valid

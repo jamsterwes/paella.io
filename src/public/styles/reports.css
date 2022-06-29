@@ -1,9 +1,3 @@
-/* #myTab li a {
-    border-color: blue;
-    background-color: var(--navy);
-    color: white;
-} */
-
 .nav-tabs .nav-item.show .nav-link, .nav-tabs .nav-link {
     border-color: var(--dark);
     border-bottom-color: transparent;
@@ -28,7 +22,7 @@
 
 /* tabs styling */
 .nav-tabs {
-    border-bottom-color: #343a40;
+    border-bottom-color: transparent;
 }
 
 .tab-content>.tab-pane {

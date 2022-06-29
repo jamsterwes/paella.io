@@ -75,21 +75,21 @@
             <div class="input-group input-group-toggle col d-flex justify-content-end align-items-end"
                 data-toggle="input">
                 <label class="input-group-text active" style="height: 40px;">
-                    <input type="radio" name="options" id="option1" autocomplete="off" checked
+                    <input type="radio" name="options" id="option1" onclick="isChecked()" autocomplete="off" checked
                         style="margin-right: 5px;"> 1 Day
                 </label>
                 <label class="input-group-text" style="height: 40px;">
-                    <input type="radio" name="options" id="option2" autocomplete="off" style="margin-right: 5px;"> 7
+                    <input type="radio" name="options" id="option2" onclick="isChecked()" autocomplete="off" style="margin-right: 5px;"> 7
                     Days
                 </label>
                 <label class="input-group-text" style="height: 40px;">
-                    <input type="radio" name="options" id="option3" autocomplete="off" style="margin-right: 5px;"> 30
+                    <input type="radio" name="options" id="option3" onclick="isChecked()" autocomplete="off" style="margin-right: 5px;"> 30
                     Days
                 </label>
                 <label class="input-group-text" style="height: 40px;">
-                    <input type="radio" name="options" id="option3" autocomplete="off" style="margin-right: 5px;">Custom
-                    <input type="date" name="from-date" style="margin-left: 10px">
-                    <input type="date" name="to-date" style="margin-left: 10px">
+                    <input type="radio" name="options" id="option4" onclick="isChecked()" autocomplete="off" style="margin-right: 5px;">Custom
+                    <input type="date" name="from-date" id="from" disabled style="margin-left: 10px">
+                    <input type="date" name="to-date" id="to" disabled style="margin-left: 10px">
                 </label>
             </div>
         </div>
@@ -112,6 +112,9 @@
 
     <!-- Shared script -->
     <script src="scripts/index.js"></script>
+
+    <!-- Reports script -->
+    <script src="scripts/reports.js"></script>
 
     <!-- Bootstrap scripts -->
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"

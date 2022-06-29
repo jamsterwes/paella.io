@@ -16,32 +16,29 @@
     <div id="accessibility-bar"></div>
 
     <nav class="navbar navbar-expand-lg navbar-dark bg-info">
-        <a class="navbar-brand" href="/manager.html">
-            <img src="assets/logos/20220628_RamonVilla_Logo_White.png" class="mr-2" height="50" width="50" />
-            Ramon Villa
-        </a>
+        <a class="navbar-brand" href="/manager.html" translate="no">Ramon Villa</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
             aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav">
-                <li class="nav-item">
+                <li class="nav-item ">
                     <a class="nav-link" href="/checkout.html">Checkout</a>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item ">
                     <a class="nav-link" href="/inventory.html">Inventory Management</a>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item ">
                     <a class="nav-link" href="/receipts.html">Receipts</a>
                 </li>
                 <li class="nav-item active">
                     <a class="nav-link" href="/orders.html">Orders</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/reports.html">Reports</a>
+                <li class="nav-item ">
+                    <a class="nav-link" href="/Reports.html">Reports</a>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item ">
                     <a class="nav-link" href="/login.html">Logout</a>
                 </li>
             </ul>
@@ -91,7 +88,7 @@
     </div>
 
     <!-- footer -->
-    <footer id="footer">Powered by Paella</footer>
+    <footer id="footer">Powered by Paella <div id="google_translate_element"></div></footer>
 
     <!-- Include icons -->
     <script src="https://kit.fontawesome.com/b56b5f29b3.js" crossorigin="anonymous"></script>
@@ -106,6 +103,19 @@
 
     <!-- Orders script -->
     <script src="scripts/orders.js"></script>
+
+    <!-- GTranslate scripts -->
+    <script type="text/javascript"> 
+        function googleTranslateElementInit() { 
+            new google.translate.TranslateElement(
+                {pageLanguage: 'en'}, 
+                'google_translate_element'
+            ); 
+        } 
+    </script> 
+    <script type="text/javascript" src=
+    "https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit">
+    </script> 
 </body>
 
 </html>

@@ -109,6 +109,16 @@ function setCategoryColor(categoryColor, categoryID, err = console.error) {
     }))
 }
 
+function getReceipt(id, callback, err = console.error) {
+    var xhr = new XMLHttpRequest()
+    xhr.onload = function () {
+        if (xhr.status == 200) callback(JSON.parse(xhr.responseText))
+        else err(xhr.status, xhr.responseText)
+    }
+    xhr.open("GET", "/api/receipts/" + id, true)
+    xhr.send(null)
+}
+
 function getReceipts(start, callback, err = console.error) {
     var xhr = new XMLHttpRequest()
     xhr.onload = function () {

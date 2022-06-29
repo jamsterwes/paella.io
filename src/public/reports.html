@@ -55,35 +55,39 @@
     <div id="reports-content" class="container">
         <h1 class="col-md-12 text-center">Reports</h1>
 
-        <div class="input-group input-group-toggle" data-toggle="input">
-            <label class="input-group-text active">
-              <input type="radio" name="options" id="option1" autocomplete="off" checked style="margin-right: 5px;"> 1 Day
-            </label>
-            <label class="input-group-text">
-              <input type="radio" name="options" id="option2" autocomplete="off" style="margin-right: 5px;"> 7 Days
-            </label>
-            <label class="input-group-text">
-              <input type="radio" name="options" id="option3" autocomplete="off" style="margin-right: 5px;"> 30 Days
-            </label>
-            <label class="input-group-text">
-              <input type="radio" name="options" id="option3" autocomplete="off" style="margin-right: 5px;"> Custom
-            </label>
-          </div>
+        <div class="row">
+            <div class="col">
+                <ul class="nav nav-tabs" id="myTab" role="tablist">
+                    <li class="nav-item" style="height: 40px;">
+                        <a class="nav-link active" id="sales-tab" data-toggle="tab" href="#sales" role="tab"
+                            aria-controls="home" aria-selected="true">Total Sales</a>
+                    </li>
+                    <li class="nav-item" style="height: 40px;">
+                        <a class="nav-link" id="excess-tab" data-toggle="tab" href="#excess" role="tab" aria-controls="profile"
+                            aria-selected="false">Excess (&lt;10%)</a>
+                    </li>
+                    <li class="nav-item" style="height: 40px;">
+                        <a class="nav-link" id="low-tab" data-toggle="tab" href="#low" role="tab" aria-controls="contact"
+                            aria-selected="false">Low Stock</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="input-group input-group-toggle col-6" data-toggle="input">
+                <label class="input-group-text active float-end" style="height: 40px;">
+                  <input type="radio" name="options" id="option1" autocomplete="off" checked style="margin-right: 5px;"> 1 Day
+                </label>
+                <label class="input-group-text" style="height: 40px;">
+                  <input type="radio" name="options" id="option2" autocomplete="off" style="margin-right: 5px;"> 7 Days
+                </label>
+                <label class="input-group-text" style="height: 40px;">
+                  <input type="radio" name="options" id="option3" autocomplete="off" style="margin-right: 5px;"> 30 Days
+                </label>
+                <label class="input-group-text" style="height: 40px;">
+                  <input type="radio" name="options" id="option3" autocomplete="off" style="margin-right: 5px;"> Custom
+                </label>
+              </div>
+        </div>
 
-        <ul class="nav nav-tabs" id="myTab" role="tablist">
-            <li class="nav-item">
-                <a class="nav-link active" id="sales-tab" data-toggle="tab" href="#sales" role="tab"
-                    aria-controls="home" aria-selected="true">Total Sales</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" id="excess-tab" data-toggle="tab" href="#excess" role="tab" aria-controls="profile"
-                    aria-selected="false">Excess (&lt;10%)</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" id="low-tab" data-toggle="tab" href="#low" role="tab" aria-controls="contact"
-                    aria-selected="false">Low Stock</a>
-            </li>
-        </ul>
         <div class="tab-content" id="myTabContent">
             <div class="tab-pane fade show active" id="sales" role="tabpanel" aria-labelledby="sales-tab">
                 ...

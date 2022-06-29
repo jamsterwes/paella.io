@@ -12,9 +12,14 @@ function renderRow(receipt) {
     return template
 }
 
-function deleteReceipt(){
-    delete-btn.click == true;
-     
+function deleteReceipt(btn, receipt){
+    if(btn.click == true){
+        receipt.transation_date.JSONsetProperty("text-decoration", "line-through"); 
+        receipt.employee_id.JSONsetProperty("text-decoration", "line-through"); 
+        receipt.id.JSONsetProperty("text-decoration", "line-through"); 
+        receipt.is_cash.JSONsetProperty("text-decoration", "line-through");  
+        receipt.total.JSONsetProperty("text-decoration", "line-through");    
+    }
 }
 
 function getReceipts(start, callback, err) {

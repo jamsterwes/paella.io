@@ -147,7 +147,7 @@ function renderCategories() {
         itemBtns.innerHTML += `
         <div class="col-md-4 mb-2">
             <button class="btn" onclick="renderItems(${category.id})" style="width: 100%; text-align: center; color: white; background-color: ${category.category_color}">
-                ${category.category_name} <span style="background-color: white; color: black; font-family: 'Arial'" class="ml-2 badge">${category.count}</span>
+                ${category.category_name} <span style="background-color: white; color: black; font-family: 'Rubik'" class="ml-2 badge">${category.count}</span>
             </button>
         </div>`
     }))

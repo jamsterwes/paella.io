@@ -1,5 +1,5 @@
 function renderRow(receipt) {
-    var template = `<tr>
+    var template = `<tr data-toggle="modal" data-target="#receiptViewModal" onclick="renderLines(${receipt.id})">
     <td scope="row">${formatDBTime(receipt.transaction_date)}</td>
     <th scope="row">${receipt.employee_id}</th>
     <td scope="row">${receipt.id}</td>
@@ -10,6 +10,28 @@ function renderRow(receipt) {
 </tr>`
 
     return template
+}
+
+async function renderLines(id) {
+    var out = ""
+    document.getElementById("single-receipt-body").innerHTML = ""
+    document.getElementById("exampleModalLabel").innerText = "View Receipt #" + id
+
+    var prom = new Promise(resolve => getItems(resolve))
+    var items = await prom;
+
+    getReceipt(id, async receipt => {
+        for (var line of receipt.lines) {
+            var template = `
+            <tr>
+                <td>${line.item_id}</td>
+                <td>${line.quantity}</td>
+                <td>&euro;${line.quantity * items[line.item_id].unit_price}</td>
+            </tr>`
+            out += template + "\n"
+        }
+        document.getElementById("single-receipt-body").innerHTML = out
+    })
 }
 
 var receiptBody = document.getElementById("receipt-body")

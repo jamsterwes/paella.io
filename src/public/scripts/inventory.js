@@ -4,7 +4,8 @@ function renderRow(item, categories) {
     var template = `<tr>
         <th scope="row"><div id="item-name-${item.id}">${item.display_name}</div></th>
         <td><div id="item-unit-price-${item.id}">${item.unit_price.toLocaleString('es-ES', { minimumFractionDigits: 2 })}</div></td>
-        <td><span id="item-quantity-${item.id}">${item.remaining_stock.toLocaleString('es-ES', { minimumFractionDigits: 3 })}</span> ${unit}</td>
+        <td><span id="item-quantity-${item.id}">${item.remaining_stock.toLocaleString('es-ES', { minimumFractionDigits: 3 })}</span> <span id="item-unit-${item.id}">${unit}</span></td>
+        <td><input type="checkbox" onclick="changeByWeight(this, ${item.id})" ${item.by_weight ? "checked" : ""} /></td>
         <td style="text-align: center">
             <!-- <a href="" class="btn btn-primary border border-dark "
                 id="category-btn">Category</a> -->
@@ -20,6 +21,16 @@ function renderRow(item, categories) {
                 id="delete-btn"><i class="fa-solid fa-trash"></i></a></td>
     </tr>`
     return template
+}
+
+function changeByWeight(el, id) {
+    var byWeight = el.checked
+    updateItem(id, {by_weight: byWeight})
+    if (byWeight) {
+        document.getElementById("item-unit-" + id).innerText = "kg"
+    } else {
+        document.getElementById("item-unit-" + id).innerText = "unit"
+    }
 }
 
 function renderCategory(category) {

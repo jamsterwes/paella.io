@@ -49,7 +49,7 @@ function items(db) {
 
             // Get next item id, and insert
             var id = await nextID()
-            await db.query("INSERT INTO items (id, display_name, unit_price, by_weight) VALUES ($1, $2, $3, $4)",
+            await db.query("INSERT INTO items (id, display_name, unit_price, by_weight, category_id) VALUES ($1, $2, $3, $4, 0)",
                 id,
                 display_name,
                 unit_price,
@@ -91,6 +91,9 @@ function items(db) {
             }
             if ("remaining_stock" in req.body) {
                 await db.query("UPDATE items SET remaining_stock = $2 WHERE id = $1", intID, req.body.remaining_stock)
+            }
+            if ("category_id" in req.body) {
+                await db.query("UPDATE items SET category_id = $2 WHERE id = $1", intID, req.body.category_id)
             }
 
             // Reply with new item data

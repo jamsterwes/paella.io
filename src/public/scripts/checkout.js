@@ -52,26 +52,6 @@ function enterButton() {
     })
 }
 
-function getItem(id, callback, err) {
-    var xhr = new XMLHttpRequest()
-    xhr.onload = function () {
-        if (xhr.status == 200) callback(JSON.parse(xhr.responseText))
-        else err(xhr.status, xhr.responseText)
-    }
-    xhr.open("GET", "/api/items/" + id, true)
-    xhr.send(null)
-}
-
-function getItems(callback, err) {
-    var xhr = new XMLHttpRequest()
-    xhr.onload = function () {
-        if (xhr.status == 200) callback(JSON.parse(xhr.responseText))
-        else err(xhr.status, xhr.responseText)
-    }
-    xhr.open("GET", "/api/items", true)
-    xhr.send(null)
-}
-
 function addReceiptLine(line) {
     checkoutBody.innerHTML += "<tr> <th scope=\"row\">"
         + line.name
@@ -96,7 +76,7 @@ function addItem(id) {
 var selectedItemName = document.getElementById("selected-item-name")
 var productUnit = document.getElementById("product-unit")
 
-var skuUpdated = function () {
+var skuUpdated = () => {
     var sku = parseInt(productSku.value)
     if (isNaN(sku)) {
         selectedItemName.innerText = "Invalid SKU!"
@@ -109,7 +89,7 @@ var skuUpdated = function () {
 
 var order = {}
 
-var addItemOnEnter = function (e) {
+var addItemOnEnter = e => {
     if (e.keyCode === 13) {
         enterButton()
     }
@@ -118,11 +98,9 @@ var addItemOnEnter = function (e) {
 productSku.addEventListener('keypress', addItemOnEnter)
 itemQuantity.addEventListener('keypress', addItemOnEnter)
 
-var updateUnit = function (id) {
-    getItem(id, function (item) {
-        productUnit.innerText = item.by_weight ? "kg" : "unit"
-    }, function (err) { })
-}
+var updateUnit = id => getItem(id, function (item) {
+    productUnit.innerText = item.by_weight ? "kg" : "unit"
+})
 
 var updateName = function (id) {
     getItem(id, function (item) {
@@ -151,30 +129,13 @@ var checkout = function () {
         lines: Object.values(order)
     }
 
-    var xhr = new XMLHttpRequest()
-    xhr.onload = function () {
-        if (xhr.status == 200) {
-            checkoutBody.innerHTML = ""
-            order = {}
-            document.getElementById("checkout-amt").innerText = "0,00"
-            selectedItemName.innerText = ""
-            selectedItemName.classList.remove("item-marquee-err")
-        }
-        else console.error(xhr.status, xhr.responseText)
-    }
-    xhr.open("POST", "/api/receipts", true)
-    xhr.setRequestHeader("Content-Type", "application/json")
-    xhr.send(JSON.stringify(receipt))
-}
-
-function getCategories(callback, err) {
-    var xhr = new XMLHttpRequest()
-    xhr.onload = function () {
-        if (xhr.status == 200) callback(JSON.parse(xhr.responseText))
-        else err(xhr.status, xhr.responseText)
-    }
-    xhr.open("GET", "/api/categories", true)
-    xhr.send(null)
+    sendReceipt(receipt, () => {
+        checkoutBody.innerHTML = ""
+        order = {}
+        document.getElementById("checkout-amt").innerText = "0,00"
+        selectedItemName.innerText = ""
+        selectedItemName.classList.remove("item-marquee-err")
+    })
 }
 
 // Render categories

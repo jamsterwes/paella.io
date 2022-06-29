@@ -1,8 +1,3 @@
-function formatDBTime(ts, locale = 'es-ES') {
-    var date = new Date(ts)
-    return date.toLocaleDateString(locale) + " " + date.toLocaleTimeString(locale)
-}
-
 function renderRow(order) {
     var template = `<tr>
     <td scope="row">${formatDBTime(order.delivery_date)}</td>
@@ -10,30 +5,10 @@ function renderRow(order) {
     <td scope="row">&euro;${order.cost.toLocaleString('es-ES', { minimumFractionDigits: 2 })}</td>
     <td scope="row">${order.received ? "Yes" : "No"}</td>
     <td style="text-align: center"><a href="" class="btn btn-lg btn-delete border border-dark "
-            id="delete-btn"><i class="fa-solid fa-file-circle-xmark"></i></i></a></td>
+            id="delete-btn"><i class="fa-solid fa-file-circle-xmark"></i></a></td>
 </tr>`
 
     return template
-}
-
-function getOrders(start, callback, err) {
-    var xhr = new XMLHttpRequest()
-    xhr.onload = function () {
-        if (xhr.status == 200) callback(JSON.parse(xhr.responseText))
-        else err(xhr.status, xhr.responseText)
-    }
-    xhr.open("GET", "/api/orders?limit=25&start=" + start, true)
-    xhr.send(null)
-}
-
-function getOrdersCount(callback) {
-    var xhr = new XMLHttpRequest()
-    xhr.onload = function () {
-        if (xhr.status == 200) callback(JSON.parse(xhr.responseText).count)
-        else err(xhr.status, xhr.responseText)
-    }
-    xhr.open("GET", "/api/orders/count", true)
-    xhr.send(null)
 }
 
 var orderBody = document.getElementById("order-body")
@@ -65,7 +40,7 @@ function advanceCursor(amount) {
                 orderBody.innerHTML += renderRow(order)
             })
             loadingBit.style.opacity = 0
-        }, () => { })
+        })
     })
 }
 

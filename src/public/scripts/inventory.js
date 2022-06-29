@@ -31,39 +31,6 @@ function renderDropdown(item, categories) {
     return out
 }
 
-function setCategory(itemID, categoryID) {
-    var xhr = new XMLHttpRequest()
-    xhr.onload = function () {
-        if (xhr.status == 200) renderItems()
-        else err(xhr.status, xhr.responseText)
-    }
-    xhr.open("POST", "/api/items/" + itemID, true)
-    xhr.setRequestHeader("Content-Type", "application/json")
-    xhr.send(JSON.stringify({
-        category_id: categoryID
-    }))
-}
-
-function getCategories(callback, err) {
-    var xhr = new XMLHttpRequest()
-    xhr.onload = function () {
-        if (xhr.status == 200) callback(JSON.parse(xhr.responseText))
-        else err(xhr.status, xhr.responseText)
-    }
-    xhr.open("GET", "/api/categories", true)
-    xhr.send(null)
-}
-
-function getItems(callback, err) {
-    var xhr = new XMLHttpRequest()
-    xhr.onload = function () {
-        if (xhr.status == 200) callback(JSON.parse(xhr.responseText))
-        else err(xhr.status, xhr.responseText)
-    }
-    xhr.open("GET", "/api/items", true)
-    xhr.send(null)
-}
-
 var inventoryBody = document.getElementById("inventory-body")
 
 function renderItems() {
@@ -75,7 +42,7 @@ function renderItems() {
             })
             inventoryBody.innerHTML = newHTML
         })
-    }, console.error)
+    })
 }
 
 renderItems()

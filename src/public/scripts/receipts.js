@@ -1,4 +1,5 @@
 var currency = "EUR"
+var toCurrency = document.querySelector(".to")
 
 async function renderRow(receipt) {
     var template = `<tr>
@@ -56,10 +57,11 @@ function updateValue(e) {
 }
 
 // Event when currency is changed
-// toCurrency.addEventListener('change', (event) => {
-//     console.log("hello")
-//     resultTo = `${event.target.value}`;
-// })
+toCurrency.addEventListener('change', (event) => {
+    console.log("hello")
+    currency = `${event.target.value}`;
+    advanceCursor(0)
+})
 
 // function for updating value
 function updateValue(e) {

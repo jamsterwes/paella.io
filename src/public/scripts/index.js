@@ -72,6 +72,19 @@ function setCategory(itemID, categoryID, err = console.error) {
     }))
 }
 
+function setCategoryColor(categoryColor, categoryID, err = console.error) {
+    var xhr = new XMLHttpRequest()
+    xhr.onload = function () {
+        if (xhr.status == 200) renderItems()
+        else err(xhr.status, xhr.responseText)
+    }
+    xhr.open("POST", "/api/categories/" + categoryID, true)
+    xhr.setRequestHeader("Content-Type", "application/json")
+    xhr.send(JSON.stringify({
+        category_color: categoryColor
+    }))
+}
+
 function getReceipts(start, callback, err = console.error) {
     var xhr = new XMLHttpRequest()
     xhr.onload = function () {

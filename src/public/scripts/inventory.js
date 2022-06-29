@@ -22,6 +22,15 @@ function renderRow(item, categories) {
     return template
 }
 
+function renderCategory(category) {
+    var template = `<tr>
+        <th scope="row">${category.category_name}</th>
+        <td><div id="color-picker-cat${category.id}"></div></td>
+    </tr>`
+
+    return template
+}
+
 function renderDropdown(item, categories) {
     var out = `<div class="dropdown-menu category-menu">`;
     Object.values(categories).forEach(category => {
@@ -46,3 +55,50 @@ function renderItems() {
 }
 
 renderItems()
+
+var categoryBody = document.getElementById("category-body")
+var pickers = []
+
+function renderCategories() {
+    getCategories(categories => {
+        var newHTML = ""
+        Object.values(categories).forEach(category => {
+            newHTML += renderCategory(category)
+        })
+        categoryBody.innerHTML = newHTML
+
+        // Add color pickers
+        Object.values(categories).forEach(category => {
+            var picker = Pickr.create({
+                el: '#color-picker-cat' + category.id,
+                theme: 'nano', // or 'monolith', or 'nano'
+                default: category.category_color,
+                comparison: false,
+                components: {
+                    // Main components
+                    preview: true,
+                    hue: true,
+            
+                    // Input / output Options
+                    interaction: {
+                        hex: false,
+                        rgba: false,
+                        hsla: false,
+                        hsva: false,
+                        cmyk: false,
+                        input: false,
+                        clear: false,
+                        save: false
+                    }
+                }
+            })
+            picker.on('changestop', (source, instance) => {
+                setCategoryColor(picker.getColor().toHEXA().toString(), category.id)
+                renderItems()
+            })
+            pickers.push(picker)
+        })
+    })
+}
+
+renderCategories()

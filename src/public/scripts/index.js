@@ -107,3 +107,8 @@ function swapColors() {
     var element = document.body;
     element.classList.toggle("colorblind");
  }
+
+ function swapFonts() {
+    var element = document.body;
+    element.classList.toggle("dyslexic");
+ }

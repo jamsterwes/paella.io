@@ -26,6 +26,10 @@ body.colorblind {
     font-family: open-dyslexic;
 }
 
+body.dyslexic {
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+} 
+
 body {
     background-color: var(--bkg);
     color: white;

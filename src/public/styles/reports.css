@@ -25,6 +25,8 @@
     border-bottom-color: transparent;
 }
 
+
+/* tabs styling */
 .nav-tabs {
     border-bottom-color: #343a40;
 }
@@ -32,4 +34,18 @@
 .tab-content>.tab-pane {
     background-color: var(--light-bkg);
     height: 75vh;
+}
+
+.container {
+    margin-right: auto;
+    margin-left: auto;
+    max-width: 90vw;
+}
+
+.reports-radio-text {
+    margin-left: 10px;
+}
+
+.input-group-text {
+    margin-right: 10px;
 }

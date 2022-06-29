@@ -119,6 +119,16 @@ function getReceipts(start, callback, err = console.error) {
     xhr.send(null)
 }
 
+function deleteCategory(id, callback, err = console.error) {
+    var xhr = new XMLHttpRequest()
+    xhr.onload = function () {
+        if (xhr.status == 200) callback(JSON.parse(xhr.responseText))
+        else err(xhr.status, xhr.responseText)
+    }
+    xhr.open("DELETE", "/api/categories/" + id, true)
+    xhr.send(null)
+}
+
 function getReceiptsCount(callback, err = console.error) {
     var xhr = new XMLHttpRequest()
     xhr.onload = function () {
@@ -138,6 +148,17 @@ function sendReceipt(receipt, callback, err = console.error) {
     xhr.open("POST", "/api/receipts", true)
     xhr.setRequestHeader("Content-Type", "application/json")
     xhr.send(JSON.stringify(receipt))
+}
+
+function sendCategory(category, callback, err = console.error) {
+    var xhr = new XMLHttpRequest()
+    xhr.onload = function () {
+        if (xhr.status == 200) callback(JSON.parse(xhr.responseText))
+        else err(xhr.status, xhr.responseText)
+    }
+    xhr.open("POST", "/api/categories", true)
+    xhr.setRequestHeader("Content-Type", "application/json")
+    xhr.send(JSON.stringify(category))
 }
 
 function makeEditableField(id, editCallback, toEditFormat = (x => x), fromEditFormat = (x => x)) {
@@ -165,7 +186,7 @@ function makeEditableField(id, editCallback, toEditFormat = (x => x), fromEditFo
         }
 
         var keydown = (e) => {
-            if(e.key === 'Enter') {
+            if (e.key === 'Enter') {
                 submit()
             }
         }

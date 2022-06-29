@@ -22,3 +22,7 @@
     transition-property: opacity;
     transition-duration: 100ms;
 }
+
+.cross-text {
+    text-decoration: line-through;
+}

@@ -37,6 +37,7 @@ function renderCategory(category) {
     var template = `<tr>
         <th scope="row"><div id="cat-name-${category.id}">${category.category_name}</div></th>
         <td><div id="color-picker-cat${category.id}"></div></td>
+        <td style="text-align: center"><button class="btn btn-delete" ${category.id == 0 ? "disabled" : ""} onclick="removeCategory(${category.id})"><i class="fa-solid fa-trash"></i></button></td>
     </tr>`
 
     return template
@@ -49,6 +50,14 @@ function renderDropdown(item, categories) {
     })
     out += `</div>`
     return out
+}
+
+function removeCategory(id) {
+    if (id == 0) return;
+    deleteCategory(id, () => {
+        renderCategories()
+        renderItems()
+    })
 }
 
 var inventoryBody = document.getElementById("inventory-body")
@@ -127,6 +136,8 @@ function renderCategories() {
             makeEditableField("cat-name-" + category.id, value => {
                 // Send update to DB
                 setCategoryName(value, category.id)
+                renderItems()
+                return true;
             })
 
             // Add color picker
@@ -163,3 +174,37 @@ function renderCategories() {
 }
 
 renderCategories()
+
+var addCategoryColorPicker = Pickr.create({
+    el: '#new-category-color',
+    theme: 'nano',
+    default: '#FF0000',
+    comparison: false,
+    components: {
+        // Main components
+        preview: true,
+        hue: true,
+
+        // Input / output Options
+        interaction: {
+            hex: false,
+            rgba: false,
+            hsla: false,
+            hsva: false,
+            cmyk: false,
+            input: false,
+            clear: false,
+            save: false
+        }
+    }
+})
+
+var newCategoryName = document.getElementById("new-category-name")
+
+function addCategory() {
+    var name = newCategoryName.value
+    var color = addCategoryColorPicker.getColor().toHEXA().toString()
+    sendCategory({category_name: name, category_color: color}, () => {
+        renderCategories()
+    })
+}

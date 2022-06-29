@@ -102,3 +102,8 @@ function sendReceipt(receipt, callback, err = console.error) {
     xhr.setRequestHeader("Content-Type", "application/json")
     xhr.send(JSON.stringify(receipt))
 }
+
+function swapColors() {
+    var element = document.body;
+    element.classList.toggle("colorblind");
+ }

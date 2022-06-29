@@ -12,6 +12,20 @@ body {
     --light-bkg: #1e2933;
 }
 
+body.colorblind {
+    --red: #464646;
+    --maroon: #535353;
+    --blue: #3e3e3e;
+    --navy: #2b2b2b;
+    --green: #5a5a5a;
+    --dark-green: #414141;
+    --yellow: #cccccc;
+    --gold: #a4a4a4;
+    --dark: #181818;
+    --bkg: #121212;
+    font-family: open-dyslexic;
+}
+
 body {
     background-color: var(--bkg);
     color: white;

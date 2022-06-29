@@ -186,7 +186,7 @@ function makeEditableField(id, editCallback, toEditFormat = (x => x), fromEditFo
         }
 
         var keydown = (e) => {
-            if(e.key === 'Enter') {
+            if (e.key === 'Enter') {
                 submit()
             }
         }

@@ -25,7 +25,7 @@ function renderRow(item, categories) {
 
 function changeByWeight(el, id) {
     var byWeight = el.checked
-    updateItem(id, {by_weight: byWeight})
+    updateItem(id, { by_weight: byWeight })
     if (byWeight) {
         document.getElementById("item-unit-" + id).innerText = "kg"
     } else {
@@ -77,17 +77,17 @@ function renderItems() {
                     // Check for invalid
                     if (isNaN(value)) return false;
                     // Send update to DB
-                    updateItem(item.id, {display_name: value})
+                    updateItem(item.id, { display_name: value })
                     // Valid
                     return true;
                 })
-                
+
                 // Add editable unit-price
                 makeEditableField("item-unit-price-" + item.id, value => {
                     // Check for invalid
                     if (isNaN(value)) return false;
                     // Send update to DB
-                    updateItem(item.id, {unit_price: value})
+                    updateItem(item.id, { unit_price: value })
                     // Valid
                     return true;
                 }, display => {
@@ -97,13 +97,13 @@ function renderItems() {
                     // Convert input to display
                     return parseFloat(input).toFixed(2).replace(".", ",")
                 })
-                
+
                 // Add editable quantity
                 makeEditableField("item-quantity-" + item.id, value => {
                     // Check for invalid
                     if (isNaN(value)) return false;
                     // Send update to DB
-                    updateItem(item.id, {quantity: value})
+                    updateItem(item.id, { quantity: value })
                     // Valid
                     return true;
                 }, display => {
@@ -150,7 +150,7 @@ function renderCategories() {
                     // Main components
                     preview: true,
                     hue: true,
-            
+
                     // Input / output Options
                     interaction: {
                         hex: false,
@@ -204,7 +204,7 @@ var newCategoryName = document.getElementById("new-category-name")
 function addCategory() {
     var name = newCategoryName.value
     var color = addCategoryColorPicker.getColor().toHEXA().toString()
-    sendCategory({category_name: name, category_color: color}, () => {
+    sendCategory({ category_name: name, category_color: color }, () => {
         renderCategories()
     })
 }

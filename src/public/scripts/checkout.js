@@ -156,7 +156,7 @@ function renderCategories() {
 function renderItems(category) {
     itemBtns.innerHTML = ""
     itemBtns.innerHTML += "<div class=\"col-md-4 mb-2\"><button class=\"btn btn-light"
-                + "\" onclick=\"renderCategories()\" style=\"width: 100%; text-align: center\">&lt;&lt; Back</button></div>"
+        + "\" onclick=\"renderCategories()\" style=\"width: 100%; text-align: center\">&lt;&lt; Back</button></div>"
     getItems(items => {
         var i = 1
         Object.values(items).filter(x => x.category_id == category).forEach(item => {

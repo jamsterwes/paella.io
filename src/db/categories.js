@@ -22,7 +22,7 @@ function categories(db) {
             // Add categories to dict
             var rows = await db.query("SELECT * FROM categories")
             rows.forEach(row => {
-                obj[row.id] = {...row, count: 0}
+                obj[row.id] = { ...row, count: 0 }
             })
 
             // Calculate # of items in category
@@ -38,14 +38,14 @@ function categories(db) {
             var id = await nextID()
 
             if (!("category_color" in req.body) || !("category_name" in req.body)) {
-                res.status(400).json({error: "Missing required field(s)!"})
+                res.status(400).json({ error: "Missing required field(s)!" })
             }
 
             await db.query("INSERT INTO categories (id, category_color, category_name) VALUES ($1, $2, $3)", id, req.body.category_color, req.body.category_name)
-            
+
             res.json({ id })
         })
-    
+
 
     // POST /<id> update category
     router.route("/:catId")
@@ -53,7 +53,7 @@ function categories(db) {
             var intID = parseInt(req.params.catId)
 
             if (!("category_color" in req.body) && !("category_name" in req.body)) {
-                res.status(400).json({error: "Missing required field(s)!"})
+                res.status(400).json({ error: "Missing required field(s)!" })
             }
 
             if ("category_color" in req.body) {
@@ -69,13 +69,13 @@ function categories(db) {
         })
         .delete(async (req, res, next) => {
             var intID = parseInt(req.params.catId)
-            
+
             await db.query("DELETE FROM categories WHERE id = $1", intID)
             await db.query("UPDATE items SET category_id = 0 WHERE category_id = $1", intID)
 
             res.json({ success: true })
         })
-    
+
     // Return finished router
     return router
 }

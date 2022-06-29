@@ -12,7 +12,13 @@ function categories(db) {
             // Add categories to dict
             var rows = await db.query("SELECT * FROM categories")
             rows.forEach(row => {
-                obj[row.id] = row
+                obj[row.id] = {...row, count: 0}
+            })
+
+            // Calculate # of items in category
+            rows = await db.query("SELECT category_id, COUNT(*) as count FROM items GROUP BY category_id")
+            rows.forEach(row => {
+                obj[row.category_id].count = parseInt(row.count)
             })
 
             // Respond to client

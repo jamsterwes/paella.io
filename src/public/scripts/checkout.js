@@ -93,21 +93,6 @@ function addItem(id) {
     updateName(id)
 }
 
-var itemBtns = document.getElementById("item-btns")
-getItems(items => {
-    var i = 0
-    Object.keys(items).forEach(item => {
-        itemBtns.innerHTML += "<div class=\"col-md-4 mb-2\"><button class=\"btn btn-"
-            + ((Math.floor(i / 3) % 2) == 0 ? "delete" : "info")
-            + "\" onclick=\"addItem("
-            + items[item].id
-            + ")\" style=\"width: 100%; text-align: center\">"
-            + items[item].display_name
-            + "</button></div>"
-        i += 1
-    })
-})
-
 var selectedItemName = document.getElementById("selected-item-name")
 var productUnit = document.getElementById("product-unit")
 
@@ -181,3 +166,49 @@ var checkout = function () {
     xhr.setRequestHeader("Content-Type", "application/json")
     xhr.send(JSON.stringify(receipt))
 }
+
+function getCategories(callback, err) {
+    var xhr = new XMLHttpRequest()
+    xhr.onload = function () {
+        if (xhr.status == 200) callback(JSON.parse(xhr.responseText))
+        else err(xhr.status, xhr.responseText)
+    }
+    xhr.open("GET", "/api/categories", true)
+    xhr.send(null)
+}
+
+// Render categories
+var itemBtns = document.getElementById("item-btns")
+
+function renderCategories() {
+    itemBtns.innerHTML = ""
+    getCategories(categories => Object.values(categories).forEach(category => {
+        itemBtns.innerHTML += `
+        <div class="col-md-4 mb-2">
+            <button class="btn" onclick="renderItems(${category.id})" style="width: 100%; text-align: center; color: white; background-color: ${category.category_color}">
+                ${category.category_name} <span style="background-color: white; color: black; font-family: 'Arial'" class="ml-2 badge">${category.count}</span>
+            </button>
+        </div>`
+    }))
+}
+
+function renderItems(category) {
+    itemBtns.innerHTML = ""
+    itemBtns.innerHTML += "<div class=\"col-md-4 mb-2\"><button class=\"btn btn-light"
+                + "\" onclick=\"renderCategories()\" style=\"width: 100%; text-align: center\">&lt;&lt; Back</button></div>"
+    getItems(items => {
+        var i = 1
+        Object.values(items).filter(x => x.category_id == category).forEach(item => {
+            itemBtns.innerHTML += "<div class=\"col-md-4 mb-2\"><button class=\"btn btn-"
+                + ((Math.floor(i / 3) % 2) == 0 ? "delete" : "info")
+                + "\" onclick=\"addItem("
+                + item.id
+                + ")\" style=\"width: 100%; text-align: center\">"
+                + item.display_name
+                + "</button></div>"
+            i += 1
+        })
+    })
+}
+
+renderCategories()

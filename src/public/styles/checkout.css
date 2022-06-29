@@ -37,6 +37,7 @@ tr, td {
     font-family: "Staatliches";
     font-size: 24pt;
     height: 100%;
+    max-height: 12vh;
 }
 
 #item-btns .col-md-4 {

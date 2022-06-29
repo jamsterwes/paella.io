@@ -12,6 +12,11 @@ body {
     --light-bkg: #1e2933;
 }
 
+body {
+    background-color: var(--bkg);
+    color: white;
+}
+
 body.colorblind {
     --red: #464646;
     --maroon: #535353;
@@ -26,14 +31,15 @@ body.colorblind {
     font-family: open-dyslexic;
 }
 
-body.dyslexic {
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
-} 
-
-body {
-    background-color: var(--bkg);
-    color: white;
+@font-face {
+    font-family: open-dyslexic;
+    src: url("fonts/OpenDyslexic-Bold") format("opentype");
 }
+
+body.dyslexic {
+    font-size:32px;
+	font-family: open-dyslexic;
+} 
 
 #order-nav{
     margin-bottom: 30px;

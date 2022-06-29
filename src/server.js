@@ -12,6 +12,10 @@ const db = require('./db/database')
 const items = require('./db/items')
 app.use("/api/items", items(db))
 
+// Categories API
+const categories = require('./db/categories')
+app.use("/api/categories", categories(db))
+
 // Receipts API
 const receipts = require('./db/receipts')
 app.use("/api/receipts", receipts(db))

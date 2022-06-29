@@ -2,9 +2,9 @@ function renderRow(item, categories) {
     var dropdown = renderDropdown(item, categories)
     var unit = item.by_weight ? "kg" : "unit"
     var template = `<tr>
-        <th scope="row">${item.display_name}</th>
-        <td>${item.unit_price.toLocaleString('es-ES', { minimumFractionDigits: 2 })}</td>
-        <td>${item.remaining_stock.toLocaleString('es-ES', { minimumFractionDigits: 3 })} ${unit}</td>
+        <th scope="row"><div id="item-name-${item.id}">${item.display_name}</div></th>
+        <td><div id="item-unit-price-${item.id}">${item.unit_price.toLocaleString('es-ES', { minimumFractionDigits: 2 })}</div></td>
+        <td><span id="item-quantity-${item.id}">${item.remaining_stock.toLocaleString('es-ES', { minimumFractionDigits: 3 })}</span> ${unit}</td>
         <td style="text-align: center">
             <!-- <a href="" class="btn btn-primary border border-dark "
                 id="category-btn">Category</a> -->
@@ -50,6 +50,50 @@ function renderItems() {
                 newHTML += renderRow(item, categories)
             })
             inventoryBody.innerHTML = newHTML
+            // Wire editable fields
+            Object.values(items).forEach(item => {
+                // Add editable name
+                makeEditableField("item-name-" + item.id, value => {
+                    // Check for invalid
+                    if (isNaN(value)) return false;
+                    // Send update to DB
+                    updateItem(item.id, {display_name: value})
+                    // Valid
+                    return true;
+                })
+                
+                // Add editable unit-price
+                makeEditableField("item-unit-price-" + item.id, value => {
+                    // Check for invalid
+                    if (isNaN(value)) return false;
+                    // Send update to DB
+                    updateItem(item.id, {unit_price: value})
+                    // Valid
+                    return true;
+                }, display => {
+                    // Convert display to input
+                    return parseFloat(display.replace(",", "."))
+                }, input => {
+                    // Convert input to display
+                    return parseFloat(input).toFixed(2).replace(".", ",")
+                })
+                
+                // Add editable quantity
+                makeEditableField("item-quantity-" + item.id, value => {
+                    // Check for invalid
+                    if (isNaN(value)) return false;
+                    // Send update to DB
+                    updateItem(item.id, {quantity: value})
+                    // Valid
+                    return true;
+                }, display => {
+                    // Convert display to input
+                    return parseFloat(display.replace(",", "."))
+                }, input => {
+                    // Convert input to display
+                    return parseFloat(input).toFixed(3).replace(".", ",")
+                })
+            })
         })
     })
 }

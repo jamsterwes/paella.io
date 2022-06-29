@@ -140,28 +140,37 @@ function sendReceipt(receipt, callback, err = console.error) {
     xhr.send(JSON.stringify(receipt))
 }
 
-function makeEditableField(id, editCallback) {
+function makeEditableField(id, editCallback, toEditFormat = (x => x), fromEditFormat = (x => x)) {
     var el = document.getElementById(id);
     el.addEventListener('dblclick', () => {
         if (el.innerHTML.startsWith("<input")) return;
-        value = el.innerText
+        var value = toEditFormat(el.innerText).toString()
         el.innerHTML = `<input class="form-control" type="text" value="${value}" />`
         var input = el.children[0]
         input.focus()
         input.setSelectionRange(0, value.length)
-        
-        var submit = () => {
-            // Edit callback
-            editCallback(input.value)
-            // Update text
-            el.innerHTML = input.value;
+
+        var submit = function () {
+            input.removeEventListener('blur', submit)
+            input.removeEventListener('keydown', keydown)
+            // If valid, update
+            // Otherwise, rollback
+            if (editCallback(input.value)) {
+                // Update text
+                el.innerHTML = fromEditFormat(input.value)
+            } else {
+                // Rollback
+                el.innerHTML = fromEditFormat(value)
+            }
         }
 
-        input.addEventListener('blur', submit)
-        input.addEventListener('keydown', (e) => {
+        var keydown = (e) => {
             if(e.key === 'Enter') {
                 submit()
             }
-        })
+        }
+
+        input.addEventListener('blur', submit)
+        input.addEventListener('keydown', keydown)
     })
 }

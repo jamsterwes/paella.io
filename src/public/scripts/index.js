@@ -72,10 +72,34 @@ function setCategory(itemID, categoryID, err = console.error) {
     }))
 }
 
+function updateItem(id, data, err = console.error) {
+    var xhr = new XMLHttpRequest()
+    xhr.onload = function () {
+        if (xhr.status == 200) return;
+        else err(xhr.status, xhr.responseText)
+    }
+    xhr.open("POST", "/api/items/" + id, true)
+    xhr.setRequestHeader("Content-Type", "application/json")
+    xhr.send(JSON.stringify(data))
+}
+
+function setCategoryName(name, categoryID, err = console.error) {
+    var xhr = new XMLHttpRequest()
+    xhr.onload = function () {
+        if (xhr.status == 200) return;
+        else err(xhr.status, xhr.responseText)
+    }
+    xhr.open("POST", "/api/categories/" + categoryID, true)
+    xhr.setRequestHeader("Content-Type", "application/json")
+    xhr.send(JSON.stringify({
+        category_name: name
+    }))
+}
+
 function setCategoryColor(categoryColor, categoryID, err = console.error) {
     var xhr = new XMLHttpRequest()
     xhr.onload = function () {
-        if (xhr.status == 200) renderItems()
+        if (xhr.status == 200) return;
         else err(xhr.status, xhr.responseText)
     }
     xhr.open("POST", "/api/categories/" + categoryID, true)
@@ -114,4 +138,30 @@ function sendReceipt(receipt, callback, err = console.error) {
     xhr.open("POST", "/api/receipts", true)
     xhr.setRequestHeader("Content-Type", "application/json")
     xhr.send(JSON.stringify(receipt))
+}
+
+function makeEditableField(id, editCallback) {
+    var el = document.getElementById(id);
+    el.addEventListener('dblclick', () => {
+        if (el.innerHTML.startsWith("<input")) return;
+        value = el.innerText
+        el.innerHTML = `<input class="form-control" type="text" value="${value}" />`
+        var input = el.children[0]
+        input.focus()
+        input.setSelectionRange(0, value.length)
+        
+        var submit = () => {
+            // Edit callback
+            editCallback(input.value)
+            // Update text
+            el.innerHTML = input.value;
+        }
+
+        input.addEventListener('blur', submit)
+        input.addEventListener('keydown', (e) => {
+            if(e.key === 'Enter') {
+                submit()
+            }
+        })
+    })
 }

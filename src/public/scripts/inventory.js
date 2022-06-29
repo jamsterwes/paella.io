@@ -24,7 +24,7 @@ function renderRow(item, categories) {
 
 function renderCategory(category) {
     var template = `<tr>
-        <th scope="row">${category.category_name}</th>
+        <th scope="row"><div id="cat-name-${category.id}">${category.category_name}</div></th>
         <td><div id="color-picker-cat${category.id}"></div></td>
     </tr>`
 
@@ -67,8 +67,14 @@ function renderCategories() {
         })
         categoryBody.innerHTML = newHTML
 
-        // Add color pickers
         Object.values(categories).forEach(category => {
+            // Add editable name
+            makeEditableField("cat-name-" + category.id, value => {
+                // Send update to DB
+                setCategoryName(value, category.id)
+            })
+
+            // Add color picker
             var picker = Pickr.create({
                 el: '#color-picker-cat' + category.id,
                 theme: 'nano', // or 'monolith', or 'nano'

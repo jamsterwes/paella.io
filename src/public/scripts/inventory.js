@@ -1,7 +1,7 @@
 function renderRow(item, categories) {
     var dropdown = renderDropdown(item, categories)
     var unit = item.by_weight ? "kg" : "unit"
-    var template = `<tr>
+    var template = `<tr id="row-item-${item.id}">
         <th scope="row"><div id="item-name-${item.id}">${item.display_name}</div></th>
         <td><div id="item-unit-price-${item.id}">${item.unit_price.toLocaleString('es-ES', { minimumFractionDigits: 2 })}</div></td>
         <td><span id="item-quantity-${item.id}">${item.remaining_stock.toLocaleString('es-ES', { minimumFractionDigits: 3 })}</span> <span id="item-unit-${item.id}">${unit}</span></td>
@@ -17,8 +17,8 @@ function renderRow(item, categories) {
                 ${dropdown}
             </div>
         </td>
-        <td style="text-align: center"><a href="" class="btn btn-delete border border-dark"
-                id="delete-btn"><i class="fa-solid fa-trash"></i></a></td>
+        <td style="text-align: center"><a class="btn btn-delete border border-dark"
+                id="delete-btn" onclick="removeItem(${item.id})"><i class="fa-solid fa-trash"></i></a></td>
     </tr>`
     return template
 }
@@ -41,6 +41,21 @@ function renderCategory(category) {
     </tr>`
 
     return template
+}
+
+function renderFormDropdown(id, categories, selectCallbackName) {
+    var out = `
+    <div class="dropdown">
+    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu2"
+        data-toggle="dropdown" aria-expanded="false" style="background-color: ${categories[id].category_color}">
+        ${categories[id].category_name}
+    </button>
+    <div class="dropdown-menu category-menu">`;
+    Object.values(categories).forEach(category => {
+        out += `<button class="dropdown-item" type="button" onclick="${selectCallbackName}(${category.id})"><span style="background-color: ${category.category_color}; color: white; width: 100%; text-align: left" class="badge">${category.category_name}</span></button>`;
+    })
+    out += `</div>`
+    return out
 }
 
 function renderDropdown(item, categories) {
@@ -201,6 +216,37 @@ var addCategoryColorPicker = Pickr.create({
 
 var newCategoryName = document.getElementById("new-category-name")
 
+var newItemCategory = 0
+function newItemSetCategory(id) {
+    newItemCategory = id
+    renderFormCategory()
+}
+
+function renderFormCategory() {
+    getCategories(categories => {
+        document.getElementById('new-item-category').innerHTML = renderFormDropdown(newItemCategory, categories, "newItemSetCategory")
+    })
+}
+
+var newItemName = document.getElementById("new-item-name")
+var newItemUnitPrice = document.getElementById("new-item-unit-price")
+var newItemByWeight = document.getElementById("new-item-by-weight")
+function addItem() {
+    var display_name = newItemName.value
+    var unit_price = newItemUnitPrice.value
+    var by_weight = newItemByWeight.checked
+
+    sendItem({ display_name, unit_price, by_weight, category_id: newItemCategory }, () => {
+        renderItems()
+    })
+}
+
+function removeItem(id) {
+    deleteItem(id, () => {
+        renderItems()
+    })
+}
+
 function addCategory() {
     var name = newCategoryName.value
     var color = addCategoryColorPicker.getColor().toHEXA().toString()
@@ -208,3 +254,5 @@ function addCategory() {
         renderCategories()
     })
 }
+
+renderFormCategory()

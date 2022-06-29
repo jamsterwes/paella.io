@@ -45,15 +45,16 @@ function items(db) {
             }
 
             // Unpack request body
-            var { display_name, unit_price, by_weight } = req.body
+            var { display_name, unit_price, by_weight, category_id } = req.body
 
             // Get next item id, and insert
             var id = await nextID()
-            await db.query("INSERT INTO items (id, display_name, unit_price, by_weight, category_id) VALUES ($1, $2, $3, $4, 0)",
+            await db.query("INSERT INTO items (id, display_name, unit_price, by_weight, category_id) VALUES ($1, $2, $3, $4, $5)",
                 id,
                 display_name,
                 unit_price,
-                by_weight)
+                by_weight,
+                category_id || 0)
 
             // Reply to client with new ID
             res.json({ id })

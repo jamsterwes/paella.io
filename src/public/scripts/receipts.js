@@ -1,3 +1,11 @@
+var toCurrency = document.querySelector(".to")
+const api = "https://api.exchangerate-api.com/v4/latest/USD"
+var resultFrom = 'EUR'
+var finalValue = document.querySelector(".finalValue")
+var search = document.querySelector(".searchBox")
+var resultTo
+var searchValue
+
 function renderRow(receipt) {
     var template = `<tr>
     <td scope="row">${formatDBTime(receipt.transaction_date)}</td>
@@ -43,6 +51,42 @@ function advanceCursor(amount) {
             loadingBit.style.opacity = 0
         })
     })
+}
+
+// call the event handler
+search.addEventListener('input', updateValue);
+  
+// function for updating value
+function updateValue(e) {
+    searchValue = e.target.value;
+}
+
+// Event when currency is changed
+toCurrency.addEventListener('change', (event) => {
+    console.log("hello")
+    resultTo = `${event.target.value}`;
+    getResults()
+})
+
+// function for updating value
+function updateValue(e) {
+    searchValue = e.target.value
+}
+  
+// function getresults
+function getResults() {
+    fetch(`${api}`)
+        .then(currency => {
+            return currency.json()
+        }).then(displayResults)
+}
+  
+// display results after convertion
+function displayResults(currency) {
+    let fromRate = currency.rates[resultFrom]
+    let toRate = currency.rates[resultTo]
+    finalValue.innerHTML = ((toRate / fromRate) * searchValue).toFixed(2) + " " + resultTo
+    finalAmount.style.display = "block"
 }
 
 advanceCursor(0)

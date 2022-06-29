@@ -52,17 +52,24 @@
     <div id="checkout-content" class="container">
 
         <h1 class="col-md-12 text-center">Orders</h1>
-
-        <div class="row mb-3">
-            <div class="col-md-4">
-                <a style="width:100%" href="" id="delete-button" class="btn btn-secondary">Delete</a>
+        <div class="row mb-3 mt-3">
+            <div class="row" style="width: 100%">
+                <div class="col-md-6">
+                    <div class="btn-group">
+                        <button disabled id="prev-btn" class="btn btn-light" onclick="advanceCursor(-25)">&lt;&lt; Previous</button>
+                        <button id="next-btn" class="btn btn-light" onclick="advanceCursor(25)">Next &gt;&gt;</button>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="ml-2 text-right" id="loading-bit" style="opacity: 0;">
+                        <i class="fa-solid fa-spinner"></i> Loading...
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <button style="width:100%" id="new-item-button" class="btn btn-submit">New Order</button>
+                </div>
             </div>
-            <div class="col-md-4">
-                <button style="width:100%" id="update-button" class="btn btn-success">Update</button>
-            </div>
-            <div class="col-md-4">
-                <button style="width:100%" id="new-item-button" class="btn btn-submit">New Order</button>
-            </div>
+  
         </div>
         <div class="row mb-3">
         </div>

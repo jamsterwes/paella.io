@@ -1,6 +1,11 @@
+function formatDBTime(ts, locale = 'es-ES') {
+    var date = new Date(ts)
+    return date.toLocaleDateString(locale) + " " + date.toLocaleTimeString(locale)
+}
+
 function renderRow(order) {
     var template = `<tr>
-    <td scope="row">${order.delivery_date}</td>
+    <td scope="row">${formatDBTime(order.delivery_date)}</td>
     <th scope="row">${order.id}</th>
     <td scope="row">&euro;${order.cost.toLocaleString('es-ES', { minimumFractionDigits: 2 })}</td>
     <td scope="row">${order.received ? "Yes" : "No"}</td>

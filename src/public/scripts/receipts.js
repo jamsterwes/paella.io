@@ -1,6 +1,11 @@
+function formatDBTime(ts, locale = 'es-ES') {
+    var date = new Date(ts)
+    return date.toLocaleDateString(locale) + " " + date.toLocaleTimeString(locale)
+}
+
 function renderRow(receipt) {
     var template = `<tr>
-    <td scope="row">${receipt.transaction_date}</td>
+    <td scope="row">${formatDBTime(receipt.transaction_date)}</td>
     <th scope="row">${receipt.employee_id}</th>
     <td scope="row">${receipt.id}</td>
     <td scope="row">${receipt.is_cash ? "Yes" : "No"}</td>

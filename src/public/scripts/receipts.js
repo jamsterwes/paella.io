@@ -1,18 +1,12 @@
-var toCurrency = document.querySelector(".to")
-const api = "https://api.exchangerate-api.com/v4/latest/USD"
-var resultFrom = 'EUR'
-var finalValue = document.querySelector(".finalValue")
-var search = document.querySelector(".searchBox")
-var resultTo
-var searchValue
+var currency = "EUR"
 
-function renderRow(receipt) {
+async function renderRow(receipt) {
     var template = `<tr>
     <td scope="row">${formatDBTime(receipt.transaction_date)}</td>
     <th scope="row">${receipt.employee_id}</th>
     <td scope="row">${receipt.id}</td>
     <td scope="row">${receipt.is_cash ? "Yes" : "No"}</td>
-    <td scope="row">&euro;${receipt.total.toLocaleString('es-ES', { minimumFractionDigits: 2 })}</td>
+    <td scope="row">${await formatMoney(receipt.total, currency)}</td>
     <td style="text-align: center"><a href="" class="btn btn-delete border border-dark "
             id="delete-btn"><i class="fa-solid fa-file-circle-xmark"></i></i></a></td>
 </tr>`
@@ -43,18 +37,18 @@ function advanceCursor(amount) {
             document.getElementById("next-btn").removeAttribute("disabled")
         }
 
-        getReceipts(cursor, receipts => {
+        getReceipts(cursor, async receipts => {
             receiptBody.innerHTML = ""
-            Object.values(receipts).forEach(receipt => {
-                receiptBody.innerHTML += renderRow(receipt)
-            })
+            for (var receipt of Object.values(receipts)) {
+                receiptBody.innerHTML += await renderRow(receipt)
+            }
             loadingBit.style.opacity = 0
         })
     })
 }
 
 // call the event handler
-search.addEventListener('input', updateValue);
+// search.addEventListener('input', updateValue);
   
 // function for updating value
 function updateValue(e) {
@@ -62,31 +56,14 @@ function updateValue(e) {
 }
 
 // Event when currency is changed
-toCurrency.addEventListener('change', (event) => {
-    console.log("hello")
-    resultTo = `${event.target.value}`;
-    getResults()
-})
+// toCurrency.addEventListener('change', (event) => {
+//     console.log("hello")
+//     resultTo = `${event.target.value}`;
+// })
 
 // function for updating value
 function updateValue(e) {
     searchValue = e.target.value
-}
-  
-// function getresults
-function getResults() {
-    fetch(`${api}`)
-        .then(currency => {
-            return currency.json()
-        }).then(displayResults)
-}
-  
-// display results after convertion
-function displayResults(currency) {
-    let fromRate = currency.rates[resultFrom]
-    let toRate = currency.rates[resultTo]
-    finalValue.innerHTML = ((toRate / fromRate) * searchValue).toFixed(2) + " " + resultTo
-    finalAmount.style.display = "block"
 }
 
 advanceCursor(0)

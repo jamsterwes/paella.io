@@ -30,8 +30,39 @@ function orders(db) {
             var obj = {}
 
             // Get orders & rows
-            var orderRows = await db.query("SELECT * FROM orders ORDER BY id DESC");
-            var lineRows = await db.query("SELECT * FROM order_lines");
+            var orderRows
+            var lineRows
+
+            // If using limit
+            if (req.query.limit !== undefined) {
+                var limit = parseInt(req.query.limit)
+
+                // Get start (default 0)
+                var start = 0
+                if (req.query.start !== undefined) {
+                    start = parseInt(req.query.start)
+                }
+
+                orderRows = await db.query("SELECT * FROM orders ORDER BY id DESC LIMIT $1 OFFSET $2", limit, start)
+
+                // If orderRows is empty
+                if (orderRows.length == 0) {
+                    res.json({})
+                    return
+                }
+
+                // If orderRows is size 1 get only that ID, otherwise min/max ID
+                if (orderRows.length == 1) {
+                    lineRows = await db.query("SELECT * FROM order_lines WHERE order_id = $1", orderRows[0].id)
+                } else {
+                    var maxID = orderRows[0].id
+                    var minID = orderRows[orderRows.length - 1].id
+                    lineRows = await db.query("SELECT * FROM order_lines WHERE order_id >= $1 AND order_id <= $2", minID, maxID)
+                }
+            } else {
+                orderRows = await db.query("SELECT * FROM orders ORDER BY id DESC")
+                lineRows = await db.query("SELECT * FROM order_lines")
+            }
 
             // Interlace orders with respective rows
             orderRows.forEach(order => {
@@ -79,6 +110,14 @@ function orders(db) {
 
             // Reply with new ID
             res.json({ id })
+        })
+
+    // GET /count get # of orders
+    router.route("/count")
+        .get(async (req, res, next) => {
+            var rows = await db.query("SELECT COUNT(*) as count FROM orders")
+            var count = parseInt(rows[0].count)
+            res.json({ count })
         })
 
     // GET /<id> get order

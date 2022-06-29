@@ -33,7 +33,7 @@ function receipts(db) {
             // Get receipts & rows
             var receiptRows
             var lineRows
-            
+
             // If using limit
             if (req.query.limit !== undefined) {
                 var limit = parseInt(req.query.limit)
@@ -112,7 +112,7 @@ function receipts(db) {
             // Reply with new ID
             res.json({ id })
         })
-    
+
     // GET /count get # of receipts
     router.route("/count")
         .get(async (req, res, next) => {

@@ -2,8 +2,8 @@ function renderRow(item) {
     var unit = item.by_weight ? "kg" : "unit"
     var template = `<tr>
         <th scope="row">${item.display_name}</th>
-        <td>${item.unit_price.toLocaleString('es-ES', {minimumFractionDigits: 2})}</td>
-        <td>${item.remaining_stock.toLocaleString('es-ES', {minimumFractionDigits: 3})} ${unit}</td>
+        <td>${item.unit_price.toLocaleString('es-ES', { minimumFractionDigits: 2 })}</td>
+        <td>${item.remaining_stock.toLocaleString('es-ES', { minimumFractionDigits: 3 })} ${unit}</td>
         <td style="text-align: center">
             <!-- <a href="" class="btn btn-primary border border-dark "
                 id="category-btn">Category</a> -->
@@ -28,7 +28,7 @@ function renderRow(item) {
 
 function getItems(callback, err) {
     var xhr = new XMLHttpRequest()
-    xhr.onload = function() {
+    xhr.onload = function () {
         if (xhr.status == 200) callback(JSON.parse(xhr.responseText))
         else err(xhr.status, xhr.responseText)
     }
@@ -42,4 +42,4 @@ getItems(items => {
     Object.values(items).forEach(item => {
         inventoryBody.innerHTML += renderRow(item)
     })
-}, () => {})
+}, () => { })

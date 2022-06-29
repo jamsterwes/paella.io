@@ -26,12 +26,44 @@ function receipts(db) {
     // POST / add new receipt
     router.route("/")
         .get(async (req, res, next) => {
+
             // Create id->receipt dict
             var obj = {}
 
             // Get receipts & rows
-            var receiptRows = await db.query("SELECT * FROM receipts ORDER BY id DESC");
-            var lineRows = await db.query("SELECT * FROM receipt_lines");
+            var receiptRows
+            var lineRows
+            
+            // If using limit
+            if (req.query.limit !== undefined) {
+                var limit = parseInt(req.query.limit)
+
+                // Get start (default 0)
+                var start = 0
+                if (req.query.start !== undefined) {
+                    start = parseInt(req.query.start)
+                }
+
+                receiptRows = await db.query("SELECT * FROM receipts ORDER BY id DESC LIMIT $1 OFFSET $2", limit, start)
+
+                // If receiptRows is empty
+                if (receiptRows.length == 0) {
+                    res.json({})
+                    return
+                }
+
+                // If receiptRows is size 1 get only that ID, otherwise min/max ID
+                if (receiptRows.length == 1) {
+                    lineRows = await db.query("SELECT * FROM receipt_lines WHERE receipt_id = $1", receiptRows[0].id)
+                } else {
+                    var maxID = receiptRows[0].id
+                    var minID = receiptRows[receiptRows.length - 1].id
+                    lineRows = await db.query("SELECT * FROM receipt_lines WHERE receipt_id >= $1 AND receipt_id <= $2", minID, maxID)
+                }
+            } else {
+                receiptRows = await db.query("SELECT * FROM receipts ORDER BY id DESC")
+                lineRows = await db.query("SELECT * FROM receipt_lines")
+            }
 
             // Interlace receipts with respective rows
             receiptRows.forEach(receipt => {
@@ -79,6 +111,14 @@ function receipts(db) {
 
             // Reply with new ID
             res.json({ id })
+        })
+    
+    // GET /count get # of receipts
+    router.route("/count")
+        .get(async (req, res, next) => {
+            var rows = await db.query("SELECT COUNT(*) as count FROM receipts")
+            var count = parseInt(rows[0].count)
+            res.json({ count })
         })
 
     // GET /<id> get receipt

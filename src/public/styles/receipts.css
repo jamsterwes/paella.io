@@ -17,3 +17,8 @@
 #receipts-body tr:nth-child(2n) {
     background-color: rgba(0, 0, 0, 0.25);
 }
+
+#loading-bit {
+    transition-property: opacity;
+    transition-duration: 100ms;
+}

@@ -24,7 +24,6 @@ body {
 #footer {
     position: fixed;
     bottom: 0;
-    width: 100%;
     margin-left: 10px;
     margin-bottom: 5px;
     color: rgb(88, 88, 88);
@@ -97,4 +96,12 @@ thead.thead-darker {
 
 thead.thead-darker td { 
     border-color: #2b3035 !important;
+}
+
+.color-preview {
+    width: 50px;
+    height: 50px;
+    border: 2px solid white;
+    border-radius: 4.8px;
+    background-color: var(--preview);
 }

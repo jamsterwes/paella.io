@@ -26,7 +26,7 @@ function enterButton() {
     var sku = parseInt(productSku.value)
     var quantity = parseFloat(itemQuantity.value)
 
-    getItem(sku, function(item) {
+    getItem(sku, function (item) {
         if (sku in order) {
             order[sku].quantity += quantity
             order[sku].subtotal = item.unit_price * order[sku].quantity
@@ -46,7 +46,7 @@ function enterButton() {
         Object.values(order).forEach(line => {
             total += line.subtotal
         })
-        document.getElementById("checkout-amt").innerText = total.toLocaleString("es-ES", {minimumFractionDigits: 2})
+        document.getElementById("checkout-amt").innerText = total.toLocaleString("es-ES", { minimumFractionDigits: 2 })
         checkoutBody.innerHTML = ""
         Object.values(order).forEach(addReceiptLine)
     })
@@ -54,7 +54,7 @@ function enterButton() {
 
 function getItem(id, callback, err) {
     var xhr = new XMLHttpRequest()
-    xhr.onload = function() {
+    xhr.onload = function () {
         if (xhr.status == 200) callback(JSON.parse(xhr.responseText))
         else err(xhr.status, xhr.responseText)
     }
@@ -64,7 +64,7 @@ function getItem(id, callback, err) {
 
 function getItems(callback, err) {
     var xhr = new XMLHttpRequest()
-    xhr.onload = function() {
+    xhr.onload = function () {
         if (xhr.status == 200) callback(JSON.parse(xhr.responseText))
         else err(xhr.status, xhr.responseText)
     }
@@ -74,16 +74,16 @@ function getItems(callback, err) {
 
 function addReceiptLine(line) {
     checkoutBody.innerHTML += "<tr> <th scope=\"row\">"
-                            + line.name
-                            + "</th> <td>"
-                            + line.unit_price.toLocaleString("es-ES", {minimumFractionDigits: 2})
-                            + "</td> <td>"
-                            + line.quantity.toLocaleString("es-ES", {minimumFractionDigits: 3})
-                            + " "
-                            + (line.by_weight ? "kg" : "unit")
-                            + "</td> <td>&euro;"
-                            + line.subtotal.toLocaleString("es-ES", {minimumFractionDigits: 2})
-                            + "</td> </tr>"
+        + line.name
+        + "</th> <td>"
+        + line.unit_price.toLocaleString("es-ES", { minimumFractionDigits: 2 })
+        + "</td> <td>"
+        + line.quantity.toLocaleString("es-ES", { minimumFractionDigits: 3 })
+        + " "
+        + (line.by_weight ? "kg" : "unit")
+        + "</td> <td>&euro;"
+        + line.subtotal.toLocaleString("es-ES", { minimumFractionDigits: 2 })
+        + "</td> </tr>"
 }
 
 function addItem(id) {
@@ -97,13 +97,13 @@ var itemBtns = document.getElementById("item-btns")
 getItems(items => {
     var i = 0
     Object.keys(items).forEach(item => {
-        itemBtns.innerHTML += "<div class=\"col-md-4 mb-2\"><button class=\"btn btn-" 
-                            + ((Math.floor(i/3) % 2) == 0 ? "delete" : "info")
-                            + "\" onclick=\"addItem("
-                            + items[item].id
-                            + ")\" style=\"width: 100%; text-align: center\">"
-                            + items[item].display_name
-                            + "</button></div>"
+        itemBtns.innerHTML += "<div class=\"col-md-4 mb-2\"><button class=\"btn btn-"
+            + ((Math.floor(i / 3) % 2) == 0 ? "delete" : "info")
+            + "\" onclick=\"addItem("
+            + items[item].id
+            + ")\" style=\"width: 100%; text-align: center\">"
+            + items[item].display_name
+            + "</button></div>"
         i += 1
     })
 })
@@ -111,7 +111,7 @@ getItems(items => {
 var selectedItemName = document.getElementById("selected-item-name")
 var productUnit = document.getElementById("product-unit")
 
-var skuUpdated = function() {
+var skuUpdated = function () {
     var sku = parseInt(productSku.value)
     if (isNaN(sku)) {
         selectedItemName.innerText = "Invalid SKU!"
@@ -124,7 +124,7 @@ var skuUpdated = function() {
 
 var order = {}
 
-var addItemOnEnter = function(e) {
+var addItemOnEnter = function (e) {
     if (e.keyCode === 13) {
         enterButton()
     }
@@ -133,23 +133,23 @@ var addItemOnEnter = function(e) {
 productSku.addEventListener('keypress', addItemOnEnter)
 itemQuantity.addEventListener('keypress', addItemOnEnter)
 
-var updateUnit = function(id) {
-    getItem(id, function(item) {
+var updateUnit = function (id) {
+    getItem(id, function (item) {
         productUnit.innerText = item.by_weight ? "kg" : "unit"
-    }, function(err) {})
+    }, function (err) { })
 }
 
-var updateName = function(id) {
-    getItem(id, function(item) {
+var updateName = function (id) {
+    getItem(id, function (item) {
         selectedItemName.innerText = item.display_name
         selectedItemName.classList.remove("item-marquee-err")
-    }, function(err) {
+    }, function (err) {
         selectedItemName.innerText = "Invalid SKU!"
         selectedItemName.classList.add("item-marquee-err")
     })
 }
 
-var calcTotal = function(items) {
+var calcTotal = function (items) {
     var total = 0
     items.forEach(item => {
         total += item.unit_price * item.quantity
@@ -157,7 +157,7 @@ var calcTotal = function(items) {
     return total
 }
 
-var checkout = function() {
+var checkout = function () {
     // TODO: non-hardcoded employee_id
     var receipt = {
         total: calcTotal(Object.values(order)),
@@ -165,9 +165,9 @@ var checkout = function() {
         is_cash: cash,
         lines: Object.values(order)
     }
-    
+
     var xhr = new XMLHttpRequest()
-    xhr.onload = function() {
+    xhr.onload = function () {
         if (xhr.status == 200) {
             checkoutBody.innerHTML = ""
             order = {}

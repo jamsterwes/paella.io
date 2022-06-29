@@ -4,7 +4,7 @@ function renderRow(receipt) {
     <th scope="row">${receipt.employee_id}</th>
     <td scope="row">${receipt.id}</td>
     <td scope="row">${receipt.is_cash ? "Yes" : "No"}</td>
-    <td scope="row">&euro;${receipt.total.toLocaleString('es-ES', {minimumFractionDigits: 2})}</td>
+    <td scope="row">&euro;${receipt.total.toLocaleString('es-ES', { minimumFractionDigits: 2 })}</td>
     <td style="text-align: center"><a href="" class="btn btn-delete border border-dark "
             id="delete-btn"><i class="fa-solid fa-file-circle-xmark"></i></i></a></td>
 </tr>`
@@ -14,7 +14,7 @@ function renderRow(receipt) {
 
 function getReceipts(start, callback, err) {
     var xhr = new XMLHttpRequest()
-    xhr.onload = function() {
+    xhr.onload = function () {
         if (xhr.status == 200) callback(JSON.parse(xhr.responseText))
         else err(xhr.status, xhr.responseText)
     }
@@ -24,7 +24,7 @@ function getReceipts(start, callback, err) {
 
 function getReceiptsCount(callback) {
     var xhr = new XMLHttpRequest()
-    xhr.onload = function() {
+    xhr.onload = function () {
         if (xhr.status == 200) callback(JSON.parse(xhr.responseText).count)
         else err(xhr.status, xhr.responseText)
     }
@@ -61,7 +61,7 @@ function advanceCursor(amount) {
                 receiptBody.innerHTML += renderRow(receipt)
             })
             loadingBit.style.opacity = 0
-        }, () => {})
+        }, () => { })
     })
 }
 

@@ -72,18 +72,20 @@
         </div>
 
         <div class="row mb-3 mt-3">
-            <table class="table table-dark table-striped table-bordered">
-                <thead class="thead-darker">
-                    <tr>
-                        <th scope="col">Delivery Date</th>
-                        <th scope="col">Order ID</th>
-                        <th scope="col">Cost</th>
-                        <th scope="col">Received?</th>
-                        <th></th>
-                    </tr>
-                </thead>
-                <tbody id="order-body"></tbody>
-            </table>
+            <div style="height: 70vh; max-height: 70vh; overflow-y: scroll; width: 100%">
+                <table class="table table-dark table-striped table-bordered">
+                    <thead class="thead-darker">
+                        <tr>
+                            <th scope="col">Delivery Date</th>
+                            <th scope="col">Order ID</th>
+                            <th scope="col">Cost</th>
+                            <th scope="col">Received?</th>
+                            <th>Cancel Order</th>
+                        </tr>
+                    </thead>
+                    <tbody id="order-body"></tbody>
+                </table>
+            </div>
         </div>
     </div>
 

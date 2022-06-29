@@ -1,38 +1,22 @@
+// Render row in receipt (headers) table
+
 function renderRow(receipt) {
-    var template = `<tr data-toggle="modal" data-target="#receiptViewModal" onclick="renderLines(${receipt.id})">
+    var template = `<tr>
     <td scope="row">${formatDBTime(receipt.transaction_date)}</td>
     <th scope="row">${receipt.employee_id}</th>
     <td scope="row">${receipt.id}</td>
     <td scope="row">${receipt.is_cash ? "Yes" : "No"}</td>
     <td scope="row">&euro;${receipt.total.toLocaleString('es-ES', { minimumFractionDigits: 2 })}</td>
-    <td style="text-align: center"><a href="" class="btn btn-delete border border-dark "
-            id="delete-btn"><i class="fa-solid fa-file-circle-xmark"></i></i></a></td>
+    <td style="text-align: center"><button data-toggle="modal" data-target="#receiptViewModal" onclick="renderLines(${receipt.id})" class="btn btn-success border border-dark "
+            id="delete-btn"><i class="fa-solid fa-eye"></i></button></td>
+    <td style="text-align: center"><button class="btn btn-delete border border-dark "
+            id="delete-btn"><i class="fa-solid fa-file-circle-xmark"></i></button></td>
 </tr>`
 
     return template
 }
 
-async function renderLines(id) {
-    var out = ""
-    document.getElementById("single-receipt-body").innerHTML = ""
-    document.getElementById("exampleModalLabel").innerText = "View Receipt #" + id
-
-    var prom = new Promise(resolve => getItems(resolve))
-    var items = await prom;
-
-    getReceipt(id, async receipt => {
-        for (var line of receipt.lines) {
-            var template = `
-            <tr>
-                <td>${line.item_id}</td>
-                <td>${line.quantity}</td>
-                <td>&euro;${line.quantity * items[line.item_id].unit_price}</td>
-            </tr>`
-            out += template + "\n"
-        }
-        document.getElementById("single-receipt-body").innerHTML = out
-    })
-}
+// Handle loading receipt headers
 
 var receiptBody = document.getElementById("receipt-body")
 var loadingBit = document.getElementById("loading-bit")
@@ -68,3 +52,27 @@ function advanceCursor(amount) {
 }
 
 advanceCursor(0)
+
+// Handle loading single-receipt
+// Render receipt view (table + data)
+
+function renderLines(id) {
+    document.getElementById("single-receipt-body").innerHTML = ""
+    document.getElementById("receiptViewModalLabel").innerText = "View Receipt #" + id
+
+    getItems(items => {
+        getReceipt(id, receipt => {
+            var out = ""
+            for (var line of receipt.lines) {
+                var template = `
+                <tr>
+                    <td>${items[line.item_id].display_name}</td>
+                    <td>${line.quantity.toFixed(3).replace(".", ",")} ${items[line.item_id].by_weight ? "kg" : "unit"}</td>
+                    <td>&euro;${(line.quantity * items[line.item_id].unit_price).toFixed(2).replace(".", ",")}</td>
+                </tr>`
+                out += template + "\n"
+            }
+            document.getElementById("single-receipt-body").innerHTML = out
+        })
+    })
+}

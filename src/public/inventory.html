@@ -82,7 +82,7 @@
                     </div>
                     <div class="row mb-3">
                         <div class="offset-md-4 col-md-4">
-                            <button style="width:100%" id="new-item-button" class="btn btn-lg btn-submit"><i class="fa fa-plus"></i> New Item</button>
+                            <button style="width:100%" id="new-item-button" class="btn btn-lg btn-submit" data-toggle="modal" data-target="#itemAddModal"><i class="fa fa-plus"></i> New Item</button>
                         </div>
                     </div>
                 </div>
@@ -104,6 +104,49 @@
                     <div class="row mb-3">
                         <div class="offset-md-4 col-md-4">
                             <button style="width:100%" id="new-item-button" class="btn btn-lg btn-submit" data-toggle="modal" data-target="#categoryAddModal"><i class="fa fa-plus"></i> New Category</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal fade" id="itemAddModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content" style="background-color: var(--light-bkg)">
+                        <div class="modal-header" style="border-bottom: 1px solid #344658">
+                            <h5 class="modal-title" id="exampleModalLabel">Add Item</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <form>
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">Name</label>
+                                    <input type="email" class="form-control" id="new-item-name" placeholder="Item Name" aria-describedby="emailHelp">
+                                </div>
+                                <div class="form-group">
+                                    <label for="exampleInputPassword1">Unit Price</label>
+                                    <input type="email" class="form-control" id="new-item-unit-price" placeholder="Item Price / Unit" aria-describedby="emailHelp" value="0.00">
+                                </div>
+                                <div class="form-group form-check">
+                                    <input type="checkbox" class="form-check-input" id="new-item-by-weight">
+                                    <label class="form-check-label" for="exampleCheck1">By Weight</label>
+                                </div>
+                                <div class="form-group">
+                                    <label for="exampleInputPassword1">Category</label>
+                                    <div id="new-item-category"></div>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="modal-footer" style="border-top: 1px solid #344658">
+                            <div class="row" style="width: 100%">
+                                <div class="col-md-6">
+                                    <button type="button" class="btn btn-success" data-dismiss="modal" style="width: 100%" onclick="addItem()">Add</button>
+                                </div>
+                                <div class="col-md-6">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal" style="width: 100%">Cancel</button>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>

@@ -22,6 +22,12 @@ body.colorblind {
     --gold: #a4a4a4;
     --dark: #181818;
     --bkg: #121212;
+    font-family: open-dyslexic;
+}
+
+@font-face {
+    font-family: open-dyslexic;
+    src: url("dyslexic-Regular/OpenDyslexic-Bold.otf") format("opentype");
 }
 
 body {

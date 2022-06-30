@@ -45,20 +45,29 @@ function generateReports(from, to) {
 }
 
 function isChecked() {
-    console.log("hello")
+    var endDate = new Date(Date.now())
+    var startDate = new Date(Date.now())
     if (option1.checked) {
+        startDate.setDate(startDate.getDate() - 1)
+        console.log(startDate)
+        console.log(endDate)
+        generateReports(Math.floor(startDate.getTime() / 1000), Math.floor(endDate.getTime() / 1000))
         document.getElementById("b-option1").classList.add("active")
         document.getElementById("b-option2").classList.remove("active")
         document.getElementById("b-option3").classList.remove("active")
         document.getElementById("b-option4").classList.remove("active")
     }
     else if (option2.checked) {
+        startDate.setDate(startDate.getDate() - 7)
+        generateReports(Math.floor(startDate.getTime() / 1000), Math.floor(endDate.getTime() / 1000))
         document.getElementById("b-option1").classList.remove("active")
         document.getElementById("b-option2").classList.add("active")
         document.getElementById("b-option3").classList.remove("active")
         document.getElementById("b-option4").classList.remove("active")
     }
     else if (option3.checked) {
+        startDate.setDate(startDate.getDate() - 30)
+        generateReports(Math.floor(startDate.getTime() / 1000), Math.floor(endDate.getTime() / 1000))
         document.getElementById("b-option1").classList.remove("active")
         document.getElementById("b-option2").classList.remove("active")
         document.getElementById("b-option3").classList.add("active")

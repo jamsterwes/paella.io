@@ -1,3 +1,4 @@
+/* Base color theme variables */
 body {
     --red: #db0030;
     --maroon: #AB2F2B;
@@ -12,6 +13,7 @@ body {
     --light-bkg: #1e2933;
 }
 
+/* Body styling */
 body {
     background-color: var(--bkg);
     color: white;
@@ -28,17 +30,15 @@ body.colorblind {
     --gold: #a4a4a4;
     --dark: #181818;
     --bkg: #121212;
-    font-family: open-dyslexic;
 }
 
 @font-face {
-    font-family: open-dyslexic;
-    src: url("fonts/OpenDyslexic-Bold") format("opentype");
+    font-family: 'open-dyslexic';
+    src: url("/fonts/OpenDyslexic-Regular.otf") format("opentype");
 }
 
-body.dyslexic {
-    font-size:32px;
-	font-family: open-dyslexic;
+body.dyslexic :not(i) {
+	font-family: 'open-dyslexic' !important;
 } 
 
 #order-nav{

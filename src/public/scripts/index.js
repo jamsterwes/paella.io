@@ -169,6 +169,7 @@ function swapColors() {
 function swapFonts() {
     var element = document.body;
     element.classList.toggle("dyslexic");
+}
     
 function sendItem(item, callback, err = console.error) {
     var xhr = new XMLHttpRequest()

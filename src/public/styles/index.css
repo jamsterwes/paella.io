@@ -61,7 +61,7 @@ body.dyslexic :not(i) {
     background-color: var(--blue) !important;
 }
 
-.navbar-brand, h1, h2, h6, .btn {
+.navbar-brand, h1, h2, h5, h6, .btn {
     font-family: "Staatliches";
 }
 

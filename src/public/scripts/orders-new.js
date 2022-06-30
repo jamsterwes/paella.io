@@ -1,28 +1,10 @@
 var cash = true
 
-var cashButton = document.getElementById("cash-button")
-var cardButton = document.getElementById("card-button")
 var productSku = document.getElementById("product-sku")
 var itemQuantity = document.getElementById("item-quantity")
 var checkoutBody = document.getElementById("checkout-body")
 
-function onCash() {
-    cash = true
-    cashButton.classList.add("btn-primary")
-    cardButton.classList.remove("btn-primary")
-    cashButton.classList.remove("btn-light")
-    cardButton.classList.add("btn-light")
-}
-
-function onCard() {
-    cash = false
-    cashButton.classList.remove("btn-primary")
-    cardButton.classList.add("btn-primary")
-    cashButton.classList.add("btn-light")
-    cardButton.classList.remove("btn-light")
-}
-
-function enterButton() {
+function addToOrder() {
     var sku = parseInt(productSku.value)
     var quantity = parseFloat(itemQuantity.value)
 
@@ -124,19 +106,20 @@ var calcTotal = function (items) {
 
 var checkout = function () {
     // TODO: non-hardcoded employee_id
-    var receipt = {
-        total: calcTotal(Object.values(order)),
-        employee_id: 6,
-        is_cash: cash,
-        lines: Object.values(order)
+    var orderData = {
+        cost: calcTotal(Object.values(order)),
+        delivery_date: new Date(Date.now()).toISOString(),  // TODO: CHANGETHIS
+        lines: Object.values(order),
+        received: false
     }
 
-    sendReceipt(receipt, () => {
+    sendOrder(orderData, () => {
         checkoutBody.innerHTML = ""
         order = {}
         document.getElementById("checkout-amt").innerText = "0,00"
         selectedItemName.innerText = ""
         selectedItemName.classList.remove("item-marquee-err")
+        advanceCursor(0)
     })
 }
 

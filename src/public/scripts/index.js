@@ -182,6 +182,28 @@ function sendReceipt(receipt, callback, err = console.error) {
     xhr.send(JSON.stringify(receipt))
 }
 
+function sendOrder(order, callback, err = console.error) {
+    var xhr = new XMLHttpRequest()
+    xhr.onload = function () {
+        if (xhr.status == 200) callback(JSON.parse(xhr.responseText))
+        else err(xhr.status, xhr.responseText)
+    }
+    xhr.open("POST", "/api/orders", true)
+    xhr.setRequestHeader("Content-Type", "application/json")
+    xhr.send(JSON.stringify(order))
+}
+
+function swapColors() {
+    var element = document.body;
+    element.classList.toggle("colorblind");
+ }
+
+
+function swapFonts() {
+    var element = document.body;
+    element.classList.toggle("dyslexic");
+}
+    
 function sendItem(item, callback, err = console.error) {
     var xhr = new XMLHttpRequest()
     xhr.onload = function () {
@@ -214,8 +236,17 @@ function sendCategory(category, callback, err = console.error) {
     xhr.send(JSON.stringify(category))
 }
 
+// Editables
+
 function makeEditableField(id, editCallback, toEditFormat = (x => x), fromEditFormat = (x => x)) {
     var el = document.getElementById(id);
+
+    // install tooltip
+    // el.setAttribute('data-toggle', 'tooltip')
+    // el.setAttribute('data-placement', 'top')
+    // el.setAttribute('title', 'Double-click to edit')
+    // $(el).tooltip()
+
     el.addEventListener('dblclick', () => {
         if (el.innerHTML.startsWith("<input")) return;
         var value = toEditFormat(el.innerText).toString()

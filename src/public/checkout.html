@@ -17,8 +17,7 @@
     <div id="accessibility-bar"></div>
     <nav class="navbar navbar-expand-lg navbar-dark bg-info">
         <a class="navbar-brand" href="/manager.html">
-            <img src="assets/logos/20220628_RamonVilla_Logo_White.png" class="mr-2" height="50" width="50" />
-            Ramon Vila
+            <img src="assets/logos/20220628_RamonVilla_Logo_White.png" class="mr-2" height="50" width="50" /> Ramon Vila
         </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
             aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -45,6 +44,7 @@
                     <a class="nav-link" href="/login.html">Logout</a>
                 </li>
             </ul>
+            <h6 style="margin-left: 40vw;">Scroll Down for Accessibility Options</h6>
         </div>
     </nav>
 
@@ -55,7 +55,8 @@
                 <div class="row mb-3">
                     <h1 class="col-md-12 text-center">Checkout</h1>
                 </div>
-                <div style="height: 75vh; max-height: 75vh; overflow-y: scroll; border-radius: 4.8px; border: 1px solid #333" id="checkout-container">
+                <div style="height: 75vh; max-height: 75vh; overflow-y: scroll; border-radius: 4.8px; border: 1px solid #333"
+                    id="checkout-container">
                     <table class="table table-dark table-striped table-hover table-bordered">
                         <thead class="thead-darker">
                             <tr>
@@ -63,6 +64,7 @@
                                 <th scope="col">Unit Price</th>
                                 <th scope="col">Quantity</th>
                                 <th scope="col">Subtotal</th>
+                                <th>Clear</th>
                             </tr>
                         </thead>
                         <tbody id="checkout-body">
@@ -124,13 +126,27 @@
                         <button style="width:100%" id="checkout-button" onclick="checkout()"
                             class="btn btn-lg btn-submit"><i class="fa-solid fa-cart-shopping"></i> Checkout</button>
                     </div>
+                    <div class="col-md-4">
+                        <button style="width:100%" id="clear-all-button" onclick="clearAll()"
+                            class="btn btn-lg btn-delete"><i class="fa-solid fa-eraser"></i> Clear All</button>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 
     <!-- footer -->
-    <footer id="footer">Powered by Paella <div id="google_translate_element"></div></footer>
+    <footer id="footer">
+        <nav class="navbar relative-bottom navbar-dark bg-info">
+            <h5 class="col-2" style="margin-right: -100px;">
+                Powered by Paella
+            </h5>
+            <div class="col-1" style="margin-right: 50px;" id="google_translate_element"></div>
+            <button class="col-1" onclick="swapColors()"> Color Swap </button>
+            <button class="col-1" onclick="swapFonts()"> Dyslexic</button>
+            <div class="col"></div>
+        </nav>
+    </footer>
 
     <!-- Include icons -->
     <script src="https://kit.fontawesome.com/b56b5f29b3.js" crossorigin="anonymous"></script>
@@ -150,17 +166,18 @@
     <script src="scripts/checkout.js"></script>
 
     <!-- GTranslate scripts -->
-    <script type="text/javascript"> 
-        function googleTranslateElementInit() { 
-            new google.translate.TranslateElement(
-                {pageLanguage: 'en'}, 
+    <script type="text/javascript">
+        function googleTranslateElementInit() {
+            new google.translate.TranslateElement({
+                pageLanguage: 'en'
+            },
                 'google_translate_element'
-            ); 
-        } 
-    </script> 
-    <script type="text/javascript" src=
-    "https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit">
-    </script> 
+            );
+        }
+    </script>
+    <script type="text/javascript"
+        src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit">
+        </script>
 </body>
 
 </html>

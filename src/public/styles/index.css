@@ -152,3 +152,29 @@ thead.thead-darker td {
     border-radius: 4.8px;
     background-color: var(--preview);
 }
+
+/* tabs styling */
+.nav-tabs .nav-item.show .nav-link, .nav-tabs .nav-link {
+    border-color: var(--dark);
+    border-bottom-color: transparent;
+    background-color:var(--navy);
+    color: #5a8dbf;
+}
+
+.nav-tabs .nav-item.show .nav-link, .nav-tabs .nav-link.active {
+    border-color: var(--dark);
+    border-bottom-color: transparent;
+    background-color: var(--blue);
+    color: white;
+}
+
+.nav-tabs .nav-item.show .nav-link, .nav-tabs .nav-link:hover {
+    border-color: var(--dark);
+    background-color: var(--mid-blue);
+    color: white;
+    border-bottom-color: transparent;
+}
+
+.nav-tabs {
+    border-bottom-color: transparent;
+}

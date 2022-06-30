@@ -33,6 +33,7 @@
     margin-right: auto;
     margin-left: auto;
     max-width: 90vw;
+    height: 500px !important;
 }
 
 .reports-radio-text {

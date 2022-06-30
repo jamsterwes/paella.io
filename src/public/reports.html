@@ -47,106 +47,119 @@
                     <a class="nav-link" href="/login.html">Logout</a>
                 </li>
             </ul>
+            <h6 style="margin-left: 40vw;">Scroll Down for Accessibility Options</h6>
         </div>
     </nav>
 
 
     <!-- main content -->
-    <div id="reports-content" class="container">
-        <h1 class="col-md-12 text-center">Reports</h1>
+        <div id="reports-content" class="container">
+            <h1 class="col-md-12 text-center">Reports</h1>
 
-        <div class="row">
-            <div class="col">
-                <ul class="nav nav-tabs" id="myTab" role="tablist">
-                    <li class="nav-item" style="height: 40px;">
-                        <a class="nav-link active" id="sales-tab" data-toggle="tab" href="#sales" role="tab"
-                            aria-controls="home" aria-selected="true">Total Sales</a>
-                    </li>
-                    <li class="nav-item" style="height: 40px;">
-                        <a class="nav-link" id="excess-tab" data-toggle="tab" href="#excess" role="tab"
-                            aria-controls="profile" aria-selected="false">Excess (&lt;10%)</a>
-                    </li>
-                    <li class="nav-item" style="height: 40px;">
-                        <a class="nav-link" id="low-tab" data-toggle="tab" href="#low" role="tab"
-                            aria-controls="contact" aria-selected="false">Low Stock</a>
-                    </li>
-                </ul>
+            <div class="row">
+                <div class="col">
+                    <ul class="nav nav-tabs" id="myTab" role="tablist">
+                        <li class="nav-item" style="height: 40px;">
+                            <a class="nav-link active" id="sales-tab" data-toggle="tab" href="#sales" role="tab"
+                                aria-controls="home" aria-selected="true">Total Sales</a>
+                        </li>
+                        <li class="nav-item" style="height: 40px;">
+                            <a class="nav-link" id="excess-tab" data-toggle="tab" href="#excess" role="tab"
+                                aria-controls="profile" aria-selected="false">Excess (&lt;10%)</a>
+                        </li>
+                        <li class="nav-item" style="height: 40px;">
+                            <a class="nav-link" id="low-tab" data-toggle="tab" href="#low" role="tab"
+                                aria-controls="contact" aria-selected="false">Low Stock</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="input-group input-group-toggle col d-flex justify-content-end align-items-end"
+                    data-toggle="input">
+                    <label class="input-group-text btn-radio active" id="b-option1" style="height: 40px;">
+                        <input type="radio" name="options" id="option1" onclick="isChecked()" autocomplete="off" checked
+                            style="margin-right: 5px;"> 1 Day
+                    </label>
+                    <label class="input-group-text btn-radio" id="b-option2" style="height: 40px;">
+                        <input type="radio" name="options" id="option2" onclick="isChecked()" autocomplete="off"
+                            style="margin-right: 5px;"> 7
+                        Days
+                    </label>
+                    <label class="input-group-text btn-radio" id="b-option3" style="height: 40px;">
+                        <input type="radio" name="options" id="option3" onclick="isChecked()" autocomplete="off"
+                            style="margin-right: 5px;"> 30
+                        Days
+                    </label>
+                    <label class="input-group-text btn-radio" id="b-option4" style="height: 40px;">
+                        <input type="radio" name="options" id="option4" onclick="isChecked()" autocomplete="off"
+                            style="margin-right: 5px;">Custom
+                        <input type="date" name="from-date" id="from" disabled style="margin-left: 10px">
+                        <input type="date" name="to-date" id="to" disabled style="margin-left: 10px">
+                    </label>
+                </div>
             </div>
-            <div class="input-group input-group-toggle col d-flex justify-content-end align-items-end"
-                data-toggle="input">
-                <label class="input-group-text btn-radio active" id="b-option1" style="height: 40px;">
-                    <input type="radio" name="options" id="option1" onclick="isChecked()" autocomplete="off" checked
-                        style="margin-right: 5px;"> 1 Day
-                </label>
-                <label class="input-group-text btn-radio" id="b-option2" style="height: 40px;">
-                    <input type="radio" name="options" id="option2" onclick="isChecked()" autocomplete="off" style="margin-right: 5px;"> 7
-                    Days
-                </label>
-                <label class="input-group-text btn-radio" id="b-option3" style="height: 40px;">
-                    <input type="radio" name="options" id="option3" onclick="isChecked()" autocomplete="off" style="margin-right: 5px;"> 30
-                    Days
-                </label>
-                <label class="input-group-text btn-radio" id="b-option4" style="height: 40px;">
-                    <input type="radio" name="options" id="option4" onclick="isChecked()" autocomplete="off" style="margin-right: 5px;">Custom
-                    <input type="date" name="from-date" id="from" disabled style="margin-left: 10px">
-                    <input type="date" name="to-date" id="to" disabled style="margin-left: 10px">
-                </label>
+
+            <div class="tab-content" id="myTabContent">
+                <div class="tab-pane fade show active" id="sales" role="tabpanel" aria-labelledby="sales-tab">
+                    <div class="row mb-3 mt-3">
+                        <div
+                            style="border: 1px solid #ddd; height: 67vh; max-height: 67vh; overflow-y: scroll; width: 33%; border-radius: 4.8px; border: 1px solid #333">
+                            <table class="table table-dark table-striped table-bordered">
+                                <thead class="thead-darker">
+                                    <tr>
+                                        <th style="text-align: center" scope="col">Item Name</th>
+                                        <th style="text-align: center" scope="col">Amount Sold</th>
+                                        <th style="text-align: center" scope="col">On Hand</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="inventory-body"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-pane fade" id="excess" role="tabpanel" aria-labelledby="excess-tab">
+                    <div class="row mb-3 mt-3">
+                        <div
+                            style="border: 1px solid #ddd; height: 67vh; max-height: 67vh; overflow-y: scroll; width: 33%; border-radius: 4.8px; border: 1px solid #333">
+                            <table class="table table-dark table-striped table-bordered">
+                                <thead class="thead-darker">
+                                    <tr>
+                                        <th scope="col" style="text-align: center">Item Name</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="inventory-body"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-pane fade" id="low" role="tabpanel" aria-labelledby="low-tab">
+                    <div class="row mb-3 mt-3">
+                        <div
+                            style="border: 1px solid #ddd; height: 67vh; max-height: 67vh; overflow-y: scroll; width: 33%; border-radius: 4.8px; border: 1px solid #333">
+                            <table class="table table-dark table-striped table-bordered">
+                                <thead class="thead-darker">
+                                    <tr>
+                                        <th scope="col" style="text-align: center">Item Name</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="inventory-body"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
-
-        <div class="tab-content" id="myTabContent">
-            <div class="tab-pane fade show active" id="sales" role="tabpanel" aria-labelledby="sales-tab">
-                <div class="row mb-3 mt-3">
-                    <div style="border: 1px solid #ddd; height: 67vh; max-height: 67vh; overflow-y: scroll; width: 33%; border-radius: 4.8px; border: 1px solid #333">
-                        <table class="table table-dark table-striped table-bordered">
-                            <thead class="thead-darker">
-                                <tr>
-                                    <th style="text-align: center" scope="col">Item Name</th>
-                                    <th style="text-align: center" scope="col">Amount Sold</th>
-                                    <th style="text-align: center" scope="col">On Hand</th>
-                                </tr>
-                            </thead>
-                            <tbody id="inventory-body"></tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-            <div class="tab-pane fade" id="excess" role="tabpanel" aria-labelledby="excess-tab">
-                <div class="row mb-3 mt-3">
-                    <div style="border: 1px solid #ddd; height: 67vh; max-height: 67vh; overflow-y: scroll; width: 33%; border-radius: 4.8px; border: 1px solid #333">
-                        <table class="table table-dark table-striped table-bordered">
-                            <thead class="thead-darker">
-                                <tr>
-                                    <th scope="col" style="text-align: center">Item Name</th>
-                                </tr>
-                            </thead>
-                            <tbody id="inventory-body"></tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-            <div class="tab-pane fade" id="low" role="tabpanel" aria-labelledby="low-tab">
-                <div class="row mb-3 mt-3">
-                    <div style="border: 1px solid #ddd; height: 67vh; max-height: 67vh; overflow-y: scroll; width: 33%; border-radius: 4.8px; border: 1px solid #333">
-                        <table class="table table-dark table-striped table-bordered">
-                            <thead class="thead-darker">
-                                <tr>
-                                    <th scope="col" style="text-align: center">Item Name</th>
-                                </tr>
-                            </thead>
-                            <tbody id="inventory-body"></tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
 
     <!-- footer -->
-    <footer id="footer">Powered by Paella 
-        <div id="google_translate_element"></div>
-        <button onclick="swapColors()"> Color Swap </button>
-        <button onclick="swapFonts()"> Dyslexic</button>
+    <footer id="footer">
+        <nav class="navbar relative-bottom navbar-dark bg-info" style="margin-top: 37vh;">
+            <h5 class="col-2" style="margin-right: -100px;">
+                Powered by Paella
+            </h5>
+            <div class="col-1" style="margin-right: 50px;" id="google_translate_element"></div>
+            <button class="col-1" onclick="swapColors()"> Color Swap </button>
+            <button class="col-1" onclick="swapFonts()"> Dyslexic</button>
+            <div class="col"></div>
+        </nav>
     </footer>
 
     <!-- Shared script -->
@@ -164,17 +177,17 @@
         crossorigin="anonymous"></script>
 
     <!-- GTranslate scripts -->
-    <script type="text/javascript"> 
-        function googleTranslateElementInit() { 
+    <script type="text/javascript">
+        function googleTranslateElementInit() {
             new google.translate.TranslateElement(
-                {pageLanguage: 'en'}, 
+                { pageLanguage: 'en' },
                 'google_translate_element'
-            ); 
+            );
         } 
-    </script> 
-    <script type="text/javascript" src=
-    "https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit">
-    </script> 
+    </script>
+    <script type="text/javascript"
+        src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit">
+        </script>
 </body>
 
 </html>

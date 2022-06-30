@@ -19,6 +19,28 @@ function getOrders(start, callback, err = console.error) {
     xhr.send(null)
 }
 
+function getOrder(id, callback, err = console.error) {
+    var xhr = new XMLHttpRequest()
+    xhr.onload = function () {
+        if (xhr.status == 200) callback(JSON.parse(xhr.responseText))
+        else err(xhr.status, xhr.responseText)
+    }
+    xhr.open("GET", "/api/orders/" + id, true)
+    xhr.send(null)
+}
+
+function updateOrder(id, data, err = console.error) {
+    var xhr = new XMLHttpRequest()
+    xhr.onload = function () {
+        if (xhr.status == 200) return;
+        else err(xhr.status, xhr.responseText)
+    }
+    xhr.open("POST", "/api/orders/" + id, true)
+    xhr.setRequestHeader("Content-Type", "application/json")
+    console.log(data)
+    xhr.send(JSON.stringify(data))
+}
+
 function getOrdersCount(callback, err = console.error) {
     var xhr = new XMLHttpRequest()
     xhr.onload = function () {

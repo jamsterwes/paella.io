@@ -192,8 +192,17 @@ function sendCategory(category, callback, err = console.error) {
     xhr.send(JSON.stringify(category))
 }
 
+// Editables
+
 function makeEditableField(id, editCallback, toEditFormat = (x => x), fromEditFormat = (x => x)) {
     var el = document.getElementById(id);
+
+    // install tooltip
+    // el.setAttribute('data-toggle', 'tooltip')
+    // el.setAttribute('data-placement', 'top')
+    // el.setAttribute('title', 'Double-click to edit')
+    // $(el).tooltip()
+
     el.addEventListener('dblclick', () => {
         if (el.innerHTML.startsWith("<input")) return;
         var value = toEditFormat(el.innerText).toString()

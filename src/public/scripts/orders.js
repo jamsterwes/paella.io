@@ -60,23 +60,52 @@ function renderLines(id) {
                 <tr>
                     <td>${items[line.item_id].display_name}</td>
                     <td><span id="order-line-quantity-${line.item_id}">${line.quantity.toFixed(3).replace(".", ",")} ${items[line.item_id].by_weight ? "kg" : "unit"}</span></td>
-                    <td>&euro;${(line.quantity * items[line.item_id].unit_price).toFixed(2).replace(".", ",")}</td>
+                    <td id="order-subtotal-${line.item_id}">&euro;${(line.quantity * items[line.item_id].unit_price).toFixed(2).replace(".", ",")}</td>
                 </tr>`
                 out += template + "\n"
             }
             document.getElementById("single-order-body").innerHTML = out
 
+            // Attach edit fields to each line
             for (var line of order.lines) {
+                // Freeze this line's ID in time
+                // (otherwise iterator is invalid by invocation-time of value-callback)
+                let id = line.item_id
+
                 // Add editable quantity
                 makeEditableField("order-line-quantity-" + line.item_id, value => {
                     // Check for invalid
                     if (isNaN(value)) return false;
-                    // Send update to DB
-                    console.log(order.lines)
-                    updateOrder(line.item_id, { lines: [{
-                        item_id: line.item_id,
-                        quantity: value
-                    }].concat(order.lines.filter(x => x.item_id != line.item_id)) })
+
+                    // Calculate new lines list
+                    var payload = {
+                        lines: [
+                            // New line
+                            {
+                                item_id: id,
+                                quantity: parseFloat(value)
+                            },
+                            // Old lines (minus item-to-change)
+                            ...order.lines.filter(x => x.item_id != id)
+                        ]
+                    }
+
+                    // Calculate total
+                    var total = 0
+                    for (var newLine of payload.lines) {
+                        total += newLine.quantity * items[newLine.item_id].unit_price
+                    }
+                    payload.cost = total
+
+                    // Update order
+                    updateOrder(order.id, payload)
+
+                    // Update subtotal
+                    document.getElementById("order-subtotal-" + id).innerHTML = "&euro;" + (parseFloat(value) * items[id].unit_price).toFixed(2).replace(".", ",")
+
+                    // Re-render orders main table
+                    advanceCursor(0)
+
                     // Valid
                     return true;
                 }, display => {
@@ -84,7 +113,7 @@ function renderLines(id) {
                     return parseFloat(display.replace(",", "."))
                 }, input => {
                     // Convert input to display
-                    return parseFloat(input).toFixed(3).replace(".", ",")
+                    return parseFloat(input).toFixed(3).replace(".", ",") + " " + (items[id].by_weight ? "kg" : "unit")
                 })
             }
         })

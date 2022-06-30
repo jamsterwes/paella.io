@@ -65,65 +65,6 @@ function renderLines(id) {
                 out += template + "\n"
             }
             document.getElementById("single-order-body").innerHTML = out
-
-            // Attach edit fields to each line
-            for (var line of order.lines) {
-                // Freeze this line's ID in time
-                // (otherwise iterator is invalid by invocation-time of value-callback)
-                let id = line.item_id
-
-                // Add editable quantity
-                makeEditableField("order-line-quantity-" + line.item_id, value => {
-                    // Check for invalid
-                    if (isNaN(value)) return false;
-
-                    // Calculate new lines list
-                    var payload = {
-                        lines: [
-                            // New line
-                            {
-                                item_id: id,
-                                quantity: parseFloat(value)
-                            },
-                            // Old lines (minus item-to-change)
-                            ...order.lines.filter(x => x.item_id != id)
-                        ]
-                    }
-
-                    // Calculate total
-                    var total = 0
-                    for (let newLine of payload.lines) {
-                        console.log("Total: ", total)
-                        console.log("Adding quant: ", newLine.quantity)
-                        console.log("of ", newLine.item_id)
-                        console.log("aka", items[newLine.item_id])
-                        console.log("------------")
-                        total += newLine.quantity * items[newLine.item_id].unit_price
-                    }
-                    console.log(total)
-                    payload.cost = total
-
-                    // Update order
-                    updateOrder(order.id, payload)
-
-                    // Update subtotal
-                    document.getElementById("order-subtotal-" + id).innerHTML = "&euro;" + (parseFloat(value) * items[id].unit_price).toFixed(2).replace(".", ",")
-
-                    // Re-render orders main table
-                    advanceCursor(0)
-
-                    // Valid
-                    return true;
-                }, display => {
-                    // Convert display to input
-                    return parseFloat(display.replace(",", "."))
-                }, input => {
-                    // Convert input to display
-                    return parseFloat(input).toFixed(3).replace(".", ",") + " " + (items[id].by_weight ? "kg" : "unit")
-                })
-            }
         })
     })
 }
-
-advanceCursor(0)

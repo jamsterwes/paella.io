@@ -7,6 +7,16 @@ function formatDBTime(ts, locale = 'es-ES') {
 
 // TODO: money/number formatting
 
+async function formatMoney(amount, toCurrency = 'EUR') {
+    var currency = (await (await fetch("https://api.exchangerate-api.com/v4/latest/USD")).json())
+      
+    var fromRate = currency.rates["EUR"]
+    var toRate = currency.rates[toCurrency]
+    var amt = (toRate / fromRate) * amount
+
+    return amt.toLocaleString('es-ES', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + " " + toCurrency
+}
+
 // DATABASE
 
 function getOrders(start, callback, err = console.error) {

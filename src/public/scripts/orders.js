@@ -90,3 +90,5 @@ function renderLines(id) {
         })
     })
 }
+
+advanceCursor(0)

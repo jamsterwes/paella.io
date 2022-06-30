@@ -82,6 +82,53 @@ function setCategory(itemID, categoryID, err = console.error) {
     }))
 }
 
+function updateItem(id, data, err = console.error) {
+    var xhr = new XMLHttpRequest()
+    xhr.onload = function () {
+        if (xhr.status == 200) return;
+        else err(xhr.status, xhr.responseText)
+    }
+    xhr.open("POST", "/api/items/" + id, true)
+    xhr.setRequestHeader("Content-Type", "application/json")
+    xhr.send(JSON.stringify(data))
+}
+
+function setCategoryName(name, categoryID, err = console.error) {
+    var xhr = new XMLHttpRequest()
+    xhr.onload = function () {
+        if (xhr.status == 200) return;
+        else err(xhr.status, xhr.responseText)
+    }
+    xhr.open("POST", "/api/categories/" + categoryID, true)
+    xhr.setRequestHeader("Content-Type", "application/json")
+    xhr.send(JSON.stringify({
+        category_name: name
+    }))
+}
+
+function setCategoryColor(categoryColor, categoryID, err = console.error) {
+    var xhr = new XMLHttpRequest()
+    xhr.onload = function () {
+        if (xhr.status == 200) return;
+        else err(xhr.status, xhr.responseText)
+    }
+    xhr.open("POST", "/api/categories/" + categoryID, true)
+    xhr.setRequestHeader("Content-Type", "application/json")
+    xhr.send(JSON.stringify({
+        category_color: categoryColor
+    }))
+}
+
+function getReceipt(id, callback, err = console.error) {
+    var xhr = new XMLHttpRequest()
+    xhr.onload = function () {
+        if (xhr.status == 200) callback(JSON.parse(xhr.responseText))
+        else err(xhr.status, xhr.responseText)
+    }
+    xhr.open("GET", "/api/receipts/" + id, true)
+    xhr.send(null)
+}
+
 function getReceipts(start, callback, err = console.error) {
     var xhr = new XMLHttpRequest()
     xhr.onload = function () {
@@ -89,6 +136,16 @@ function getReceipts(start, callback, err = console.error) {
         else err(xhr.status, xhr.responseText)
     }
     xhr.open("GET", "/api/receipts?limit=25&start=" + start, true)
+    xhr.send(null)
+}
+
+function deleteCategory(id, callback, err = console.error) {
+    var xhr = new XMLHttpRequest()
+    xhr.onload = function () {
+        if (xhr.status == 200) callback(JSON.parse(xhr.responseText))
+        else err(xhr.status, xhr.responseText)
+    }
+    xhr.open("DELETE", "/api/categories/" + id, true)
     xhr.send(null)
 }
 
@@ -111,4 +168,90 @@ function sendReceipt(receipt, callback, err = console.error) {
     xhr.open("POST", "/api/receipts", true)
     xhr.setRequestHeader("Content-Type", "application/json")
     xhr.send(JSON.stringify(receipt))
+}
+
+function swapColors() {
+    var element = document.body;
+    element.classList.toggle("colorblind");
+ }
+
+
+function swapFonts() {
+    var element = document.body;
+    element.classList.toggle("dyslexic");
+    
+function sendItem(item, callback, err = console.error) {
+    var xhr = new XMLHttpRequest()
+    xhr.onload = function () {
+        if (xhr.status == 200) callback(JSON.parse(xhr.responseText))
+        else err(xhr.status, xhr.responseText)
+    }
+    xhr.open("POST", "/api/items", true)
+    xhr.setRequestHeader("Content-Type", "application/json")
+    xhr.send(JSON.stringify(item))
+}
+
+function deleteItem(id, callback, err = console.error) {
+    var xhr = new XMLHttpRequest()
+    xhr.onload = function () {
+        if (xhr.status == 200) callback(JSON.parse(xhr.responseText))
+        else err(xhr.status, xhr.responseText)
+    }
+    xhr.open("DELETE", "/api/items/" + id, true)
+    xhr.send(null)
+}
+
+function sendCategory(category, callback, err = console.error) {
+    var xhr = new XMLHttpRequest()
+    xhr.onload = function () {
+        if (xhr.status == 200) callback(JSON.parse(xhr.responseText))
+        else err(xhr.status, xhr.responseText)
+    }
+    xhr.open("POST", "/api/categories", true)
+    xhr.setRequestHeader("Content-Type", "application/json")
+    xhr.send(JSON.stringify(category))
+}
+
+// Editables
+
+function makeEditableField(id, editCallback, toEditFormat = (x => x), fromEditFormat = (x => x)) {
+    var el = document.getElementById(id);
+
+    // install tooltip
+    // el.setAttribute('data-toggle', 'tooltip')
+    // el.setAttribute('data-placement', 'top')
+    // el.setAttribute('title', 'Double-click to edit')
+    // $(el).tooltip()
+
+    el.addEventListener('dblclick', () => {
+        if (el.innerHTML.startsWith("<input")) return;
+        var value = toEditFormat(el.innerText).toString()
+        el.innerHTML = `<input class="form-control" type="text" value="${value}" />`
+        var input = el.children[0]
+        input.focus()
+        input.setSelectionRange(0, value.length)
+
+        var submit = function () {
+            input.removeEventListener('blur', submit)
+            input.removeEventListener('keydown', keydown)
+            // If valid, update
+            // Otherwise, rollback
+            if (editCallback(input.value)) {
+                // Update text
+                el.innerHTML = fromEditFormat(input.value)
+            } else {
+                // Rollback
+                el.innerHTML = fromEditFormat(value)
+            }
+        }
+
+        var keydown = (e) => {
+            if (e.key === 'Enter') {
+                submit()
+            }
+        }
+
+        input.addEventListener('blur', submit)
+        input.addEventListener('keydown', keydown)
+    })
 }

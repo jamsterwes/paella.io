@@ -53,22 +53,24 @@ function enterButton() {
 }
 
 function addReceiptLine(line) {
-    checkoutBody.innerHTML += "<tr> <th scope=\"row\">"
-        + line.name
-        + "</th> <td>"
-        + line.unit_price.toLocaleString("es-ES", { minimumFractionDigits: 2 })
-        + "</td> <td>"
-        + line.quantity.toLocaleString("es-ES", { minimumFractionDigits: 3 })
-        + " "
-        + (line.by_weight ? "kg" : "unit")
-        + "</td> <td>&euro;"
-        + line.subtotal.toLocaleString("es-ES", { minimumFractionDigits: 2 })
-        + "</td> </tr>"
+    checkoutBody.innerHTML += `
+    <tr id="checkout-row-${line.item_id}">
+        <th scope="row">${line.name}</th>
+        <td>${line.unit_price.toLocaleString("es-ES", { minimumFractionDigits: 2 })}</td>
+        <td>${line.quantity.toLocaleString("es-ES", { minimumFractionDigits: 3 })} ${line.by_weight ? "kg" : "unit"}</td>
+        <td>&euro;${line.subtotal.toLocaleString("es-ES", { minimumFractionDigits: 2 })}</td>
+        <td>
+            <button style="width:100%" id="clear-all-button" onclick="clearLine(${line.item_id})"
+            class="btn btn-lg btn-delete"><i class="fa-solid fa-eraser"></i></button>
+        </td>
+    </tr>
+    `
 }
 
 function addItem(id) {
     productSku.value = id.toString()
-    productSku.focus()
+    itemQuantity.focus()
+    itemQuantity.setSelectionRange(0, itemQuantity.value.length)
     updateUnit(id)
     updateName(id)
 }
@@ -147,7 +149,7 @@ function renderCategories() {
         itemBtns.innerHTML += `
         <div class="col-md-4 mb-2">
             <button class="btn" onclick="renderItems(${category.id})" style="width: 100%; text-align: center; color: white; background-color: ${category.category_color}">
-                ${category.category_name} <span style="background-color: white; color: black; font-family: 'Arial'" class="ml-2 badge">${category.count}</span>
+                ${category.category_name} <span style="background-color: white; color: black; font-family: 'Rubik'" class="ml-2 badge">${category.count}</span>
             </button>
         </div>`
     }))
@@ -156,7 +158,7 @@ function renderCategories() {
 function renderItems(category) {
     itemBtns.innerHTML = ""
     itemBtns.innerHTML += "<div class=\"col-md-4 mb-2\"><button class=\"btn btn-light"
-                + "\" onclick=\"renderCategories()\" style=\"width: 100%; text-align: center\">&lt;&lt; Back</button></div>"
+        + "\" onclick=\"renderCategories()\" style=\"width: 100%; text-align: center\">&lt;&lt; Back</button></div>"
     getItems(items => {
         var i = 1
         Object.values(items).filter(x => x.category_id == category).forEach(item => {
@@ -173,3 +175,18 @@ function renderItems(category) {
 }
 
 renderCategories()
+
+// Clear one / clear all functions
+
+function clearAll() {
+    checkoutBody.innerHTML = ""
+    order = {}
+    document.getElementById("checkout-amt").innerText = "0,00"
+}
+
+function clearLine(id) {
+    delete order[id]
+    document.getElementById("checkout-row-" + id).remove()
+    var total = calcTotal(Object.values(order))
+    document.getElementById("checkout-amt").innerText = total.toLocaleString("es-ES", { minimumFractionDigits: 2 })
+}

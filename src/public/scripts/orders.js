@@ -5,7 +5,7 @@ function renderRow(order) {
     <td scope="row">&euro;${order.cost.toLocaleString('es-ES', { minimumFractionDigits: 2 })}</td>
     <td scope="row">${order.received ? "Yes" : "No"}</td>
     <td style="text-align: center"><a href="" class="btn btn-lg btn-delete border border-dark "
-            id="delete-btn"><i class="fa-solid fa-file-circle-xmark"></i></a></td>
+            id="delete-btn" onclick="removeItems(${order.id})><i class="fa-solid fa-file-circle-xmark"></i></a></td>
 </tr>`
 
     return template

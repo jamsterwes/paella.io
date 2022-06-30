@@ -9,8 +9,8 @@ function renderRow(receipt) {
     <td scope="row">&euro;${receipt.total.toLocaleString('es-ES', { minimumFractionDigits: 2 })}</td>
     <td style="text-align: center"><button data-toggle="modal" data-target="#receiptViewModal" onclick="renderLines(${receipt.id})" class="btn btn-success border border-dark "
             id="delete-btn"><i class="fa-solid fa-eye"></i></button></td>
-    <td style="text-align: center"><button class="btn btn-delete border border-dark "
-            id="delete-btn" onclick="removeItems(${receipt.id})"><i class="fa-solid fa-file-circle-xmark"></i></button></td>
+    <td style="text-align: center"><a class="btn btn-delete border border-dark"
+            id="delete-btn" onclick="removeItem(${receipt.id})"><i class="fa-solid fa-trash"></i></a></td>
 </tr>`
 
     return template

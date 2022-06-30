@@ -160,6 +160,17 @@ function sendReceipt(receipt, callback, err = console.error) {
     xhr.send(JSON.stringify(receipt))
 }
 
+function sendOrder(order, callback, err = console.error) {
+    var xhr = new XMLHttpRequest()
+    xhr.onload = function () {
+        if (xhr.status == 200) callback(JSON.parse(xhr.responseText))
+        else err(xhr.status, xhr.responseText)
+    }
+    xhr.open("POST", "/api/orders", true)
+    xhr.setRequestHeader("Content-Type", "application/json")
+    xhr.send(JSON.stringify(order))
+}
+
 function swapColors() {
     var element = document.body;
     element.classList.toggle("colorblind");

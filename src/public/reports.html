@@ -47,6 +47,7 @@
                     <a class="nav-link" href="/login.html">Logout</a>
                 </li>
             </ul>
+            <h6 style="margin-left: 40vw;">Scroll Down for Accessibility Options</h6>
         </div>
     </nav>
 
@@ -79,15 +80,18 @@
                         style="margin-right: 5px;"> 1 Day
                 </label>
                 <label class="input-group-text btn-radio" id="b-option2" style="height: 40px;">
-                    <input type="radio" name="options" id="option2" onclick="isChecked()" autocomplete="off" style="margin-right: 5px;"> 7
+                    <input type="radio" name="options" id="option2" onclick="isChecked()" autocomplete="off"
+                        style="margin-right: 5px;"> 7
                     Days
                 </label>
                 <label class="input-group-text btn-radio" id="b-option3" style="height: 40px;">
-                    <input type="radio" name="options" id="option3" onclick="isChecked()" autocomplete="off" style="margin-right: 5px;"> 30
+                    <input type="radio" name="options" id="option3" onclick="isChecked()" autocomplete="off"
+                        style="margin-right: 5px;"> 30
                     Days
                 </label>
                 <label class="input-group-text btn-radio" id="b-option4" style="height: 40px;">
-                    <input type="radio" name="options" id="option4" onclick="isChecked()" autocomplete="off" style="margin-right: 5px;">Custom
+                    <input type="radio" name="options" id="option4" onclick="isChecked()" autocomplete="off"
+                        style="margin-right: 5px;">Custom
                     <input type="date" name="from-date" id="from" disabled style="margin-left: 10px">
                     <input type="date" name="to-date" id="to" disabled style="margin-left: 10px">
                 </label>
@@ -97,7 +101,8 @@
         <div class="tab-content" id="myTabContent">
             <div class="tab-pane fade show active" id="sales" role="tabpanel" aria-labelledby="sales-tab">
                 <div class="row mb-3 mt-3">
-                    <div style="border: 1px solid #ddd; height: 67vh; max-height: 67vh; overflow-y: scroll; width: 33%; border-radius: 4.8px; border: 1px solid #333">
+                    <div
+                        style="border: 1px solid #ddd; height: 67vh; max-height: 67vh; overflow-y: scroll; width: 33%; border-radius: 4.8px; border: 1px solid #333">
                         <table class="table table-dark table-striped table-bordered">
                             <thead class="thead-darker">
                                 <tr>
@@ -113,7 +118,8 @@
             </div>
             <div class="tab-pane fade" id="excess" role="tabpanel" aria-labelledby="excess-tab">
                 <div class="row mb-3 mt-3">
-                    <div style="border: 1px solid #ddd; height: 67vh; max-height: 67vh; overflow-y: scroll; width: 33%; border-radius: 4.8px; border: 1px solid #333">
+                    <div
+                        style="border: 1px solid #ddd; height: 67vh; max-height: 67vh; overflow-y: scroll; width: 33%; border-radius: 4.8px; border: 1px solid #333">
                         <table class="table table-dark table-striped table-bordered">
                             <thead class="thead-darker">
                                 <tr>
@@ -127,7 +133,8 @@
             </div>
             <div class="tab-pane fade" id="low" role="tabpanel" aria-labelledby="low-tab">
                 <div class="row mb-3 mt-3">
-                    <div style="border: 1px solid #ddd; height: 67vh; max-height: 67vh; overflow-y: scroll; width: 33%; border-radius: 4.8px; border: 1px solid #333">
+                    <div
+                        style="border: 1px solid #ddd; height: 67vh; max-height: 67vh; overflow-y: scroll; width: 33%; border-radius: 4.8px; border: 1px solid #333">
                         <table class="table table-dark table-striped table-bordered">
                             <thead class="thead-darker">
                                 <tr>
@@ -143,10 +150,16 @@
     </div>
 
     <!-- footer -->
-    <footer id="footer">Powered by Paella 
-        <div id="google_translate_element"></div>
-        <button onclick="swapColors()"> Color Swap </button>
-        <button onclick="swapFonts()"> Dyslexic</button>
+    <footer id="footer">
+        <nav class="navbar relative-bottom navbar-dark bg-info" style="margin-top: 36vh;">
+            <h5 class="col-2" style="margin-right: -100px;">
+                Powered by Paella
+            </h5>
+            <div class="col-1" style="margin-right: 50px;" id="google_translate_element"></div>
+            <button class="col-1" onclick="swapColors()"> Color Swap </button>
+            <button class="col-1" onclick="swapFonts()"> Dyslexic</button>
+            <div class="col"></div>
+        </nav>
     </footer>
 
     <!-- Shared script -->
@@ -164,17 +177,17 @@
         crossorigin="anonymous"></script>
 
     <!-- GTranslate scripts -->
-    <script type="text/javascript"> 
-        function googleTranslateElementInit() { 
+    <script type="text/javascript">
+        function googleTranslateElementInit() {
             new google.translate.TranslateElement(
-                {pageLanguage: 'en'}, 
+                { pageLanguage: 'en' },
                 'google_translate_element'
-            ); 
+            );
         } 
-    </script> 
-    <script type="text/javascript" src=
-    "https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit">
-    </script> 
+    </script>
+    <script type="text/javascript"
+        src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit">
+        </script>
 </body>
 
 </html>

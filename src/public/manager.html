@@ -45,6 +45,7 @@
                     <a class="nav-link" href="/login.html">Logout</a>
                 </li>
             </ul>
+            <h6 style="margin-left: 40vw;">Scroll Down for Accessibility Options</h6>
         </div>
     </nav>
 
@@ -84,23 +85,19 @@
                 <div class="text-center" style="width: 80%">Reports</div>
             </div>
         </div>
-        <!-- <div class="row" id="menu-row">
-            <div class="list-group col-md-6 offset-md-3 text-center">
-                <a href="checkout.html" class="list-group-item list-group-item-menu list-group-item-action">Checkout</a>
-                <a href="inventory.html" class="list-group-item list-group-item-menu list-group-item-action">Inventory Management</a>
-                <a class="list-group-item list-group-item-menu list-group-item-action">Receipts</a>
-                <a class="list-group-item list-group-item-menu list-group-item-action">Orders</a>
-                <a class="list-group-item list-group-item-menu list-group-item-action">Reports</a>
-                <a href="login.html" class="list-group-item list-group-item-danger list-group-item-action">Logout</a>
-            </div>
-        </div> -->
     </div>
 
     <!-- footer -->
-    <footer id="footer">Powered by Paella 
-        <div id="google_translate_element"></div>
-        <button onclick="swapColors()"> Color Swap </button>
-        <button onclick="swapFonts()"> Dyslexic</button>
+    <footer id="footer">
+        <nav class="navbar relative-bottom navbar-dark bg-info" style="margin-top: 7vh;">
+            <h5 class="col-2" style="margin-right: -100px;">
+                Powered by Paella
+            </h5>
+            <div class="col-1" style="margin-right: 50px;" id="google_translate_element"></div>
+            <button class="col-1" onclick="swapColors()"> Color Swap </button>
+            <button class="col-1" onclick="swapFonts()"> Dyslexic</button>
+            <div class="col"></div>
+        </nav>
     </footer>
 
     <!-- Include icons -->
@@ -118,17 +115,17 @@
     <script src="scripts/index.js"></script>
 
     <!-- GTranslate scripts -->
-    <script type="text/javascript"> 
-        function googleTranslateElementInit() { 
+    <script type="text/javascript">
+        function googleTranslateElementInit() {
             new google.translate.TranslateElement(
-                {pageLanguage: 'en'}, 
+                { pageLanguage: 'en' },
                 'google_translate_element'
-            ); 
+            );
         } 
-    </script> 
-    <script type="text/javascript" src=
-    "https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit">
-    </script> 
+    </script>
+    <script type="text/javascript"
+        src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit">
+        </script>
 </body>
 
 </html>

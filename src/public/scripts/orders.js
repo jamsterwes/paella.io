@@ -92,9 +92,15 @@ function renderLines(id) {
 
                     // Calculate total
                     var total = 0
-                    for (var newLine of payload.lines) {
+                    for (let newLine of payload.lines) {
+                        console.log("Total: ", total)
+                        console.log("Adding quant: ", newLine.quantity)
+                        console.log("of ", newLine.item_id)
+                        console.log("aka", items[newLine.item_id])
+                        console.log("------------")
                         total += newLine.quantity * items[newLine.item_id].unit_price
                     }
+                    console.log(total)
                     payload.cost = total
 
                     // Update order

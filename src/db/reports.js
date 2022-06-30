@@ -71,6 +71,38 @@ function reports(db) {
             res.json({ sales })
         })
 
+    // GET /excess?from=<unix-timestamp-sec>&to=<unix-timestamp-sec>
+    //     return excess items in timeframe, grouped by item id
+    router.route("/excess")
+        .get(async (req, res, next) => {
+            // If missing params, max
+            if (!("from" in req.query)) {
+                req.query.from = "0"
+            }
+            if (!("to" in req.query)) {
+                req.query.to = "65401637007"
+            }
+
+            // Convert timestamps
+            var fromDate = new Date(parseInt(req.query.from) * 1000)
+            var toDate = new Date(parseInt(req.query.to) * 1000)
+
+            // Get excess
+            var excess = await db.query("SELECT i.id, i.display_name, subby.sum, i.remaining_stock FROM items i, ( select l.item_id, sum(l.quantity) FROM receipt_lines l, receipts r WHERE l.receipt_id = r.id AND r.transaction_date >= $1 AND r.transaction_date <= $2 group by l.item_id ) subby WHERE i.id = subby.item_id AND subby.sum < (i.remaining_stock * 0.1)",
+                fromDate,
+                toDate)
+            
+            // Get unsold ("excess")
+            var unsold = await db.query("SELECT * FROM items WHERE id not in (select i.id from items i, (select l.item_id, sum(l.quantity) FROM receipt_lines l, receipts r WHERE l.receipt_id = r.id AND r.transaction_date >= $1 AND r.transaction_date <= $2 group by l.item_id ) subby WHERE i.id = subby.item_id)",
+                fromDate,
+                toDate)
+
+            // Return excess data
+            res.json({ excess: [...excess, ...unsold] })
+        })
+    
+    // 
+
     // Return finished router
     return router
 

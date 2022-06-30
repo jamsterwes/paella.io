@@ -160,6 +160,16 @@ function sendReceipt(receipt, callback, err = console.error) {
     xhr.send(JSON.stringify(receipt))
 }
 
+function swapColors() {
+    var element = document.body;
+    element.classList.toggle("colorblind");
+ }
+
+
+function swapFonts() {
+    var element = document.body;
+    element.classList.toggle("dyslexic");
+    
 function sendItem(item, callback, err = console.error) {
     var xhr = new XMLHttpRequest()
     xhr.onload = function () {

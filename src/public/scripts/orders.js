@@ -4,8 +4,8 @@ function renderRow(order) {
     <th scope="row">${order.id}</th>
     <td scope="row">&euro;${order.cost.toLocaleString('es-ES', { minimumFractionDigits: 2 })}</td>
     <td scope="row">${order.received ? "Yes" : "No"}</td>
-    <td style="text-align: center"><button data-toggle="modal" data-target="#orderViewModal" onclick="renderLines(${order.id})" class="btn btn-success border border-dark "
-            id="delete-btn"><i class="fa-solid fa-eye"></i></button></td>
+    <td style="text-align: center"><button data-toggle="modal" data-target="#orderViewModal" onclick="renderLines(${order.id})" class="btn btn-submit border border-dark "
+            id="view-btn"><i class="fa-solid fa-eye"></i></button></td>
     <td style="text-align: center"><a href="" class="btn btn-lg btn-delete border border-dark "
             id="delete-btn"><i class="fa-solid fa-file-circle-xmark"></i></a></td>
 </tr>`

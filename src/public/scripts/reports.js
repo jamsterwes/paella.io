@@ -21,26 +21,28 @@ var salesReportBody = document.getElementById("sales-report-body")
 var excessReportBody = document.getElementById("excess-report-body")
 var restockReportBody = document.getElementById("restock-report-body")
 
-getSalesReports(sales => {
-    salesReportBody.innerHTML = ""
-    for (var line of sales.sales) {
-        salesReportBody.innerHTML += renderRow(line, true)
-    }
-})
+function generateReports(from, to) {
+    getSalesReports(sales => {
+        salesReportBody.innerHTML = ""
+        for (var line of sales.sales) {
+            salesReportBody.innerHTML += renderRow(line, true)
+        }
+    }, from, to)
 
-getExcessReports(excess => {
-    excessReportBody.innerHTML = ""
-    for (var line of excess.excess) {
-        excessReportBody.innerHTML += renderRow(line)
-    }
-})
+    getExcessReports(excess => {
+        excessReportBody.innerHTML = ""
+        for (var line of excess.excess) {
+            excessReportBody.innerHTML += renderRow(line)
+        }
+    }, from, to)
 
-getRestockReports(restock => {
-    restockReportBody.innerHTML = ""
-    for (var line of restock.restock) {
-        restockReportBody.innerHTML += renderRow(line)
-    }
-})
+    getRestockReports(restock => {
+        restockReportBody.innerHTML = ""
+        for (var line of restock.restock) {
+            restockReportBody.innerHTML += renderRow(line)
+        }
+    }, from, to)
+}
 
 function isChecked() {
     console.log("hello")

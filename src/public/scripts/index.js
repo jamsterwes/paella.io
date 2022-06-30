@@ -203,33 +203,33 @@ function sendCategory(category, callback, err = console.error) {
     xhr.send(JSON.stringify(category))
 }
 
-function getSalesReports(callback, err = console.error) {
+function getSalesReports(callback, from, to, err = console.error) {
     var xhr = new XMLHttpRequest()
     xhr.onload = function () {
         if (xhr.status == 200) callback(JSON.parse(xhr.responseText))
         else err(xhr.status, xhr.responseText)
     }
-    xhr.open("GET", "/api/reports/sales", true)
+    xhr.open("GET", "/api/reports/sales?from=" + from + "&to=" + to, true)
     xhr.send(null)
 }
 
-function getExcessReports(callback, err = console.error) {
+function getExcessReports(callback, from, to, err = console.error) {
     var xhr = new XMLHttpRequest()
     xhr.onload = function () {
         if (xhr.status == 200) callback(JSON.parse(xhr.responseText))
         else err(xhr.status, xhr.responseText)
     }
-    xhr.open("GET", "/api/reports/excess", true)
+    xhr.open("GET", "/api/reports/excess?from=" + from + "&to=" + to, true)
     xhr.send(null)
 }
 
-function getRestockReports(callback, err = console.error) {
+function getRestockReports(callback, from, to, err = console.error) {
     var xhr = new XMLHttpRequest()
     xhr.onload = function () {
         if (xhr.status == 200) callback(JSON.parse(xhr.responseText))
         else err(xhr.status, xhr.responseText)
     }
-    xhr.open("GET", "/api/reports/restock", true)
+    xhr.open("GET", "/api/reports/restock?from=" + from + "&to=" + to, true)
     xhr.send(null)
 }
 // Editables

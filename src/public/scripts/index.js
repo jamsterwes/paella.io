@@ -19,6 +19,28 @@ function getOrders(start, callback, err = console.error) {
     xhr.send(null)
 }
 
+function getOrder(id, callback, err = console.error) {
+    var xhr = new XMLHttpRequest()
+    xhr.onload = function () {
+        if (xhr.status == 200) callback(JSON.parse(xhr.responseText))
+        else err(xhr.status, xhr.responseText)
+    }
+    xhr.open("GET", "/api/orders/" + id, true)
+    xhr.send(null)
+}
+
+function updateOrder(id, data, err = console.error) {
+    var xhr = new XMLHttpRequest()
+    xhr.onload = function () {
+        if (xhr.status == 200) return;
+        else err(xhr.status, xhr.responseText)
+    }
+    xhr.open("POST", "/api/orders/" + id, true)
+    xhr.setRequestHeader("Content-Type", "application/json")
+    console.log(data)
+    xhr.send(JSON.stringify(data))
+}
+
 function getOrdersCount(callback, err = console.error) {
     var xhr = new XMLHttpRequest()
     xhr.onload = function () {
@@ -160,17 +182,28 @@ function sendReceipt(receipt, callback, err = console.error) {
     xhr.send(JSON.stringify(receipt))
 }
 
+function sendOrder(order, callback, err = console.error) {
+    var xhr = new XMLHttpRequest()
+    xhr.onload = function () {
+        if (xhr.status == 200) callback(JSON.parse(xhr.responseText))
+        else err(xhr.status, xhr.responseText)
+    }
+    xhr.open("POST", "/api/orders", true)
+    xhr.setRequestHeader("Content-Type", "application/json")
+    xhr.send(JSON.stringify(order))
+}
+
 function swapColors() {
     var element = document.body;
     element.classList.toggle("colorblind");
- }
+}
 
 
 function swapFonts() {
     var element = document.body;
     element.classList.toggle("dyslexic");
 }
-    
+
 function sendItem(item, callback, err = console.error) {
     var xhr = new XMLHttpRequest()
     xhr.onload = function () {
@@ -203,6 +236,35 @@ function sendCategory(category, callback, err = console.error) {
     xhr.send(JSON.stringify(category))
 }
 
+function getSalesReports(callback, from, to, err = console.error) {
+    var xhr = new XMLHttpRequest()
+    xhr.onload = function () {
+        if (xhr.status == 200) callback(JSON.parse(xhr.responseText))
+        else err(xhr.status, xhr.responseText)
+    }
+    xhr.open("GET", "/api/reports/sales?from=" + from + "&to=" + to, true)
+    xhr.send(null)
+}
+
+function getExcessReports(callback, from, to, err = console.error) {
+    var xhr = new XMLHttpRequest()
+    xhr.onload = function () {
+        if (xhr.status == 200) callback(JSON.parse(xhr.responseText))
+        else err(xhr.status, xhr.responseText)
+    }
+    xhr.open("GET", "/api/reports/excess?from=" + from + "&to=" + to, true)
+    xhr.send(null)
+}
+
+function getRestockReports(callback, from, to, err = console.error) {
+    var xhr = new XMLHttpRequest()
+    xhr.onload = function () {
+        if (xhr.status == 200) callback(JSON.parse(xhr.responseText))
+        else err(xhr.status, xhr.responseText)
+    }
+    xhr.open("GET", "/api/reports/restock?from=" + from + "&to=" + to, true)
+    xhr.send(null)
+}
 // Editables
 
 function makeEditableField(id, editCallback, toEditFormat = (x => x), fromEditFormat = (x => x)) {

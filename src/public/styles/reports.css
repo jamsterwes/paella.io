@@ -1,33 +1,8 @@
-.nav-tabs .nav-item.show .nav-link, .nav-tabs .nav-link {
-    border-color: var(--dark);
-    border-bottom-color: transparent;
-    background-color:var(--navy);
-    color: #5a8dbf;
-}
-
-.nav-tabs .nav-item.show .nav-link, .nav-tabs .nav-link.active {
-    border-color: var(--dark);
-    border-bottom-color: transparent;
-    background-color: var(--blue);
-    color: white;
-}
-
-.nav-tabs .nav-item.show .nav-link, .nav-tabs .nav-link:hover {
-    border-color: var(--dark);
-    background-color: var(--mid-blue);
-    color: white;
-    border-bottom-color: transparent;
-}
-
-/* tabs styling */
-.nav-tabs {
-    border-bottom-color: transparent;
-}
-
 .tab-content>.tab-pane {
     background-color: var(--light-bkg);
     height: 67vh;
 }
+
 
 .container {
     margin-right: auto;

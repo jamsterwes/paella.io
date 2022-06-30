@@ -17,8 +17,8 @@ function renderRow(item, categories) {
                 ${dropdown}
             </div>
         </td>
-        <td style="text-align: center"><a class="btn btn-delete border border-dark"
-                id="delete-btn" onclick="removeItem(${item.id})"><i class="fa-solid fa-trash"></i></a></td>
+        <td style="text-align: center"><a class="disabled btn btn-delete border border-dark"
+                id="delete-btn" disabled onclick="removeItem(${item.id})"><i class="fa-solid fa-trash"></i></a></td>
     </tr>`
     return template
 }

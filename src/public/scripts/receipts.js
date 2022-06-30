@@ -8,7 +8,7 @@ function renderRow(receipt) {
     <td scope="row">${receipt.is_cash ? "Yes" : "No"}</td>
     <td scope="row">&euro;${receipt.total.toLocaleString('es-ES', { minimumFractionDigits: 2 })}</td>
     <td style="text-align: center"><button data-toggle="modal" data-target="#receiptViewModal" onclick="renderLines(${receipt.id})" class="btn btn-success border border-dark "
-            id="delete-btn"><i class="fa-solid fa-eye"></i></button></td>
+            id="view-btn"><i class="fa-solid fa-eye"></i></button></td>
     <td style="text-align: center"><button class="btn btn-delete border border-dark "
             id="delete-btn"><i class="fa-solid fa-file-circle-xmark"></i></button></td>
 </tr>`

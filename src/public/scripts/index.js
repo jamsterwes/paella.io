@@ -212,6 +212,26 @@ function getSalesReports(callback, err = console.error) {
     xhr.open("GET", "/api/reports/sales", true)
     xhr.send(null)
 }
+
+function getExcessReports(callback, err = console.error) {
+    var xhr = new XMLHttpRequest()
+    xhr.onload = function () {
+        if (xhr.status == 200) callback(JSON.parse(xhr.responseText))
+        else err(xhr.status, xhr.responseText)
+    }
+    xhr.open("GET", "/api/reports/excess", true)
+    xhr.send(null)
+}
+
+function getRestockReports(callback, err = console.error) {
+    var xhr = new XMLHttpRequest()
+    xhr.onload = function () {
+        if (xhr.status == 200) callback(JSON.parse(xhr.responseText))
+        else err(xhr.status, xhr.responseText)
+    }
+    xhr.open("GET", "/api/reports/restock", true)
+    xhr.send(null)
+}
 // Editables
 
 function makeEditableField(id, editCallback, toEditFormat = (x => x), fromEditFormat = (x => x)) {

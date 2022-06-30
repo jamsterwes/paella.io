@@ -1,108 +1,48 @@
-function renderRow(item) {
-    var unit = item.by_weight ? "kg" : "unit"
-    var template = `<tr>
-    <td scope="row">${item.id}</td>
-    <th scope="row">${item.sales}</th>
-    <td scope="row">&euro;${order.cost.toLocaleString('es-ES', { minimumFractionDigits: 2 })}</td>
-    <td style="text-align: center"><a href="" class="btn btn-lg btn-delete border border-dark "
-            id="delete-btn"><i class="fa-solid fa-file-circle-xmark"></i></a></td>
-    </tr>`
-    
+// {
+//     "id": 18,
+//     "display_name": "Red Beans",
+//     "sum": 4.064,
+//     "remaining_stock": 1000,
+//     "total": null
+// },
+
+function renderRow(line, extras = false) {
+    var template = `<tr><td scope="row">${line.display_name}</td>`
+    if (extras) {
+        template += `<th scope="row">${line.sum.toLocaleString('es-ES', { minimumFractionDigits: 3, maximumFractionDigits: 3 })}</th>
+        <td scope="row">&euro;${line.total.toLocaleString('es-ES', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</td>`
+    }
+    template += `</tr>`
+
     return template
 }
 
-var orderBody = document.getElementById("order-body")
-var loadingBit = document.getElementById("loading-bit")
+var salesReportBody = document.getElementById("sales-report-body")
+var excessReportBody = document.getElementById("excess-report-body")
+var restockReportBody = document.getElementById("restock-report-body")
 
-var cursor = 0
-
-function advanceCursor(amount) {
-    cursor += amount
-    if (cursor <= 0) {
-        cursor = 0
-        document.getElementById("prev-btn").setAttribute("disabled", "")
-    } else {
-        document.getElementById("prev-btn").removeAttribute("disabled")
+getSalesReports(sales => {
+    salesReportBody.innerHTML = ""
+    for (var line of sales.sales) {
+        salesReportBody.innerHTML += renderRow(line, true)
     }
+})
 
-    loadingBit.style.opacity = 1
-    getSalesCount(count => {
-        console.log(count)
-        if (cursor + 25 >= count) {
-            document.getElementById("next-btn").setAttribute("disabled", "")
-        } else {
-            document.getElementById("next-btn").removeAttribute("disabled")
-        }
+getExcessReports(excess => {
+    excessReportBody.innerHTML = ""
+    for (var line of excess.excess) {
+        excessReportBody.innerHTML += renderRow(line)
+    }
+})
 
-        getOrders(cursor, orders => {
-            orderBody.innerHTML = ""
-            Object.values(orders).forEach(order => {
-                orderBody.innerHTML += renderRow(order)
-            })
-            loadingBit.style.opacity = 0
-        })
-    })
-}
+getRestockReports(restock => {
+    restockReportBody.innerHTML = ""
+    for (var line of restock.restock) {
+        restockReportBody.innerHTML += renderRow(line)
+    }
+})
 
-advanceCursor(0)
-
-function renderItems() {
-    getItems(items => {
-        getCategories(categories => {
-            var newHTML = ""
-            Object.values(items).forEach(item => {
-                newHTML += renderRow(item, categories)
-            })
-            inventoryBody.innerHTML = newHTML
-            // Wire editable fields
-            Object.values(items).forEach(item => {
-                // Add editable name
-                makeEditableField("item-name-" + item.id, value => {
-                    // Send update to DB
-                    updateItem(item.id, { display_name: value })
-                    // Valid
-                    return true;
-                })
-
-                // Add editable unit-price
-                makeEditableField("item-unit-price-" + item.id, value => {
-                    // Check for invalid
-                    if (isNaN(value)) return false;
-                    // Send update to DB
-                    updateItem(item.id, { unit_price: value })
-                    // Valid
-                    return true;
-                }, display => {
-                    // Convert display to input
-                    return parseFloat(display.replace(",", "."))
-                }, input => {
-                    // Convert input to display
-                    return parseFloat(input).toFixed(2).replace(".", ",")
-                })
-
-                // Add editable quantity
-                makeEditableField("item-quantity-" + item.id, value => {
-                    // Check for invalid
-                    if (isNaN(value)) return false;
-                    // Send update to DB
-                    updateItem(item.id, { quantity: value })
-                    // Valid
-                    return true;
-                }, display => {
-                    // Convert display to input
-                    return parseFloat(display.replace(",", "."))
-                }, input => {
-                    // Convert input to display
-                    return parseFloat(input).toFixed(3).replace(".", ",")
-                })
-            })
-        })
-    })
-}
-
-renderItems()
-
-function isChecked(){
+function isChecked() {
     console.log("hello")
     if (option1.checked) {
         document.getElementById("b-option1").classList.add("active")
@@ -131,7 +71,7 @@ function isChecked(){
         document.getElementById("from").disabled = false;
         document.getElementById("to").disabled = false;
     }
-    
+
     else if (!option4.checked) {
         document.getElementById("from").disabled = true;
         document.getElementById("to").disabled = true;

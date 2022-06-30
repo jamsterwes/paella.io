@@ -4,6 +4,7 @@ function hydrate(item) {
     return {
         ...item,
         remaining_stock: parseFloat(item.remaining_stock),
+        total: parseFloat(item.total),
         sum: parseFloat(item.sum)
     }
 }

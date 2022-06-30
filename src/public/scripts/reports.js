@@ -44,14 +44,24 @@ function generateReports(from, to) {
     }, from, to)
 }
 
+function getDateFromPicker(id) {
+    var val = document.getElementById(id).value
+    console.log(val)
+    if (val == "") return null;
+    var pieces = val.split('-')
+    return new Date(pieces[0], pieces[1] - 1, pieces[2])
+}
+
+function dateToTS(date) {
+    return Math.floor(date.getTime() / 1000)
+}
+
 function isChecked() {
     var endDate = new Date(Date.now())
     var startDate = new Date(Date.now())
     if (option1.checked) {
         startDate.setDate(startDate.getDate() - 1)
-        console.log(startDate)
-        console.log(endDate)
-        generateReports(Math.floor(startDate.getTime() / 1000), Math.floor(endDate.getTime() / 1000))
+        generateReports(dateToTS(startDate), dateToTS(endDate))
         document.getElementById("b-option1").classList.add("active")
         document.getElementById("b-option2").classList.remove("active")
         document.getElementById("b-option3").classList.remove("active")
@@ -59,7 +69,7 @@ function isChecked() {
     }
     else if (option2.checked) {
         startDate.setDate(startDate.getDate() - 7)
-        generateReports(Math.floor(startDate.getTime() / 1000), Math.floor(endDate.getTime() / 1000))
+        generateReports(dateToTS(startDate), dateToTS(endDate))
         document.getElementById("b-option1").classList.remove("active")
         document.getElementById("b-option2").classList.add("active")
         document.getElementById("b-option3").classList.remove("active")
@@ -67,13 +77,16 @@ function isChecked() {
     }
     else if (option3.checked) {
         startDate.setDate(startDate.getDate() - 30)
-        generateReports(Math.floor(startDate.getTime() / 1000), Math.floor(endDate.getTime() / 1000))
+        generateReports(dateToTS(startDate), dateToTS(endDate))
         document.getElementById("b-option1").classList.remove("active")
         document.getElementById("b-option2").classList.remove("active")
         document.getElementById("b-option3").classList.add("active")
         document.getElementById("b-option4").classList.remove("active")
     }
     if (option4.checked) {
+        startDate = getDateFromPicker("from") || new Date(Date.now())
+        endDate = getDateFromPicker("to") || new Date(Date.now())
+        generateReports(dateToTS(startDate), dateToTS(endDate))
         document.getElementById("b-option1").classList.remove("active")
         document.getElementById("b-option2").classList.remove("active")
         document.getElementById("b-option3").classList.remove("active")
@@ -88,3 +101,8 @@ function isChecked() {
         document.getElementById("to").disabled = true;
     }
 }
+
+document.getElementById("from").addEventListener("change", isChecked)
+document.getElementById("to").addEventListener("change", isChecked)
+
+isChecked()

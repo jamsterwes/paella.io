@@ -49,19 +49,19 @@ body.dyslexic :not(i) {
     margin-bottom: 30px;
 }
 
-#footer {
+/* #footer {
     position: fixed;
     bottom: 0;
     margin-left: 10px;
     margin-bottom: 5px;
-    color: rgb(88, 88, 88);
-}
+    color: white;
+} */
 
 .navbar.bg-info {
     background-color: var(--blue) !important;
 }
 
-.navbar-brand, h1, h2, .btn {
+.navbar-brand, h1, h2, h6, .btn {
     font-family: "Staatliches";
 }
 

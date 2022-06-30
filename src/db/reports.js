@@ -1,5 +1,13 @@
 const express = require('express')
 
+function hydrate(item) {
+    return {
+        ...item,
+        remaining_stock: parseFloat(item.remaining_stock),
+        sum: parseFloat(item.sum)
+    }
+}
+
 function reports(db) {
     var router = express.Router()
 
@@ -68,7 +76,7 @@ function reports(db) {
                 toDate)
 
             // Return sales data
-            res.json({ sales })
+            res.json({ sales: sales.map(hydrate) })
         })
 
     // GET /excess?from=<unix-timestamp-sec>&to=<unix-timestamp-sec>
@@ -98,10 +106,33 @@ function reports(db) {
                 toDate)
 
             // Return excess data
-            res.json({ excess: [...excess, ...unsold] })
+            res.json({ excess: [...excess, ...unsold].map(hydrate) })
         })
-    
-    // 
+
+    // GET /restock?from=<unix-timestamp-sec>&to=<unix-timestamp-sec>
+    //     return items in need of restock in timeframe, grouped by item id
+    router.route("/restock")
+        .get(async (req, res, next) => {
+            // If missing params, max
+            if (!("from" in req.query)) {
+                req.query.from = "0"
+            }
+            if (!("to" in req.query)) {
+                req.query.to = "65401637007"
+            }
+
+            // Convert timestamps
+            var fromDate = new Date(parseInt(req.query.from) * 1000)
+            var toDate = new Date(parseInt(req.query.to) * 1000)
+
+            // Get restock
+            var restock = await db.query("SELECT i.id, i.display_name, subby.sum, i.remaining_stock FROM items i, ( select l.item_id, sum(l.quantity) FROM receipt_lines l, receipts r WHERE l.receipt_id = r.id AND r.transaction_date >= $1 AND r.transaction_date <= $2 group by l.item_id ) subby WHERE i.id = subby.item_id AND subby.sum > i.remaining_stock",
+                fromDate,
+                toDate)
+
+            // Return excess data
+            res.json({ restock: restock.map(hydrate) })
+        })
 
     // Return finished router
     return router

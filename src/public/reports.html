@@ -63,42 +63,81 @@
                             aria-controls="home" aria-selected="true">Total Sales</a>
                     </li>
                     <li class="nav-item" style="height: 40px;">
-                        <a class="nav-link" id="excess-tab" data-toggle="tab" href="#excess" role="tab" aria-controls="profile"
-                            aria-selected="false">Excess (&lt;10%)</a>
+                        <a class="nav-link" id="excess-tab" data-toggle="tab" href="#excess" role="tab"
+                            aria-controls="profile" aria-selected="false">Excess (&lt;10%)</a>
                     </li>
                     <li class="nav-item" style="height: 40px;">
-                        <a class="nav-link" id="low-tab" data-toggle="tab" href="#low" role="tab" aria-controls="contact"
-                            aria-selected="false">Low Stock</a>
+                        <a class="nav-link" id="low-tab" data-toggle="tab" href="#low" role="tab"
+                            aria-controls="contact" aria-selected="false">Low Stock</a>
                     </li>
                 </ul>
             </div>
-            <div class="input-group input-group-toggle col d-flex justify-content-end align-items-end" data-toggle="input">
-                <label class="input-group-text active" style="height: 40px;">
-                  <input type="radio" name="options" id="option1" autocomplete="off" checked style="margin-right: 5px;"> 1 Day
+            <div class="input-group input-group-toggle col d-flex justify-content-end align-items-end"
+                data-toggle="input">
+                <label class="input-group-text btn-radio active" id="b-option1" style="height: 40px;">
+                    <input type="radio" name="options" id="option1" onclick="isChecked()" autocomplete="off" checked
+                        style="margin-right: 5px;"> 1 Day
                 </label>
-                <label class="input-group-text" style="height: 40px;">
-                  <input type="radio" name="options" id="option2" autocomplete="off" style="margin-right: 5px;"> 7 Days
+                <label class="input-group-text btn-radio" id="b-option2" style="height: 40px;">
+                    <input type="radio" name="options" id="option2" onclick="isChecked()" autocomplete="off" style="margin-right: 5px;"> 7
+                    Days
                 </label>
-                <label class="input-group-text" style="height: 40px;">
-                  <input type="radio" name="options" id="option3" autocomplete="off" style="margin-right: 5px;"> 30 Days
+                <label class="input-group-text btn-radio" id="b-option3" style="height: 40px;">
+                    <input type="radio" name="options" id="option3" onclick="isChecked()" autocomplete="off" style="margin-right: 5px;"> 30
+                    Days
                 </label>
-                <label class="input-group-text" style="height: 40px;">
-                  <input type="radio" name="options" id="option3" autocomplete="off" style="margin-right: 5px;"> Custom
+                <label class="input-group-text btn-radio" id="b-option4" style="height: 40px;">
+                    <input type="radio" name="options" id="option4" onclick="isChecked()" autocomplete="off" style="margin-right: 5px;">Custom
+                    <input type="date" name="from-date" id="from" disabled style="margin-left: 10px">
+                    <input type="date" name="to-date" id="to" disabled style="margin-left: 10px">
                 </label>
-                <input type="date" name="from-date" style="margin-right: 10px">
-                <input type="date" name="to-date">
-              </div>
+            </div>
         </div>
 
         <div class="tab-content" id="myTabContent">
             <div class="tab-pane fade show active" id="sales" role="tabpanel" aria-labelledby="sales-tab">
-                ...
+                <div class="row mb-3 mt-3">
+                    <div style="border: 1px solid #ddd; height: 67vh; max-height: 67vh; overflow-y: scroll; width: 33%; border-radius: 4.8px; border: 1px solid #333">
+                        <table class="table table-dark table-striped table-bordered">
+                            <thead class="thead-darker">
+                                <tr>
+                                    <th style="text-align: center" scope="col">Item Name</th>
+                                    <th style="text-align: center" scope="col">Amount Sold</th>
+                                    <th style="text-align: center" scope="col">On Hand</th>
+                                </tr>
+                            </thead>
+                            <tbody id="inventory-body"></tbody>
+                        </table>
+                    </div>
+                </div>
             </div>
             <div class="tab-pane fade" id="excess" role="tabpanel" aria-labelledby="excess-tab">
-                ...
+                <div class="row mb-3 mt-3">
+                    <div style="border: 1px solid #ddd; height: 67vh; max-height: 67vh; overflow-y: scroll; width: 33%; border-radius: 4.8px; border: 1px solid #333">
+                        <table class="table table-dark table-striped table-bordered">
+                            <thead class="thead-darker">
+                                <tr>
+                                    <th scope="col" style="text-align: center">Item Name</th>
+                                </tr>
+                            </thead>
+                            <tbody id="inventory-body"></tbody>
+                        </table>
+                    </div>
+                </div>
             </div>
             <div class="tab-pane fade" id="low" role="tabpanel" aria-labelledby="low-tab">
-                ...
+                <div class="row mb-3 mt-3">
+                    <div style="border: 1px solid #ddd; height: 67vh; max-height: 67vh; overflow-y: scroll; width: 33%; border-radius: 4.8px; border: 1px solid #333">
+                        <table class="table table-dark table-striped table-bordered">
+                            <thead class="thead-darker">
+                                <tr>
+                                    <th scope="col" style="text-align: center">Item Name</th>
+                                </tr>
+                            </thead>
+                            <tbody id="inventory-body"></tbody>
+                        </table>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -112,6 +151,9 @@
 
     <!-- Shared script -->
     <script src="scripts/index.js"></script>
+
+    <!-- Reports script -->
+    <script src="scripts/reports.js"></script>
 
     <!-- Bootstrap scripts -->
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"

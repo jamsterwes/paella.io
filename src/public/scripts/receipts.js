@@ -23,6 +23,14 @@ var loadingBit = document.getElementById("loading-bit")
 
 var cursor = 0
 
+//remove receipt id
+
+function removeItem(id) {
+    deleteItem(id, () => {
+        renderItems()
+    })
+}
+
 function advanceCursor(amount) {
     cursor += amount
     if (cursor <= 0) {

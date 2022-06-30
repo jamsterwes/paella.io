@@ -16,6 +16,14 @@ var loadingBit = document.getElementById("loading-bit")
 
 var cursor = 0
 
+//Remove items for orders
+
+function removeItem(id) {
+    deleteItem(id, () => {
+        renderItems()
+    })
+}
+
 function advanceCursor(amount) {
     cursor += amount
     if (cursor <= 0) {

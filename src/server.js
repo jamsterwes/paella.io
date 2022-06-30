@@ -28,6 +28,10 @@ app.use("/api/orders", orders(db))
 const reports = require('./db/reports')
 app.use("/api/reports", reports(db))
 
+// Employees API
+const employees = require('./db/employees')
+app.use("/api/employees", employees(db))
+
 // Run application
 app.use(express.static('public'))
 

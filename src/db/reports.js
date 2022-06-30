@@ -70,7 +70,6 @@ function reports(db) {
             // Convert timestamps
             var fromDate = new Date(parseInt(req.query.from) * 1000)
             var toDate = new Date(parseInt(req.query.to) * 1000)
-            console.log(fromDate, toDate)
 
             // Get sales
             var sales = await db.query("SELECT i.display_name, subby.sum, (subby.sum * i.unit_price) as total FROM items i, (select l.item_id, sum(l.quantity) FROM receipt_lines l, receipts r WHERE l.receipt_id = r.id AND r.transaction_date >= $1 AND r.transaction_date <= $2 GROUP BY l.item_id) subby WHERE i.id = subby.item_id",

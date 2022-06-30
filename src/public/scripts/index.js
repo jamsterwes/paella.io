@@ -265,6 +265,18 @@ function getRestockReports(callback, from, to, err = console.error) {
     xhr.open("GET", "/api/reports/restock?from=" + from + "&to=" + to, true)
     xhr.send(null)
 }
+
+function getEmployee(id, callback, err = console.error) {
+    var xhr = new XMLHttpRequest()
+    xhr.onload = function () {
+        if (xhr.status == 200) callback(JSON.parse(xhr.responseText))
+        else err(xhr.status, xhr.responseText)
+    }
+    xhr.open("GET", "/api/employees/" + id, true)
+    xhr.send(null)
+}
+
+
 // Editables
 
 function makeEditableField(id, editCallback, toEditFormat = (x => x), fromEditFormat = (x => x)) {
